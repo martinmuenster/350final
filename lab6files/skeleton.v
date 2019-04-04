@@ -88,7 +88,6 @@ module skeleton(resetn,
 								 .oVS(VGA_VS),
 								 .b_data(VGA_B),
 								 .g_data(VGA_G),
-								 .r_data(VGA_R), .moveleft(moveleft), .moveright(moveright), .moveup(moveup), .movedown(movedown));
-	
+								 .r_data(VGA_R), .pR_moveup(moveleft), .pR_movedown(moveright), .pL_moveup(moveup), .pL_movedown(movedown));
 	
 endmodule
