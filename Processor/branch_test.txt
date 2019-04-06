@@ -1,0 +1,27 @@
+addi $1 $0 9
+addi $2 $0 17
+addi $3 $0 69
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+blt $1 $2 jump1
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+jump1:
+blt $3 $2 jump2
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+jump2:
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+
+

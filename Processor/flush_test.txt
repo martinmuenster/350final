@@ -1,0 +1,27 @@
+addi $1 $0 1
+addi $2 $0 2
+addi $3 $0 3
+jal poop
+addi $4 $0 4
+addi $5 $0 5
+bne $3 $3 10
+bne $3 $2 5
+addi $4 $0 4
+addi $5 $0 5
+addi $6 $0 6
+addi $4 $0 4
+addi $5 $0 5
+addi $7 $0 7
+bne $3 $2 2
+j end
+addi $4 $0 4
+addi $8 $0 8
+j end
+
+poop:
+addi $1 $0 1
+addi $2 $0 2
+jr $31
+
+end:
+add $0 $0 $0

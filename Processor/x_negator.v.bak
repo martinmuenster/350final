@@ -1,0 +1,7 @@
+module negator(in, out);
+	input [31:0] in;
+	output [31:0] out;
+
+	subtractor_select_4x8 neg(.a(32'b0), .b(in), .result(out));
+
+endmodule

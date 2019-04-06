@@ -1,0 +1,25 @@
+module x_lshift(in, shift, out);
+	input [31:0] in;
+	input [4:0] shift;
+	output [31:0] out;
+	
+	wire [32:0] w0, w1, w2, w3, w4;
+	wire [32:0] result0, result1, result2, result3;
+	
+	lshift_1 r1(in, w0);
+	mux_2 m1(shift[0], in, w0, result0); 
+	
+	lshift_2 r2(result0, w1);
+	mux_2 m2(shift[1], result0, w1, result1); 
+	
+	lshift_4 r4(result1, w2);
+	mux_2 m4(shift[2], result1, w2, result2); 
+	
+	lshift_8 r8(result2, w3);
+	mux_2 m8(shift[3], result2, w3, result3); 
+	
+	lshift_16 r16(result3, w4);
+	mux_2 m16(shift[4], result3, w4, out); 
+	
+	
+endmodule

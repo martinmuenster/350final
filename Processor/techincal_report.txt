@@ -1,0 +1,19 @@
+All ALU operations except for mult and div are implemented through the ALU. Add and subtract are computed by a carry select adder which contains 4 stages of 8-bit carry lookahead adders. Left and right shift are computed through barrel shifting. Logic instructions are just logic.
+Mult and div are implemented in execute, and are "activated" when the PC in the d/x latch changes and when the operation within execute is mult or div. While active, all instrucions are stalled. They are "deactivated" when the module says that the multiplication or division is ready. Multiplication is a 2-cycle signed wallace multiplier that I run at 3 cycles because of instability. Division is a 34-cycle smarter division, where the first and last cycles are for flipping the inputs and outputs if they are negative.
+Addi is executed almost exactly like add. However, the immediate value is used in the ALU.
+sw and lw similarly use the immediate value, but operate within the memory part of the pipeline.
+j, jal, jr, and bex operate within the decode stage. All set the program counter to T, but jal saves the current PC in the latches and writes it back to $31 in the writeback stage, jr sets T=$31, and bex checks if $30 is non-zero.
+bne and blt operate within the execute stage, and decide based on the ALU, whether to jump. At the same time, N is added to the latch PC and is chosen if a branch should happen. The program counter is set to either the execute jump value or the decode jump value depending on the relevant instruction and based on priority (execute jump first).
+setx works similar to an addi, but the write register is always $30.
+
+Full bypassing exists from writeback to memory, execute, and decode, and from memory to execute and decode. Decode bypassing is used for the jump instructions that require a register value (jr, bex).
+
+I chose my implementation for its efficiency and simplicity. By using a wallace multiplier and decode jumps, my processor runs faster on average. However, their implementation within the processor didn't create too much complex or messy logic. Adding to simplicity, I formated my signals in my processor exacly like the inputs of each module I used from checkpoints 1-3, so that I didn't have to make any changes within these modules. 
+
+Challenges included... Bypassing with instructions that had an implicit write register instead of $rd. I thought about inserting the implicit register into the control instruction where $rd should be. I also considered not implementing this at all. In the end, I used some muxes, but this increased lag a little. 
+Implementing mult. My multiplier performs multiplication independently of the clock, so it was a little bit tricky to hold the input value into the input of the multiplier, especially when one or more of the inputs are from bypassing. I solved by increasing multiplication by a clock cycle. 
+Figuring out how to generate ctrl_MULT and ctrl_DIV. Solved through sleeping on it for 3 nights and scrapping up a solution that works, described above.
+Getting IMEM to work. The tutorial is out of date, and the files it suggests we download and test with do not work. I was stuck on this for a couple of days, when it turned out that any other waveform besides the one it gave us would work.
+
+
+I got branch prediction to work (in the decode stage) as it was on the slides, but when I tested with timing my whole processor spazzed out, so I took it out.

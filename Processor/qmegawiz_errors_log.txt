@@ -1,0 +1,25 @@
+
+
+C:/Users/marti/Documents/ECE 350/s2019-ece350-proc-271/imem.vhd
+
+Mar 03 02PM:34:27>: The following design file, which has identical name but a different extension 
+from the specified variation file, already exists in the working directory:
+
+imem.v
+
+This may create a conflict of design files and/or lead to undesirable side
+effects.
+
+Is it OK to continue file generation?
+
+C:/Users/marti/Documents/ECE 350/s2019-ece350-proc-271/imem.vhd
+
+Mar 03 09PM:37:09>: The following design file, which has identical name but a different extension 
+from the specified variation file, already exists in the working directory:
+
+imem.v
+
+This may create a conflict of design files and/or lead to undesirable side
+effects.
+
+Is it OK to continue file generation?

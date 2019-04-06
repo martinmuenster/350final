@@ -1,0 +1,28 @@
+setx 5
+setx 0
+addi $3 $0 3
+bex poop
+addi $30 $0 1
+bex poop
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+
+
+poop:
+setx 0
+addi $4 $0 8000
+addi $30 $0 $0
+addi $5 $0 1 
+sll $6 $5 31
+sub $8 $4 $6
+add $0 $0 $0
+bex wawa
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+add $0 $0 $0
+
+wawa:
+add $0 $0 $0
