@@ -155,13 +155,6 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 endmodule
 
 
-
-// Processor
-module processor_logic();
-	processor_skeleton myproc(.clock(), .reset(), .pc())
-	
-	
-endmodule
  	
 module color_object(x_ADDR, y_ADDR, obj_xpos, obj_ypos, obj_width, obj_length, color_obj);
 	input [11:0] x_ADDR, y_ADDR, obj_xpos, obj_ypos, obj_width, obj_length;

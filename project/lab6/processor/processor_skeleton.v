@@ -9,7 +9,10 @@
  * inspect which signals the processor tries to assert when.
  */
 
-module processor_skeleton(clock, reset, pc);
+module processor_skeleton(clock, reset, pc,
+		ctrl_writeEnable, ctrl_writeReg, data_writeReg,
+		data_reg1
+		);
     input clock, reset;
 	 output [11:0] pc;
     /** IMEM **/
@@ -21,7 +24,7 @@ module processor_skeleton(clock, reset, pc);
         .address    (address_imem),            // address of data
 		  .clken(1'b1),
         .clock      (~clock),                  // you may need to invert the clock
-        .q          (q_imem)                   // the raw instruction
+        .q          (q_imem)		  // the raw instruction
     );
 
     /** DMEM **/
@@ -41,10 +44,12 @@ module processor_skeleton(clock, reset, pc);
 
     /** REGFILE **/
     // Instantiate your regfile
-    wire ctrl_writeEnable;
-    wire [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
-    wire [31:0] data_writeReg;
+    output ctrl_writeEnable;
+	 output [4:0] ctrl_writeReg;
+    wire [4:0] ctrl_readRegA, ctrl_readRegB;
+    output [31:0] data_writeReg;
     wire [31:0] data_readRegA, data_readRegB;
+	 output [31:0] data_reg1;
     regfile my_regfile(
         clock,
         ctrl_writeEnable,
@@ -54,7 +59,8 @@ module processor_skeleton(clock, reset, pc);
         ctrl_readRegB,
         data_writeReg,
         data_readRegA,
-        data_readRegB
+        data_readRegB,
+		  data_reg1
     );
 
     /** PROCESSOR **/
