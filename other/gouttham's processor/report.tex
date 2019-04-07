@@ -1,0 +1,65 @@
+\documentclass[letterpaper]{article} % Feel free to change this
+
+\begin{document}
+
+\title{ECE 350: Digital Systems Project Checkpoint 4}
+\author{Your Name} % Change this to your name
+\date{\today} % Change this to the date you are submitting
+\maketitle
+
+\section*{Duke Community Standard}
+
+By submitting this \LaTeX{} document, I affirm that
+\begin{enumerate}
+    \item I understand that each \texttt{git} commit I create in this repository is a submission
+    \item I affirm that each submission complies with the Duke Community Standard and the guidelines set forth for this assignment
+    \item I further acknowledge that any content not included in this commit under the version control system cannot be considered as a part of my submission.
+    \item Finally, I understand that a submission is considered submitted when it has been pushed to the server.
+\end{enumerate}
+
+\section{Introduction}
+\par
+    Processor Design: My processor included 5 sections. Fetch, Decode, Execute, Memory and Writeback each of which takes 1 clock cycle to complete.
+    This design allows for instructions to be pipelined allowing multiple instructions to concurrently run. To pipeline, it is important to define 
+    the goal of each stage in the pipeline explicitly s.t. each instruction in the program has a place to go in the processor for each of its functions.\\
+    I will now go over the details of each stage of my pipelined processor. A detailed design of each stage of pipeline will be in visual and presentation. \\
+    Each Stage is seperated into 3 parts. Logic, bypassing/stall, and latch. \\
+    fetch: (logic) calculate next pc. (Bypassing/Stall) None  (latch) instr,pc \\
+    decode: (logic) calculate regA and regB (Bypassing/Stall) writeback or fd latch for regA and regB  (latch) fd, instr, regA, regB \\
+    execute: (logic) alu. branching pc calculation. rstatus exception number calculation. (bypass/stall) writeback->execute memory->execute for each register (latch) aluoutput, regB, pc, instr \\
+    memory: (logic) store/retrieve from dmem.\\ (bypass-stall) writeback to memory (latch) mw instr, pc, aluout. \\
+    writeback: logic (datawriteback, ctrlwriteback). \\
+
+    Multiplier and Divider: I used a wallace multiplier and a regular divider that uses 1 dividenc and divisor register. Wallace was used for speed. Integrate into alu \\
+    Regfile: register file found between fetch and decode stage. the Decode stage reads the required register information based on instruction in Decode. Used tristate buffer design. \\
+    Alu: Regular ALU design that uses decoding logic to determine aluop and then executes the instruction using cselect adder, cselect sub, barrel shifter and and/or/lt simple logic. \\
+\section{How I implemented each instruction}
+    I will briefly go over each instruction in this report.  \\ \\
+    add/sub/and/or/sll/sra/mult/diva/addi --> the computation occurs in the alu. The decode stage defined the inputs to the alu. \\ \\
+    blt/bne/j/jal/jr - the pc offset computation also occurs in the execute stage within the execute branch logic function. 
+    
+    \\ Then, the new pc is fed into the pc register pcnext in the pcregister. \\ That way, in the next cycle, the jumped location will be the next pc. minor Implementation details will be in presentation \\ \\
+    sw/lw: accesses the dmem file and either loads or stores info at the memory stage. The rs is added to N in alu and rd is untouched until we reach memory stage. \\ \\
+    setx: with the help of rstatus register and reg30, we use logic similar to jal to store the pc into a special register (30). we also take the alu overflow to populate the rstatus register with the correct exception number. \\
+    bex: Similar to jal logic. Throw a value into a special register in the writeback stage. \\ \\
+    jal: store pc + 1 into a special register (31) and then jump to T in execute stage \\ \\
+\section{Why I chose my implementation}
+    I chose my implementation because pipelining instructions with bypassing and stalls make reading the instructions easy to comprehend and debug. The
+    design allows most sequences of MIIPS instructions to run in 20ns without any need for noops. The only instructions that require a stall are
+    lw followed by another instruction that use the lw register as an input 1 instruction later. I also decided to include an extra register for rstatus
+    information because if I wrote to register 30 every time my rstatus updated, I would have to wait until the rstatus value travelled to the writeback stage
+    to read the information.
+\section{How you tested your implementation}
+    I included a unit test for each feature that I implemented in the project. I tried to isolate that feature in my unit test as much as possible to 
+    make debugging easier. Then, after I tested each isolated feature, I had a couple instruction sets that integrated multiple implementatation features.
+    This made it easy to debug my code and make sure that as I write more code, the old features I implement don't break. With every feature I added,
+    I would run all of my unit tests to check the functionality of my program. 
+\section{The challenges you faced and how you overcame them}
+    I ran into many challenges when debugging my program. I relied on rechecking my code regularly before running the program and looking scrupulously for 
+    warnings and errors generated by the program. In addition, with every feature I implemented, I would unit test all of my previous features. 
+    Initially, I had no idea how to begin writing the verilog code and took 4 days to think about how to tackle the project. This brainstorming helped me warm
+    up to the problem. 
+\section{errors or issues}
+    I think my code works for all of bypassing, stalling, regular pipelining and all of the instructions. I have tested each instruction and each feature with atleast one unit test and one integration test and have attached my test suite in the gitrepo. Additionally, I ran out of time and wasn't able to implement multdiv stalling and integration. If I were to have time, I would add my multdiv module inside my alu module. If a mult or div instruction is requested, I would call into the multdiv module and surface three important wires. 1) multdiv result and 2) multdiv inprogress 3)multdivready. If multdivinprogress is true, I will halt all of my pipeline registers. If the multdiv isn't in progress and the multdiv ready flag is 1, then I would read the answer and then send it into my xmO latch. With some fine tuning, this should successfully integrate mult and div into my code.
+
+\end{document}
