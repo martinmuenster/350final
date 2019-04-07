@@ -1,0 +1,9 @@
+Warning (10273): Verilog HDL warning at regfile.v(32): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/regfile.v Line: 32
+Warning (10273): Verilog HDL warning at regfile.v(33): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/regfile.v Line: 33
+Warning (10273): Verilog HDL warning at regfile.v(38): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/regfile.v Line: 38
+Warning (10273): Verilog HDL warning at regfile.v(39): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/regfile.v Line: 39
+Warning (10273): Verilog HDL warning at processor.v(406): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/processor.v Line: 406
+Warning (10273): Verilog HDL warning at processor.v(407): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/processor.v Line: 407
+Warning (10273): Verilog HDL warning at processor.v(408): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/processor.v Line: 408
+Warning (10273): Verilog HDL warning at processor.v(409): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/processor.v Line: 409
+Warning (10273): Verilog HDL warning at processor.v(410): extended using "x" or "z" File: C:/Users/gc124/Desktop/gouttham/350final/lab6/processor/processor.v Line: 410
