@@ -10,10 +10,14 @@ module skeleton(
 	CLOCK_50,                                                       // 50 MHz clock
 	clock,
 	leds,
-
+	ball,
+	ball_x_pos,
+	ball_y_pos,
 	moveleft, moveright, moveup, movedown);  													
 
-
+	output [10:0] ball_x_pos, ball_y_pos;
+	assign ball_x_pos = ball[31:21];
+	assign ball_y_pos = ball[20:10];
 
 
 
@@ -27,8 +31,8 @@ module skeleton(
 	// ############################################################################################ */	
 	output [7:0] leds;
 	output clock;
-	// clock divider (by 5, i.e., 10 MHz)
-	pll div(CLOCK_50,clock);
+	// clock divider 
+	clock_divider clock_divider_500000(.clock_in(CLOCK_50), .clock_out(clock));
 	assign leds[7:0] = 8'b00001111;
 
 	/* ############################################################################################
@@ -44,7 +48,8 @@ module skeleton(
 	output	[7:0]	VGA_B;   				//	VGA Blue[9:0]
 	input				CLOCK_50;
 	input moveleft, moveright, moveup, movedown;
-
+	
+	output [31:0] ball;
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST));
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
 	vga_controller vga_ins( .iRST_n(DLY_RST),
@@ -65,7 +70,7 @@ module skeleton(
 	// ############################################################################################ */
     wire [11:0] address_imem;
     wire [31:0] q_imem;
-    processor_imem my_imem(
+    imem my_imem(
         .address    (address_imem),            	// address of data
 		.clken(1'b1),
         .clock      (~clock),                  	// you may need to invert the clock
@@ -95,6 +100,9 @@ module skeleton(
     wire [31:0] data_writeReg;
     wire [31:0] data_readRegA, data_readRegB;
 	wire [31:0] data_reg10;
+	wire reset;
+	assign reset = 1'b0;
+	
     regfile my_regfile(
         .clock(clock),
         .ctrl_writeEnable(ctrl_writeEnable),
@@ -105,8 +113,10 @@ module skeleton(
         .data_writeReg(data_writeReg),
         .data_readRegA(data_readRegA),
         .data_readRegB(data_readRegB),
-		.ball(ball),
+			.ball(ball),
     );
+	 
+	 wire [11:0] pc;
 
     /** PROCESSOR **/
     processor_processor my_processor(
@@ -132,8 +142,31 @@ module skeleton(
         data_writeReg,                  // O: Data to write to for regfile
         data_readRegA,                  // I: Data from port A of regfile
         data_readRegB,                   // I: Data from port B of regfile
-		pc
+		  pc
     );
 	// ###############################################################################################################################################
 	
+endmodule
+
+
+// fpga4student.com: FPGA projects, VHDL projects, Verilog projects
+// Verilog project: Verilog code for clock divider on FPGA
+// Top level Verilog code for clock divider on FPGA
+module clock_divider(clock_in,clock_out);
+input clock_in; // input clock on FPGA
+output clock_out; // output clock after dividing the input clock by divisor
+reg[27:0] counter=28'd0;
+parameter DIVISOR = 28'd2;
+// The frequency of the output clk_out
+//  = The frequency of the input clk_in divided by DIVISOR
+// For example: Fclk_in = 50Mhz, if you want to get 1Hz signal to blink LEDs
+// You will modify the DIVISOR parameter value to 28'd50.000.000
+// Then the frequency of the output clk_out = 50Mhz/50.000.000 = 1Hz
+always @(posedge clock_in)
+begin
+ counter <= counter + 28'd1;
+ if(counter>=(DIVISOR-1))
+  counter <= 28'd0;
+end
+assign clock_out = (counter<DIVISOR/2)?1'b0:1'b1;
 endmodule

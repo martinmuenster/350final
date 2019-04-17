@@ -42,19 +42,21 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 			// Ball Properties
 				wire [11:0] b_width, b_height;
 
-				wire [10:0] b_xpos = ball[31:21];
-				wire [10:0] b_ypos = ball[20:10];
+
 				assign b_width = 12'd20;
 				assign b_height = 12'd20;
 		// Game Logistics
 			wire [11:0] paddle_vel, ball_vel;
-
+			reg [10:0] b_xpos;
+			reg [10:0] b_ypos;
 			assign paddle_vel = 12'd10;
 			assign ball_vel = 12'd3;
 
 		// Change Position (Button Response)
 			always@(posedge slowclock)
 			begin
+				b_xpos = ball[31:21];
+				b_ypos = ball[20:10];
 				// Right paddle next position.
 					if (pR_moveup == 1'b0)
 						begin
