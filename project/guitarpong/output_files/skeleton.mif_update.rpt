@@ -1,6 +1,6 @@
 MIF/HEX Update report for skeleton
-Sun Apr 07 18:17:47 2019
-Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+Tue Apr 16 21:01:13 2019
+Quartus Prime Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
 
 
 ---------------------
@@ -16,40 +16,42 @@ Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2017  Intel Corporation. All rights reserved.
-Your use of Intel Corporation's design tools, logic functions 
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Intel Program License 
-Subscription Agreement, the Intel Quartus Prime License Agreement,
-the Intel FPGA IP License Agreement, or other applicable license
-agreement, including, without limitation, that your use is for
-the sole purpose of programming logic devices manufactured by
-Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
 
 
 
 +---------------------------------------------------------------+
 ; MIF/HEX Update Summary                                        ;
 +-----------------------+---------------------------------------+
-; MIF/HEX Update Status ; Successful - Sun Apr 07 18:17:47 2019 ;
+; MIF/HEX Update Status ; Successful - Tue Apr 16 21:01:13 2019 ;
 ; Revision Name         ; skeleton                              ;
-; Top-level Entity Name ; processor_skeleton                    ;
+; Top-level Entity Name ; skeleton                              ;
 ; Family                ; Cyclone IV E                          ;
 ; Device                ; EP4CE115F29C7                         ;
 +-----------------------+---------------------------------------+
 
 
-+-------------------------------------------------------+
-; MIF/HEX Update Processed Files                        ;
-+-------------------------------------------------------+
-; File Name                                             ;
-+-------------------------------------------------------+
-; C:/Users/mm617/Desktop/350final/project/lab6/test.mif ;
-+-------------------------------------------------------+
++-----------------------------------------------------------------------------------------+
+; MIF/HEX Update Processed Files                                                          ;
++-----------------------------------------------------------------------------------------+
+; File Name                                                                               ;
++-----------------------------------------------------------------------------------------+
+; C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/lab7_img_data.mif  ;
+; C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/lab7_img_index.mif ;
++-----------------------------------------------------------------------------------------+
 
 
 +-------------------------+
@@ -57,18 +59,17 @@ refer to the applicable agreement for further details.
 +-------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime MIF/HEX Update
-    Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Sun Apr 07 18:17:46 2019
+    Info: Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+    Info: Processing started: Tue Apr 16 21:01:12 2019
 Info: Command: quartus_cdb skeleton -c skeleton --update_mif
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Warning (113028): 4093 out of 4096 addresses are uninitialized. The Quartus Prime software will initialize them to "0". There are 1 warnings found, and 1 warnings are reported. File: C:/Users/mm617/Desktop/350final/project/lab6/test.mif Line: 1
-    Warning (113027): Addresses ranging from 3 to 4095 are not initialized File: C:/Users/mm617/Desktop/350final/project/lab6/test.mif Line: 1
 Info (39024): Processed the following Memory Initialization File(s)
-    Info (39025): Processed Memory Initialization File C:/Users/mm617/Desktop/350final/project/lab6/test.mif File: C:/Users/mm617/Desktop/350final/project/lab6/test.mif Line: 0
-Info: Quartus Prime MIF/HEX Update was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4814 megabytes
-    Info: Processing ended: Sun Apr 07 18:17:47 2019
+    Info (39025): Processed Memory Initialization File C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/lab7_img_data.mif File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/lab7_img_data.mif Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/lab7_img_index.mif File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/lab7_img_index.mif Line: 0
+Info: Quartus Prime MIF/HEX Update was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 5051 megabytes
+    Info: Processing ended: Tue Apr 16 21:01:13 2019
     Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Total CPU time (on all processors): 00:00:02
 
 
