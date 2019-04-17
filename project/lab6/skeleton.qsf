@@ -1,5 +1,44 @@
 # -------------------------------------------------------------------------- #
 #
+# Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, the Altera Quartus Prime License Agreement,
+# the Altera MegaCore Function License Agreement, or other 
+# applicable license agreement, including, without limitation, 
+# that your use is for the sole purpose of programming logic 
+# devices manufactured by Altera and sold by Altera or its 
+# authorized distributors.  Please refer to the applicable 
+# agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 16.0.0 Build 211 04/27/2016 SJ Lite Edition
+# Date created = 19:17:27  April 07, 2019
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		skeleton_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+# -------------------------------------------------------------------------- #
+#
 # Copyright (C) 1991-2013 Altera Corporation
 # Your use of Altera Corporation's design tools, logic functions 
 # and other software and tools, and its AMPP partner logic 
@@ -38,10 +77,10 @@
 
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE115F29C7
-set_global_assignment -name TOP_LEVEL_ENTITY processor_skeleton
+set_global_assignment -name TOP_LEVEL_ENTITY skeleton
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "23:44:54  JUNE 23, 2016"
-set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION 16.0.0
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -161,53 +200,6 @@ set_location_assignment PIN_H21 -to leds[4]
 set_location_assignment PIN_G20 -to leds[5]
 set_location_assignment PIN_G22 -to leds[6]
 set_location_assignment PIN_G21 -to leds[7]
-set_location_assignment PIN_M23 -to movedown
-set_location_assignment PIN_M21 -to moveleft
-set_location_assignment PIN_N21 -to moveright
-set_location_assignment PIN_R24 -to moveup
-set_global_assignment -name VERILOG_FILE processor/z_sign_extend_17_32.v
-set_global_assignment -name VERILOG_FILE processor/z_shiftreg_32.v
-set_global_assignment -name VERILOG_FILE processor/z_reg_64.v
-set_global_assignment -name VERILOG_FILE processor/z_reg_32.v
-set_global_assignment -name VERILOG_FILE processor/z_reg_27.v
-set_global_assignment -name VERILOG_FILE processor/z_reg_12.v
-set_global_assignment -name VERILOG_FILE processor/z_pmux_3.v
-set_global_assignment -name VERILOG_FILE processor/z_neq0_32.v
-set_global_assignment -name VERILOG_FILE processor/z_neq_12.v
-set_global_assignment -name VERILOG_FILE processor/z_mux_8.v
-set_global_assignment -name VERILOG_FILE processor/z_mux_4.v
-set_global_assignment -name VERILOG_FILE processor/z_latch_assert.v
-set_global_assignment -name VERILOG_FILE processor/z_equals_5.v
-set_global_assignment -name VERILOG_FILE processor/z_dflipflop.v
-set_global_assignment -name VERILOG_FILE processor/z_decoder_32.v
-set_global_assignment -name VERILOG_FILE processor/z_decoder_16.v
-set_global_assignment -name VERILOG_FILE processor/z_decoder_4.v
-set_global_assignment -name VERILOG_FILE processor/z_decoder_2.v
-set_global_assignment -name VERILOG_FILE processor/z_branch_predictor.v
-set_global_assignment -name VERILOG_FILE processor/z_adder_select_4x8.v
-set_global_assignment -name VERILOG_FILE processor/z_adder_cl_8x1.v
-set_global_assignment -name VERILOG_FILE processor/x_rshift.v
-set_global_assignment -name VERILOG_FILE processor/x_negator.v
-set_global_assignment -name VERILOG_FILE processor/x_mult_shiftreg.v
-set_global_assignment -name VERILOG_FILE processor/x_mult.v
-set_global_assignment -name VERILOG_FILE processor/x_lshift.v
-set_global_assignment -name VERILOG_FILE processor/x_div_subtractor.v
-set_global_assignment -name VERILOG_FILE processor/x_div_partial.v
-set_global_assignment -name VERILOG_FILE processor/x_div_lshift.v
-set_global_assignment -name VERILOG_FILE processor/x_div.v
-set_global_assignment -name VERILOG_FILE processor/x_comparator.v
-set_global_assignment -name VERILOG_FILE processor/x_alu.v
-set_global_assignment -name VERILOG_FILE processor/x_adder_select_4x8.v
-set_global_assignment -name VERILOG_FILE processor/x_adder_cl_8x1.v
-set_global_assignment -name VERILOG_FILE processor/regfile.v
-set_global_assignment -name VERILOG_FILE processor/processor_skeleton.v
-set_global_assignment -name VERILOG_FILE processor/processor.v
-set_global_assignment -name VERILOG_FILE processor/imem.v
-set_global_assignment -name VERILOG_FILE processor/dmem.v
-set_global_assignment -name VERILOG_FILE processor/d_reg_32.v
-set_global_assignment -name VERILOG_FILE processor/d_dffe_ref.v
-set_global_assignment -name VERILOG_FILE processor/adder_half.v
-set_global_assignment -name VERILOG_FILE processor/adder_full.v
 set_global_assignment -name MIF_FILE index.mif
 set_global_assignment -name MIF_FILE index_logo.mif
 set_global_assignment -name MIF_FILE img_bars.mif
@@ -242,5 +234,8 @@ set_global_assignment -name MIF_FILE lab7_img_index.mif
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
+set_location_assignment PIN_M23 -to movedown
+set_location_assignment PIN_M21 -to moveleft
+set_location_assignment PIN_N21 -to moveright
+set_location_assignment PIN_R24 -to moveup
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

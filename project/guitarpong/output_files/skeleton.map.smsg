@@ -1,0 +1,9 @@
+Warning (10273): Verilog HDL warning at regfile.v(36): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/regfile.v Line: 36
+Warning (10273): Verilog HDL warning at regfile.v(37): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/regfile.v Line: 37
+Warning (10273): Verilog HDL warning at regfile.v(42): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/regfile.v Line: 42
+Warning (10273): Verilog HDL warning at regfile.v(43): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/regfile.v Line: 43
+Warning (10273): Verilog HDL warning at processor.v(406): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/processor.v Line: 406
+Warning (10273): Verilog HDL warning at processor.v(407): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/processor.v Line: 407
+Warning (10273): Verilog HDL warning at processor.v(408): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/processor.v Line: 408
+Warning (10273): Verilog HDL warning at processor.v(409): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/processor.v Line: 409
+Warning (10273): Verilog HDL warning at processor.v(410): extended using "x" or "z" File: C:/Users/Gouttham/Documents/ece350/repos/350final/project/guitarpong/processor/processor.v Line: 410
