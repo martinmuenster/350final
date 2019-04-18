@@ -84,7 +84,8 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 			 calcCord trs(ADDR, x_ADDR, y_ADDR);
 	 
 			 wire inboundsx, inboundsy;
-			 wire color_pL, color_pR, color_b, color_p1y, color_p1r, color_p1g, color_p2y, color_p2r, color_p2g;
+			 wire color_pL, color_pR, color_b, color_p1y, color_p1r, color_p1g, color_p2y, color_p2r, color_p2g, 
+				color_string1, color_string2, color_string3;
 
 			 	color_object color_paddleL(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pL_xpos), .obj_ypos(pL_ypos), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pL));
 			 	color_object color_paddleR(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pR_xpos), .obj_ypos(pR_ypos), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pR));
@@ -93,18 +94,32 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 				color_object color_p1r_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd25), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1r));
 				color_object color_p1g_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd50), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1g));
 				color_object color_p1y_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd75), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1y));
+				color_object color_p2r_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd585), .obj_ypos(12'd25), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p2r));
+				color_object color_p2g_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd585), .obj_ypos(12'd50), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p2g));
+				color_object color_p2y_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd585), .obj_ypos(12'd75), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p2y));
+				
+				color_object color_str1(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd0), .obj_ypos(12'd37), .obj_width(12'd640), .obj_length(12'd3), .color_obj(color_string1));
+				color_object color_str2(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd0), .obj_ypos(12'd62), .obj_width(12'd640), .obj_length(12'd3), .color_obj(color_string2));
+				color_object color_str3(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd0), .obj_ypos(12'd87), .obj_width(12'd640), .obj_length(12'd3), .color_obj(color_string3));
 			 	
-			 	wire [7:0] post_paddle1_index, post_paddle2_index, post_ball_index, p1r, p1g, p1y, p2r, p2g, p2y;
+			 	wire [7:0] post_paddle1_index, post_paddle2_index, post_ball_index, str1, str2, str3, p1r, p1g, p1y, p2r, p2g, p2y;
 				assign post_paddle1_index = color_pL ? 8'h000002 : background_index;
 			 	assign post_paddle2_index = color_pR ? 8'h000002 : post_paddle1_index;
 				assign post_ball_index = color_b ? 8'h000002 : post_paddle2_index;
 				
-				assign p1r = (color_p1r && guitar_in[1]) ? 8'h000003 : post_ball_index;
-				assign p1g = (color_p1g && guitar_in[2]) ? 8'h000003 : p1r;
-				assign p1y = (color_p1y && guitar_in[3]) ? 8'h000003 : p1g;
+				assign str1 = color_string1 ? 8'h000006 : post_ball_index;
+				assign str2 = color_string2 ? 8'h000006 : str1;
+				assign str3 = color_string3 ? 8'h000006 : str2;
+				
+				assign p1r = (color_p1r && guitar_in[0]) ? 8'h000003 : str3;
+				assign p1g = (color_p1g && guitar_in[1]) ? 8'h000004 : p1r;
+				assign p1y = (color_p1y && guitar_in[2]) ? 8'h000005 : p1g;
+				assign p2r = (color_p2r && guitar_in[3]) ? 8'h000003 : p1y;
+				assign p2g = (color_p2g && guitar_in[4]) ? 8'h000004 : p2r;
+				assign p2y = (color_p2y && guitar_in[5]) ? 8'h000005 : p2g;
 				
 				
-				assign color_index = p1y;
+				assign color_index = p2y;
 
 	// Handle ADDR Manipulation. 
 		always@(posedge iVGA_CLK,negedge iRST_n)

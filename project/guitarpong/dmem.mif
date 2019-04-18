@@ -1,16 +1,17 @@
--- Copyright (C) 2017  Intel Corporation. All rights reserved.
--- Your use of Intel Corporation's design tools, logic functions 
+-- Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+-- Your use of Altera Corporation's design tools, logic functions 
 -- and other software and tools, and its AMPP partner logic 
 -- functions, and any output files from any of the foregoing 
 -- (including device programming or simulation files), and any 
 -- associated documentation or information are expressly subject 
--- to the terms and conditions of the Intel Program License 
--- Subscription Agreement, the Intel Quartus Prime License Agreement,
--- the Intel FPGA IP License Agreement, or other applicable license
--- agreement, including, without limitation, that your use is for
--- the sole purpose of programming logic devices manufactured by
--- Intel and sold by Intel or its authorized distributors.  Please
--- refer to the applicable agreement for further details.
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, the Altera Quartus Prime License Agreement,
+-- the Altera MegaCore Function License Agreement, or other 
+-- applicable license agreement, including, without limitation, 
+-- that your use is for the sole purpose of programming logic 
+-- devices manufactured by Altera and sold by Altera or its 
+-- authorized distributors.  Please refer to the applicable 
+-- agreement for further details.
 
 -- Quartus Prime generated Memory Initialization File (.mif)
 
@@ -21,12 +22,10 @@ ADDRESS_RADIX=HEX;
 DATA_RADIX=HEX;
 
 CONTENT BEGIN
-	0000  :   280000A0;
-	0001  :   001FFF00;
-	[0002..0003]  :   28000000;
-	[0004..0007]  :   00000000;
-	0008  :   28000000;
-	0009  :   00000000;
-	000A  :   FFFFFE1F;
+	[0000..0001]  :   00000140;
+	[0002..0003]  :   00000005;
+	[0004..0006]  :   00000000;
+	[0007..000A]  :   00100000;
 	[000B..0FFF]  :   00000000;
 END;
+

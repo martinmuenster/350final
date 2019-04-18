@@ -71,8 +71,12 @@ module processor_processor(
     data_writeReg,                  // O: Data to write to for regfile
     data_readRegA,                  // I: Data from port A of regfile
     data_readRegB,                 // I: Data from port B of regfile
-	pc
+	pc,
+	//dstall, xstall
 );
+
+	//output dstall, xstall;
+	//assign 
     // Control signals
    input clock, reset;
 	
@@ -141,28 +145,28 @@ module processor_processor(
 	z_equals_5 zeq9(.a(bp_d_ctrl), .b(bp_w_ctrl), .out(bp_drd_wrd));
 	
 	
-	assign bp_wm_dt_ctrl = m_op[7] && w_op[8] && (bp_mrd_wrd); // sw after a lw, if $rds are eqivalent
+	assign bp_wm_dt_ctrl = m_op[7] && w_op[8] && (bp_mrd_wrd) && (w_ctrl[26:22] != 5'b0); // sw after a lw, if $rds are eqivalent
 	
 
 	// x_ctrl_rs == m_ctrl_rd & m_op == ALU, addi & x_op == ALU, addi, sw, lw, bne, blt
 	assign bp_mx_a_ctrl = (bp_xrs_mrd) && (m_op[0] || m_op[5] || m_op[21] || m_op[3]) 
-		&& (x_op[0] || x_op[5] || x_op[7] || x_op[8] || x_op[2] || x_op[6]);
+		&& (x_op[0] || x_op[5] || x_op[7] || x_op[8] || x_op[2] || x_op[6]) && (m_ctrl[26:22] != 5'b0);
 	
 	// x_ctrl_rs == w_ctrl_rd & w_op == ALU, addi, lw & x_op == ALU, addi, sw, lw, bne, blt
 	assign bp_wx_a_ctrl = (bp_xrs_wrd) && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]) 
-		&& (x_op[0] || x_op[5] || x_op[7] || x_op[8] || x_op[2] || x_op[6]);
+		&& (x_op[0] || x_op[5] || x_op[7] || x_op[8] || x_op[2] || x_op[6]) && (w_ctrl[26:22] != 5'b0);
 	
 	// (x_ctrl_rt == m_ctrl_rd & x_op == ALU & m_op == ALU, addi) | (x_ctrl_rd == m_ctrl_rd & x_op == sw, bne, blt & m_op == ALU, addi)
-	assign bp_mx_b_ctrl = ((bp_xrt_mrd) && x_op[0] && (m_op[0] || m_op[5] || m_op[21] || m_op[3]))
-		|| ((bp_xrd_mrd) && (x_op[7] || x_op[2] || x_op[6]) && (m_op[0] || m_op[5] || m_op[21] || m_op[3]));
+	assign bp_mx_b_ctrl = (((bp_xrt_mrd) && x_op[0] && (m_op[0] || m_op[5] || m_op[21] || m_op[3]))
+		|| ((bp_xrd_mrd) && (x_op[7] || x_op[2] || x_op[6]) && (m_op[0] || m_op[5] || m_op[21] || m_op[3]))) && (m_ctrl[26:22] != 5'b0);
 	
 	// (x_ctrl_rt == w_ctrl_rd & x_op == ALU & w_op == ALU, addi, lw) | (x_ctrl_rd == w_ctrl_rd & x_op == sw, bne, blt & w_op == ALU, addi, lw)
-	assign bp_wx_b_ctrl = ((bp_xrt_wrd) && x_op[0] && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]))
-		|| ((bp_xrd_wrd) && (x_op[7] || x_op[2] || x_op[6]) && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]));
+	assign bp_wx_b_ctrl = ((bp_xrt_wrd) && x_op[0] && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]) && (w_ctrl[26:22] != 5'b0))
+		|| ((bp_xrd_wrd) && (x_op[7] || x_op[2] || x_op[6]) && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]) && (w_ctrl[26:22] != 5'b0));
 		
-	assign bp_md_ctrl = ((bp_drd_mrd) && (d_op[4] || d_op[22]) && (m_op[0] || m_op[5] || m_op[21] || m_op[3]));
+	assign bp_md_ctrl = ((bp_drd_mrd) && (d_op[4] || d_op[22]) && (m_op[0] || m_op[5] || m_op[21] || m_op[3]) && (m_ctrl[26:22] != 5'b0));
 		
-	assign bp_wd_ctrl = ((bp_drd_wrd) && (d_op[4] || d_op[22]) && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]));
+	assign bp_wd_ctrl = ((bp_drd_wrd) && (d_op[4] || d_op[22]) && (w_op[0] || w_op[5] || w_op[8] || w_op[21] || w_op[3]) && (w_ctrl[26:22] != 5'b0));
 		
 		
 	//--------------------------------------------------------------------------------------------------------------------------------------
@@ -352,7 +356,7 @@ module processor_processor(
 	wire [31:0] A_hold, B_hold, mult_result, mult_a_in, mult_b_in;
 	assign mult_a_in = ctrl_MULT ? x_a_in : A_hold;
 	assign mult_b_in = ctrl_MULT ? x_b_in : B_hold;
-	assign x_mult_op = ~x_alu_opcode[4] && ~x_alu_opcode[3] && x_alu_opcode[2] && x_alu_opcode[1] && ~x_alu_opcode[0];
+	assign x_mult_op = ~x_alu_opcode[4] && ~x_alu_opcode[3] && x_alu_opcode[2] && x_alu_opcode[1] && ~x_alu_opcode[0] && x_op[0];
 	z_reg_32 op_A_hold(.d(x_a_in), .clk(~clock), .clrn(1'b1), .prn(1'b1), .ena(ctrl_MULT), .q(A_hold));
 	z_reg_32 op_B_hold(.d(x_b_in), .clk(~clock), .clrn(1'b1), .prn(1'b1), .ena(ctrl_MULT), .q(B_hold));
 	x_mult my_mult(.a(A_hold), .b(B_hold), .result(mult_result), .data_exception(mult_overflow));
@@ -365,7 +369,7 @@ module processor_processor(
 	wire div_resultRDY, ctrl_DIV;
 	
 	assign ctrl_DIV = (x_pc != x_pc_hold) && x_div_op;
-	assign x_div_op = ~x_alu_opcode[4] && ~x_alu_opcode[3] && x_alu_opcode[2] && x_alu_opcode[1] && x_alu_opcode[0];
+	assign x_div_op = ~x_alu_opcode[4] && ~x_alu_opcode[3] && x_alu_opcode[2] && x_alu_opcode[1] && x_alu_opcode[0] && x_op[0];
 	//z_dflipflop d_assert_reg(.d(1'b1), .q(div_resultRDY), .clk(clock), .ena(1'b1), .clrn(1'b1), .prn(1'b1));
 	x_div my_div(.dividend(x_a_in), .divisor_in(x_b_in), .clock(clock), .div_asserted(ctrl_DIV), .result(div_out), .error(div_by_0));
 	z_shiftreg_32 ddelay(.d(ctrl_DIV), .clk(clock), .clrn(1'b1), .prn(1'b1), .ena(1'b1), .q(udiv_done));

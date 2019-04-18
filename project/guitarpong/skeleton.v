@@ -56,12 +56,12 @@ module skeleton(
 	
 	input p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls;
 	wire [5:0] guitar_in;
-	assign guitar_in[5] = ~p2b3; //add && p1ls when set up
-	assign guitar_in[4] = ~p2b2;
-	assign guitar_in[3] = ~p2b1;
-	assign guitar_in[2] = ~p1b3;
-	assign guitar_in[1] = ~p1b2;
-	assign guitar_in[0] = ~p1b1;
+	assign guitar_in[5] = ~p2b3 && p2ls; //add && p1ls when set up
+	assign guitar_in[4] = ~p2b2 && p2ls;
+	assign guitar_in[3] = ~p2b1 && p2ls;
+	assign guitar_in[2] = ~p1b3 && p1ls;
+	assign guitar_in[1] = ~p1b2 && p1ls;
+	assign guitar_in[0] = ~p1b1 && p1ls;
 	
 	
 	output [31:0] ball;

@@ -18,116 +18,44 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "04/17/2019 20:17:26"
+// Generated on "04/18/2019 00:24:03"
                                                                                 
-// Verilog Test Bench (with test vectors) for design :                          skeleton
+// Verilog Test Bench (with test vectors) for design :                          guitar_synth
 // 
 // Simulation tool : 3rd Party
 // 
 
 `timescale 1 ps/ 1 ps
-module skeleton_vlg_vec_tst();
+module guitar_synth_vlg_vec_tst();
 // constants                                           
 // general purpose registers
-reg CLOCK_50;
-reg guitar1button1;
-reg movedown;
-reg moveleft;
-reg moveright;
-reg moveup;
-reg switch;
+reg [9:0] N;
+reg assert_note;
+reg [15:0] fs;
 // wires                                               
-wire [7:0] VGA_B;
-wire VGA_BLANK;
-wire VGA_CLK;
-wire [7:0] VGA_G;
-wire VGA_HS;
-wire [7:0] VGA_R;
-wire VGA_SYNC;
-wire VGA_VS;
-wire [11:0] address_imem;
-wire [31:0] ball;
-wire [10:0] ball_x_pos;
-wire [10:0] ball_y_pos;
-wire clock;
-wire ctrl_writeEnable;
-wire [4:0] ctrl_writeReg;
-wire [31:0] data_writeReg;
-wire guitar_LED;
-wire [7:0] leds;
-wire test_LED;
+wire [31:0] out;
+wire [100:0] str;
 
 // assign statements (if any)                          
-skeleton i1 (
+guitar_synth i1 (
 // port map - connection between master ports and signals/registers   
-	.CLOCK_50(CLOCK_50),
-	.VGA_B(VGA_B),
-	.VGA_BLANK(VGA_BLANK),
-	.VGA_CLK(VGA_CLK),
-	.VGA_G(VGA_G),
-	.VGA_HS(VGA_HS),
-	.VGA_R(VGA_R),
-	.VGA_SYNC(VGA_SYNC),
-	.VGA_VS(VGA_VS),
-	.address_imem(address_imem),
-	.ball(ball),
-	.ball_x_pos(ball_x_pos),
-	.ball_y_pos(ball_y_pos),
-	.clock(clock),
-	.ctrl_writeEnable(ctrl_writeEnable),
-	.ctrl_writeReg(ctrl_writeReg),
-	.data_writeReg(data_writeReg),
-	.guitar1button1(guitar1button1),
-	.guitar_LED(guitar_LED),
-	.leds(leds),
-	.movedown(movedown),
-	.moveleft(moveleft),
-	.moveright(moveright),
-	.moveup(moveup),
-	.switch(switch),
-	.test_LED(test_LED)
+	.N(N),
+	.assert_note(assert_note),
+	.fs(fs),
+	.out(out),
+	.str(str)
 );
 initial 
 begin 
-#10000000 $finish;
+#1000000 $finish;
 end 
 
-// CLOCK_50
+// assert_note
 initial
 begin
-	CLOCK_50 = 1'b1;
-	# 10000;
-	repeat(499)
-	begin
-		CLOCK_50 = 1'b0;
-		CLOCK_50 = #10000 1'b1;
-		# 10000;
-	end
-	CLOCK_50 = 1'b0;
-end 
-
-// movedown
-initial
-begin
-	movedown = 1'b0;
-end 
-
-// moveleft
-initial
-begin
-	moveleft = 1'b0;
-end 
-
-// moveright
-initial
-begin
-	moveright = 1'b0;
-end 
-
-// moveup
-initial
-begin
-	moveup = 1'b0;
+	assert_note = 1'b0;
+	assert_note = #90000 1'b1;
+	assert_note = #20000 1'b0;
 end 
 endmodule
 
