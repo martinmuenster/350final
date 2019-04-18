@@ -1,17 +1,16 @@
--- Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
--- Your use of Altera Corporation's design tools, logic functions 
+-- Copyright (C) 2017  Intel Corporation. All rights reserved.
+-- Your use of Intel Corporation's design tools, logic functions 
 -- and other software and tools, and its AMPP partner logic 
 -- functions, and any output files from any of the foregoing 
 -- (including device programming or simulation files), and any 
 -- associated documentation or information are expressly subject 
--- to the terms and conditions of the Altera Program License 
--- Subscription Agreement, the Altera Quartus Prime License Agreement,
--- the Altera MegaCore Function License Agreement, or other 
--- applicable license agreement, including, without limitation, 
--- that your use is for the sole purpose of programming logic 
--- devices manufactured by Altera and sold by Altera or its 
--- authorized distributors.  Please refer to the applicable 
--- agreement for further details.
+-- to the terms and conditions of the Intel Program License 
+-- Subscription Agreement, the Intel Quartus Prime License Agreement,
+-- the Intel FPGA IP License Agreement, or other applicable license
+-- agreement, including, without limitation, that your use is for
+-- the sole purpose of programming logic devices manufactured by
+-- Intel and sold by Intel or its authorized distributors.  Please
+-- refer to the applicable agreement for further details.
 
 -- Quartus Prime generated Memory Initialization File (.mif)
 
@@ -24,8 +23,34 @@ DATA_RADIX=HEX;
 CONTENT BEGIN
 	[0000..0001]  :   00000140;
 	[0002..0003]  :   00000005;
-	[0004..0006]  :   00000000;
-	[0007..000A]  :   00100000;
-	[000B..0FFF]  :   00000000;
+	[0004..0005]  :   00000014;
+	0006  :   00000064;
+	0007  :   00000000;
+	0008  :   00100000;
+	0009  :   00000000;
+	000A  :   000001E0;
+	000B  :   00000000;
+	000C  :   00000280;
+	[000D..0032]  :   00000000;
+	0033  :   000000C8;
+	0034  :   00000005;
+	[0035..0072]  :   00000000;
+	0073  :   00000064;
+	0074  :   00000000;
+	0075  :   000001F4;
+	0076  :   00000064;
+	[0077..00C7]  :   00000000;
+	00C8  :   00000004;
+	00C9  :   00000000;
+	00CA  :   00000002;
+	00CB  :   00000000;
+	00CC  :   00000001;
+	00CD  :   00000000;
+	00CE  :   00000001;
+	00CF  :   00000010;
+	00D0  :   00000002;
+	00D1  :   00000015;
+	00D2  :   00000001;
+	00D3  :   00000030;
+	[00D4..0FFF]  :   00000000;
 END;
-

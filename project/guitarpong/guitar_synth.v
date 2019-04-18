@@ -1,10 +1,11 @@
-module guitar_synth(assert_note, N, fs, out, str);
+module guitar_synth(assert_note, N, fs, out);
 	input assert_note;
 	input [9:0] N;
 	input [15:0] fs;
 	output [31:0] out;
 	
-	output reg [49:0] str [31:0];
+	reg [31:0] str [49:0];
+	assign out = str[11];
 	
 	integer i;
 	always @(posedge assert_note)

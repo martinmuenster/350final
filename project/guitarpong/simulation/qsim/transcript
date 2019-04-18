@@ -1,26 +1,25 @@
 # do skeleton.do
 # ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 00:24:05 on Apr 18,2019
+# Start time: 18:54:33 on Apr 18,2019
 # vlog -work work skeleton.vo 
-# -- Compiling module guitar_synth
-# -- Compiling module hard_block
+# -- Compiling module skeleton
 # 
 # Top level modules:
-# 	guitar_synth
-# End time: 00:24:05 on Apr 18,2019, Elapsed time: 0:00:00
+# 	skeleton
+# End time: 18:54:34 on Apr 18,2019, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 00:24:05 on Apr 18,2019
-# vlog -work work Waveform2.vwf.vt 
-# -- Compiling module guitar_synth_vlg_vec_tst
+# Start time: 18:54:34 on Apr 18,2019
+# vlog -work work Waveform1.vwf.vt 
+# -- Compiling module skeleton_vlg_vec_tst
 # 
 # Top level modules:
-# 	guitar_synth_vlg_vec_tst
-# End time: 00:24:05 on Apr 18,2019, Elapsed time: 0:00:00
+# 	skeleton_vlg_vec_tst
+# End time: 18:54:34 on Apr 18,2019, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -novopt -c -t 1ps -L cycloneive_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.skeleton_vlg_vec_tst 
-# Start time: 00:24:05 on Apr 18,2019
+# Start time: 18:54:34 on Apr 18,2019
 # Loading work.skeleton_vlg_vec_tst
 # Loading work.skeleton
 # Loading cycloneive_ver.cycloneive_io_obuf
@@ -38,9 +37,9 @@
 # Loading cycloneive_ver.cycloneive_ram_register
 # Loading cycloneive_ver.cycloneive_ram_pulse_generator
 # Loading altera_ver.PRIM_GDFF_LOW
-# ** Warning: Design size of 23269 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 24023 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
-# after#26
+# after#25
 #  Note : Cycloneive PLL was reset
 # Time: 0  Instance: skeleton_vlg_vec_tst.i1.\p1|altpll_component|pll 
 # Simulation time: 0 ps
@@ -51,9 +50,7 @@
 # Simulation time: 0 ps
 # Simulation time: 0 ps
 # Simulation time: 0 ps
-# Simulation time: 8400000 ps
-# Simulation time: 8400000 ps
-# ** Note: $finish    : Waveform2.vwf.vt(100)
-#    Time: 10 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
-# End time: 00:24:31 on Apr 18,2019, Elapsed time: 0:00:26
+# ** Note: $finish    : Waveform1.vwf.vt(102)
+#    Time: 8 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
+# End time: 18:54:57 on Apr 18,2019, Elapsed time: 0:00:23
 # Errors: 0, Warnings: 1

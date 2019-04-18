@@ -9,13 +9,13 @@ z2
 cModel Technology
 Z0 dC:/Users/mm617/Desktop/350final/project/lab6/simulation/qsim
 vguitar_synth
-Z1 !s110 1555561445
+Z1 !s110 1555615162
 !i10b 1
-!s100 @U_<cizFoao5JH=kbiGjc3
-Ic[=GLRb<O>R84FELe4O^h2
+!s100 SzWdFoboG1jVAgQ2Rh4S=3
+I<cEFcE<ogV@]BnMLJPZ3C0
 Z2 VDg1SIo80bB@j0V0VzS_@n1
-Z3 dC:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim
-Z4 w1555561444
+Z3 dC:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim
+Z4 w1555615161
 Z5 8skeleton.vo
 Z6 Fskeleton.vo
 Z7 L0 31
@@ -23,7 +23,7 @@ Z8 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z9 !s108 1555561445.000000
+Z9 !s108 1555615162.000000
 Z10 !s107 skeleton.vo|
 Z11 !s90 -work|work|skeleton.vo|
 !i113 1
@@ -32,35 +32,35 @@ Z13 tCvgOpt 0
 vguitar_synth_vlg_vec_tst
 R1
 !i10b 1
-!s100 iW>gUo0XMXN:08KDSH4H22
-IZTeVPAAF5@gegb>N0oGU[1
+!s100 NU;AhQL3Cb7`WcgP@@1432
+I`nY<6fg[<z7?E@LQ2m8[k2
 R2
 R3
-w1555561443
-Z14 8Waveform2.vwf.vt
-Z15 FWaveform2.vwf.vt
-Z16 L0 29
+w1555615160
+8Waveform3.vwf.vt
+FWaveform3.vwf.vt
+Z14 L0 29
 R8
 r1
 !s85 0
 31
 R9
-!s107 Waveform2.vwf.vt|
-Z17 !s90 -work|work|Waveform2.vwf.vt|
+!s107 Waveform3.vwf.vt|
+!s90 -work|work|Waveform3.vwf.vt|
 !i113 1
 R12
 R13
 vhard_block
 R1
 !i10b 1
-!s100 d5jj;`:;Iz4h175h==52E3
-IN<Vl5Z6ajJdh`3z4LE45>3
+!s100 nTk@52?EO]C0^Ja2SIgi91
+IWPjHUl2ff<YU4;2hXSO?73
 R2
 R3
 R4
 R5
 R6
-L0 2651
+L0 932
 R8
 r1
 !s85 0
@@ -102,7 +102,7 @@ R0
 w1554676026
 8Waveform.vwf.vt
 FWaveform.vwf.vt
-R16
+R14
 R8
 r1
 !s85 0
@@ -114,13 +114,13 @@ r1
 R12
 R13
 vskeleton
-Z18 !s110 1555557802
+Z15 !s110 1555628074
 !i10b 1
-!s100 WafOaAzJ@OK:]eYLCkaH^2
-I1lenb3B6jiz7cM`NRKHdn0
+!s100 L;E0hK]bA^_nKMGcDMN3l2
+IDcz3m[di]D85c<SiW?N]E1
 R2
 R3
-w1555557801
+w1555628072
 R5
 R6
 R7
@@ -128,30 +128,30 @@ R8
 r1
 !s85 0
 31
-!s108 1555557801.000000
+!s108 1555628073.000000
 R10
 R11
 !i113 1
 R12
 R13
 vskeleton_vlg_vec_tst
-R18
+R15
 !i10b 1
-!s100 6XdA6^=bcQ=nUnOCmF_:a1
-IWX6S5oXjIZC37JW@f?<lm3
+!s100 4AZK15gbJ80FKjk4HZTGh3
+Ink3^Y:74EcJj5N1_H[8n=2
 R2
 R3
-w1555557798
+w1555628069
+8Waveform1.vwf.vt
+FWaveform1.vwf.vt
 R14
-R15
-R16
 R8
 r1
 !s85 0
 31
-!s108 1555557802.000000
-!s107 Waveform2.vwf.vt|
-R17
+!s108 1555628074.000000
+!s107 Waveform1.vwf.vt|
+!s90 -work|work|Waveform1.vwf.vt|
 !i113 1
 R12
 R13

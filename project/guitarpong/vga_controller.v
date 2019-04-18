@@ -1,6 +1,6 @@
 module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data, 
 						// Custom Additions. 
-                      pR_moveup, pR_movedown, pL_moveup, pL_movedown, ball, guitar_in);
+                      pR_moveup, pR_movedown, pL_moveup, pL_movedown, ball, guitar_in, left_paddle, right_paddle, notes1, notes2, notes3);
 	// Prewritten VGA Controller Input/Output.
 		input iRST_n; 				// N/A
 		input iVGA_CLK; 			// VGA clock.
@@ -26,6 +26,8 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 
 	// Custom Code. Game Logic.
 		input pR_moveup, pR_movedown, pL_moveup, pL_movedown; 
+		
+		input [31:0] left_paddle, right_paddle, notes1, notes2, notes3;
 
 		// Initialize Objects (Top Left Pixel Position)
 			// Left Paddle Properties.
@@ -79,17 +81,76 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 							pL_ypos = pL_ypos - paddle_vel;
 						end
 			end
+			
+			// logic to calculate note positions
+			wire [10:0] p1note1_x, p1note2_x, p1note3_x, p1note4_x, p1note5_x, p1note6_x, p2note1_x, p2note2_x, p2note3_x, p2note4_x, p2note5_x, p2note6_x;
+			wire [10:0] p1note1_y, p1note2_y, p1note3_y, p1note4_y, p1note5_y, p1note6_y, p2note1_y, p2note2_y, p2note3_y, p2note4_y, p2note5_y, p2note6_y;
+			wire [7:0] p1note1_c, p1note2_c, p1note3_c, p1note4_c, p1note5_c, p1note6_c, p2note1_c, p2note2_c, p2note3_c, p2note4_c, p2note5_c, p2note6_c;
+			assign p1note1_x = -notes1[31:21] + 11'd310; // 310 = 640/2 - 20/2
+			assign p1note2_x = -notes1[15:5] + 11'd310;
+			assign p1note3_x = -notes2[31:21] + 11'd310;
+			assign p1note4_x = -notes2[15:5] + 11'd310;
+			assign p1note5_x = -notes3[31:21] + 11'd310;
+			assign p1note6_x = -notes3[15:5] + 11'd310;
+			assign p2note1_x = notes1[31:21] + 11'd310;
+			assign p2note2_x = notes1[15:5] + 11'd310;
+			assign p2note3_x = notes2[31:21] + 11'd310;
+			assign p2note4_x = notes2[15:5] + 11'd310;
+			assign p2note5_x = notes3[31:21] + 11'd310;
+			assign p2note6_x = notes3[15:5] + 11'd310;
+			
+			z_pmux_3_12 n1y(.sel0(notes1[20]), .sel1(notes1[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note1_y));
+			z_pmux_3_12 n2y(.sel0(notes1[20]), .sel1(notes1[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note2_y));
+			z_pmux_3_12 n3y(.sel0(notes2[20]), .sel1(notes2[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note3_y));
+			z_pmux_3_12 n4y(.sel0(notes2[20]), .sel1(notes2[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note4_y));
+			z_pmux_3_12 n5y(.sel0(notes3[20]), .sel1(notes3[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note5_y));
+			z_pmux_3_12 n6y(.sel0(notes3[20]), .sel1(notes3[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note6_y));
+			assign p2note1_y = p1note1_y;
+			assign p2note2_y = p1note2_y;
+			assign p2note3_y = p1note3_y;
+			assign p2note4_y = p1note4_y;
+			assign p2note5_y = p1note5_y;
+			assign p2note6_y = p1note6_y;
+			
+			z_pmux_3_8 n1c(.sel0(notes1[20]), .sel1(notes1[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note1_c));
+			z_pmux_3_8 n2c(.sel0(notes1[20]), .sel1(notes1[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note2_c));
+			z_pmux_3_8 n3c(.sel0(notes2[20]), .sel1(notes2[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note3_c));
+			z_pmux_3_8 n4c(.sel0(notes2[20]), .sel1(notes2[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note4_c));
+			z_pmux_3_8 n5c(.sel0(notes3[20]), .sel1(notes3[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note5_c));
+			z_pmux_3_8 n6c(.sel0(notes3[20]), .sel1(notes3[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note6_c));
+			assign p2note1_c = p1note1_c;
+			assign p2note2_c = p1note2_c;
+			assign p2note3_c = p1note3_c;
+			assign p2note4_c = p1note4_c;
+			assign p2note5_c = p1note5_c;
+			assign p2note6_c = p1note6_c;
+			
+			
 
 			 wire [11:0] x_ADDR, y_ADDR;  // Address of the x and y pixel that is currently being edited.
 			 calcCord trs(ADDR, x_ADDR, y_ADDR);
 	 
 			 wire inboundsx, inboundsy;
 			 wire color_pL, color_pR, color_b, color_p1y, color_p1r, color_p1g, color_p2y, color_p2r, color_p2g, 
-				color_string1, color_string2, color_string3;
+				color_string1, color_string2, color_string3, color_p1note1, color_p1note2, color_p1note3, color_p1note4, color_p1note5, color_p1note6, 
+				color_p2note1, color_p2note2, color_p2note3, color_p2note4, color_p2note5, color_p2note6;
 
-			 	color_object color_paddleL(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pL_xpos), .obj_ypos(pL_ypos), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pL));
+			 	color_object color_paddleL(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pL_xpos), .obj_ypos(left_paddle[20:10]), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pL));
 			 	color_object color_paddleR(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pR_xpos), .obj_ypos(pR_ypos), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pR));
 			 	color_object color_ball(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(b_xpos), .obj_ypos(b_ypos), .obj_width(12'd20), .obj_length(12'd20), .color_obj(color_b));
+				
+				color_object color_p1n1(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p1note1_x), .obj_ypos(p1note1_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p1note1));
+				color_object color_p1n2(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p1note2_x), .obj_ypos(p1note2_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p1note2));
+				color_object color_p1n3(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p1note3_x), .obj_ypos(p1note3_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p1note3));
+				color_object color_p1n4(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p1note4_x), .obj_ypos(p1note4_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p1note4));
+				color_object color_p1n5(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p1note5_x), .obj_ypos(p1note5_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p1note5));
+				color_object color_p1n6(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p1note6_x), .obj_ypos(p1note6_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p1note6));
+				color_object color_p2n1(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p2note1_x), .obj_ypos(p2note1_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p2note1));
+				color_object color_p2n2(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p2note2_x), .obj_ypos(p2note2_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p2note2));
+				color_object color_p2n3(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p2note3_x), .obj_ypos(p2note3_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p2note3));
+				color_object color_p2n4(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p2note4_x), .obj_ypos(p2note4_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p2note4));
+				color_object color_p2n5(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p2note5_x), .obj_ypos(p2note5_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p2note5));
+				color_object color_p2n6(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(p2note6_x), .obj_ypos(p2note6_y), .obj_width(12'd21), .obj_length(12'd21), .color_obj(color_p2note6));
 				
 				color_object color_p1r_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd25), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1r));
 				color_object color_p1g_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd50), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1g));
@@ -102,7 +163,7 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 				color_object color_str2(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd0), .obj_ypos(12'd62), .obj_width(12'd640), .obj_length(12'd3), .color_obj(color_string2));
 				color_object color_str3(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd0), .obj_ypos(12'd87), .obj_width(12'd640), .obj_length(12'd3), .color_obj(color_string3));
 			 	
-			 	wire [7:0] post_paddle1_index, post_paddle2_index, post_ball_index, str1, str2, str3, p1r, p1g, p1y, p2r, p2g, p2y;
+			 	wire [7:0] post_paddle1_index, post_paddle2_index, post_ball_index, str1, str2, str3, p1r, p1g, p1y, p2r, p2g, p2y, p1n1, p1n2, p1n3, p1n4, p1n5, p1n6, p2n1, p2n2, p2n3, p2n4, p2n5, p2n6;
 				assign post_paddle1_index = color_pL ? 8'h000002 : background_index;
 			 	assign post_paddle2_index = color_pR ? 8'h000002 : post_paddle1_index;
 				assign post_ball_index = color_b ? 8'h000002 : post_paddle2_index;
@@ -111,7 +172,21 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 				assign str2 = color_string2 ? 8'h000006 : str1;
 				assign str3 = color_string3 ? 8'h000006 : str2;
 				
-				assign p1r = (color_p1r && guitar_in[0]) ? 8'h000003 : str3;
+				assign p1n1 = (color_p1note1 && (notes1[20] || notes1[19] || notes1[18]) && ~notes1[17]) ? p1note1_c : str3;
+				assign p1n2 = (color_p1note2 && (notes1[4]  || notes1[3]  || notes1[2])  && ~notes1[1])  ? p1note2_c : p1n1;
+				assign p1n3 = (color_p1note3 && (notes2[20] || notes2[19] || notes2[18]) && ~notes2[17]) ? p1note3_c : p1n2;
+				assign p1n4 = (color_p1note4 && (notes2[4]  || notes2[3]  || notes2[2])  && ~notes2[1])  ? p1note4_c : p1n3;
+				assign p1n5 = (color_p1note5 && (notes3[20] || notes3[19] || notes3[18]) && ~notes3[17]) ? p1note5_c : p1n4;
+				assign p1n6 = (color_p1note6 && (notes3[4]  || notes3[3]  || notes3[2])  && ~notes3[1])  ? p1note6_c : p1n5;
+				assign p2n1 = (color_p2note1 && (notes1[20] || notes1[19] || notes1[18]) && ~notes1[16]) ? p2note1_c : p1n6;
+				assign p2n2 = (color_p2note2 && (notes1[4]  || notes1[3]  || notes1[2])  && ~notes1[0])  ? p2note2_c : p2n1;
+				assign p2n3 = (color_p2note3 && (notes2[20] || notes2[19] || notes2[18]) && ~notes2[16]) ? p2note3_c : p2n2;
+				assign p2n4 = (color_p2note4 && (notes2[4]  || notes2[3]  || notes2[2])  && ~notes2[0])  ? p2note4_c : p2n3;
+				assign p2n5 = (color_p2note5 && (notes3[20] || notes3[19] || notes3[18]) && ~notes3[16]) ? p2note5_c : p2n4;
+				assign p2n6 = (color_p2note6 && (notes3[4]  || notes3[3]  || notes3[2])  && ~notes3[0])  ? p2note6_c : p2n5;
+				
+				
+				assign p1r = (color_p1r && guitar_in[0]) ? 8'h000003 : p2n6;
 				assign p1g = (color_p1g && guitar_in[1]) ? 8'h000004 : p1r;
 				assign p1y = (color_p1y && guitar_in[2]) ? 8'h000005 : p1g;
 				assign p2r = (color_p2r && guitar_in[3]) ? 8'h000003 : p1y;

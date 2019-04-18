@@ -1,13 +1,13 @@
 Determining the location of the ModelSim executable...
 
-Using: c:/intelfpga_lite/17.1/modelsim_ase/win32aloem/
+Using: C:\intelFPGA_lite\17.1\modelsim_ase\win32aloem
 
 To specify a ModelSim executable directory, select: Tools -> Options -> EDA Tool Options
 Note: if both ModelSim-Altera and ModelSim executables are available, ModelSim-Altera will be used.
 
 **** Generating the ModelSim Testbench ****
 
-quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off skeleton -c skeleton --vector_source="C:/Users/gc124/Desktop/repos/350final/project/guitarpong/Waveform2.vwf" --testbench_file="C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/Waveform2.vwf.vt"
+quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off skeleton -c skeleton --vector_source="C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/Waveform1.vwf" --testbench_file="C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/Waveform1.vwf.vt"
 
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
@@ -25,11 +25,11 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Thu Apr 18 00:24:02 2019
-Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off skeleton -c skeleton --vector_source=C:/Users/gc124/Desktop/repos/350final/project/guitarpong/Waveform2.vwf --testbench_file=C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/Waveform2.vwf.vt
+    Info: Processing started: Thu Apr 18 18:54:28 2019
+Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off skeleton -c skeleton --vector_source=C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/Waveform1.vwf --testbench_file=C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/Waveform1.vwf.vt
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 
-l processors): 00:00:01
+tes1[4]" in vector source file when writing test bench files
 
 Completed successfully. 
 
@@ -37,7 +37,7 @@ Completed successfully.
 
 **** Generating the functional simulation netlist ****
 
-quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory="C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/" skeleton -c skeleton
+quartus_eda --write_settings_files=off --simulation --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory="C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/" skeleton -c skeleton
 
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
@@ -55,29 +55,30 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Thu Apr 18 00:24:03 2019
-Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory=C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/ skeleton -c skeleton
+    Info: Processing started: Thu Apr 18 18:54:30 2019
+Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory=C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/ skeleton -c skeleton
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (204019): Generated file skeleton.vo in folder "C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim//" for EDA simulation tool
+Info (204019): Generated file skeleton.vo in folder "C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim//" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4658 megabytes
-    Info: Processing ended: Thu Apr 18 00:24:04 2019
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:01
+    Info: Peak virtual memory: 4723 megabytes
+    Info: Processing ended: Thu Apr 18 18:54:32 2019
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:02
 
 Completed successfully. 
 
 **** Generating the ModelSim .do script ****
 
-C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/skeleton.do generated.
+C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/skeleton.do generated.
 
 Completed successfully. 
 
 **** Running the ModelSim simulation ****
 
-c:/intelfpga_lite/17.1/modelsim_ase/win32aloem//vsim -c -do skeleton.do
+C:/intelFPGA_lite/17.1/modelsim_ase/win32aloem/vsim -c -do skeleton.do
 
 Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
+
 
 # 10.5b
 
@@ -85,28 +86,29 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # ** Warning: (vlib-34) Library already exists at "work".
 
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 00:24:05 on Apr 18,2019
+# Start time: 18:54:33 on Apr 18,2019
 # vlog -work work skeleton.vo 
-# -- Compiling module guitar_synth
-# -- Compiling module hard_block
-# 
-# Top level modules:
-# 	guitar_synth
-# End time: 00:24:05 on Apr 18,2019, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 00:24:05 on Apr 18,2019
-# vlog -work work Waveform2.vwf.vt 
+# -- Compiling module skeleton
 
-# -- Compiling module guitar_synth_vlg_vec_tst
 # 
 # Top level modules:
-# 	guitar_synth_vlg_vec_tst
-# End time: 00:24:05 on Apr 18,2019, Elapsed time: 0:00:00
+# 	skeleton
+# End time: 18:54:34 on Apr 18,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 18:54:34 on Apr 18,2019
+# vlog -work work Waveform1.vwf.vt 
+
+# -- Compiling module skeleton_vlg_vec_tst
+# 
+# Top level modules:
+# 	skeleton_vlg_vec_tst
+# End time: 18:54:34 on Apr 18,2019, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 
 # vsim -novopt -c -t 1ps -L cycloneive_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.skeleton_vlg_vec_tst 
-# Start time: 00:24:05 on Apr 18,2019
+# Start time: 18:54:34 on Apr 18,2019
 # Loading work.skeleton_vlg_vec_tst
 # Loading work.skeleton
 # Loading cycloneive_ver.cycloneive_io_obuf
@@ -124,10 +126,9 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # Loading cycloneive_ver.cycloneive_ram_register
 # Loading cycloneive_ver.cycloneive_ram_pulse_generator
 # Loading altera_ver.PRIM_GDFF_LOW
-# ** Warning: Design size of 23269 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 24023 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
-
-# after#26
+# after#25
 
 #  Note : Cycloneive PLL was reset
 # Time: 0  Instance: skeleton_vlg_vec_tst.i1.\p1|altpll_component|pll 
@@ -147,230 +148,22 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 
 # Simulation time: 0 ps
 
-# Simulation time: 8400000 ps
-
-# Simulation time: 8400000 ps
-
-# ** Note: $finish    : Waveform2.vwf.vt(100)
-#    Time: 10 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
-# End time: 00:24:31 on Apr 18,2019, Elapsed time: 0:00:26
+# ** Note: $finish    : Waveform1.vwf.vt(102)
+#    Time: 8 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
+# End time: 18:54:57 on Apr 18,2019, Elapsed time: 0:00:23
 # Errors: 0, Warnings: 1
 
 Completed successfully. 
 
 **** Converting ModelSim VCD to vector waveform ****
 
-Reading C:/Users/gc124/Desktop/repos/350final/project/guitarpong/Waveform2.vwf...
+Reading C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/Waveform1.vwf...
 
-Reading C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/skeleton.msim.vcd...
+Reading C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/skeleton.msim.vcd...
 
 Processing channel transitions... 
 
-Warning: assert_note - signal not found in VCD.
-
-Warning: str[100] - signal not found in VCD.
-
-Warning: str[99] - signal not found in VCD.
-
-Warning: str[98] - signal not found in VCD.
-
-Warning: str[97] - signal not found in VCD.
-
-Warning: str[96] - signal not found in VCD.
-
-Warning: str[95] - signal not found in VCD.
-
-Warning: str[94] - signal not found in VCD.
-
-Warning: str[93] - signal not found in VCD.
-
-Warning: str[92] - signal not found in VCD.
-
-Warning: str[91] - signal not found in VCD.
-
-Warning: str[90] - signal not found in VCD.
-
-Warning: str[89] - signal not found in VCD.
-
-Warning: str[88] - signal not found in VCD.
-
-Warning: str[87] - signal not found in VCD.
-
-Warning: str[86] - signal not found in VCD.
-
-Warning: str[85] - signal not found in VCD.
-
-Warning: str[84] - signal not found in VCD.
-
-Warning: str[83] - signal not found in VCD.
-
-Warning: str[82] - signal not found in VCD.
-
-Warning: str[81] - signal not found in VCD.
-
-Warning: str[80] - signal not found in VCD.
-
-Warning: str[79] - signal not found in VCD.
-
-Warning: str[78] - signal not found in VCD.
-
-Warning: str[77] - signal not found in VCD.
-
-Warning: str[76] - signal not found in VCD.
-
-Warning: str[75] - signal not found in VCD.
-
-Warning: str[74] - signal not found in VCD.
-
-Warning: str[73] - signal not found in VCD.
-
-Warning: str[72] - signal not found in VCD.
-
-Warning: str[71] - signal not found in VCD.
-
-Warning: str[70] - signal not found in VCD.
-
-Warning: str[69] - signal not found in VCD.
-
-Warning: str[68] - signal not found in VCD.
-
-Warning: str[67] - signal not found in VCD.
-
-Warning: str[66] - signal not found in VCD.
-
-Warning: str[65] - signal not found in VCD.
-
-Warning: str[64] - signal not found in VCD.
-
-Warning: str[63] - signal not found in VCD.
-
-Warning: str[62] - signal not found in VCD.
-
-Warning: str[61] - signal not found in VCD.
-
-Warning: str[60] - signal not found in VCD.
-
-Warning: str[59] - signal not found in VCD.
-
-Warning: str[58] - signal not found in VCD.
-
-Warning: str[57] - signal not found in VCD.
-
-Warning: str[56] - signal not found in VCD.
-
-Warning: str[55] - signal not found in VCD.
-
-Warning: str[54] - signal not found in VCD.
-
-Warning: str[53] - signal not found in VCD.
-
-Warning: str[52] - signal not found in VCD.
-
-Warning: str[51] - signal not found in VCD.
-
-Warning: str[50] - signal not found in VCD.
-
-Warning: str[49] - signal not found in VCD.
-
-Warning: str[48] - signal not found in VCD.
-
-Warning: str[47] - signal not found in VCD.
-
-Warning: str[46] - signal not found in VCD.
-
-Warning: str[45] - signal not found in VCD.
-
-Warning: str[44] - signal not found in VCD.
-
-Warning: str[43] - signal not found in VCD.
-
-Warning: str[42] - signal not found in VCD.
-
-Warning: str[41] - signal not found in VCD.
-
-Warning: str[40] - signal not found in VCD.
-
-Warning: str[39] - signal not found in VCD.
-
-Warning: str[38] - signal not found in VCD.
-
-Warning: str[37] - signal not found in VCD.
-
-Warning: str[36] - signal not found in VCD.
-
-Warning: str[35] - signal not found in VCD.
-
-Warning: str[34] - signal not found in VCD.
-
-Warning: str[33] - signal not found in VCD.
-
-Warning: str[32] - signal not found in VCD.
-
-Warning: str[31] - signal not found in VCD.
-
-Warning: str[30] - signal not found in VCD.
-
-Warning: str[29] - signal not found in VCD.
-
-Warning: str[28] - signal not found in VCD.
-
-Warning: str[27] - signal not found in VCD.
-
-Warning: str[26] - signal not found in VCD.
-
-Warning: str[25] - signal not found in VCD.
-
-Warning: str[24] - signal not found in VCD.
-
-Warning: str[23] - signal not found in VCD.
-
-Warning: str[22] - signal not found in VCD.
-
-Warning: str[21] - signal not found in VCD.
-
-Warning: str[20] - signal not found in VCD.
-
-Warning: str[19] - signal not found in VCD.
-
-Warning: str[18] - signal not found in VCD.
-
-Warning: str[17] - signal not found in VCD.
-
-Warning: str[16] - signal not found in VCD.
-
-Warning: str[15] - signal not found in VCD.
-
-Warning: str[14] - signal not found in VCD.
-
-Warning: str[13] - signal not found in VCD.
-
-Warning: str[12] - signal not found in VCD.
-
-Warning: str[11] - signal not found in VCD.
-
-Warning: str[10] - signal not found in VCD.
-
-Warning: str[9] - signal not found in VCD.
-
-Warning: str[8] - signal not found in VCD.
-
-Warning: str[7] - signal not found in VCD.
-
-Warning: str[6] - signal not found in VCD.
-
-Warning: str[5] - signal not found in VCD.
-
-Warning: str[4] - signal not found in VCD.
-
-Warning: str[3] - signal not found in VCD.
-
-Warning: str[2] - signal not found in VCD.
-
-Warning: str[1] - signal not found in VCD.
-
-Warning: str[0] - signal not found in VCD.
-
-Writing the resulting VWF to C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/skeleton_20190418002431.sim.vwf
+Writing the resulting VWF to C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/skeleton_20190418185457.sim.vwf
 
 Finished VCD to VWF conversion.
 

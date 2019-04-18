@@ -4,7 +4,7 @@ module regfile (
     ctrl_reset, ctrl_writeReg,
     ctrl_readRegA, ctrl_readRegB, data_writeReg,
     data_readRegA, data_readRegB,
-	ball
+	ball, left_paddle, right_paddle, note_reg1, note_reg2, note_reg3
 );
 
    	input clock, ctrl_writeEnable, ctrl_reset;
@@ -12,10 +12,15 @@ module regfile (
    	input [31:0] data_writeReg;
 
    	output [31:0] data_readRegA, data_readRegB;
-	output [31:0] ball;
+	output [31:0] ball, left_paddle, right_paddle;
+	output [31:0] note_reg1, note_reg2, note_reg3;
 	
 	assign ball = w[10];
-	
+	assign left_paddle = w[11];
+	assign right_paddle = w[12];
+	assign note_reg1 = w[20];
+	assign note_reg2 = w[21];
+	assign note_reg3 = w[22];
 	
 	wire nclock;
 	assign nclock = ~clock;
