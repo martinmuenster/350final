@@ -25,11 +25,11 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Wed Apr 17 05:18:42 2019
+    Info: Processing started: Wed Apr 17 20:17:25 2019
 Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off skeleton -c skeleton --vector_source=C:/Users/gc124/Desktop/repos/350final/project/guitarpong/Waveform2.vwf --testbench_file=C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/Waveform2.vwf.vt
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 
-in vector source file when writing test bench files
+address_imem[1]" in vector source file when writing test bench files
 
 Completed successfully. 
 
@@ -55,13 +55,13 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Wed Apr 17 05:18:43 2019
+    Info: Processing started: Wed Apr 17 20:17:26 2019
 Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory=C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/ skeleton -c skeleton
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (204019): Generated file skeleton.vo in folder "C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim//" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4717 megabytes
-    Info: Processing ended: Wed Apr 17 05:18:46 2019
+    Info: Peak virtual memory: 4718 megabytes
+    Info: Processing ended: Wed Apr 17 20:17:29 2019
     Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:02
 
@@ -82,32 +82,32 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # 10.5b
 
 # do skeleton.do
-# ** Warning: (vlib-34) Library already exists at "work".
 
+# ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 05:18:47 on Apr 17,2019
+# Start time: 20:17:29 on Apr 17,2019
 # vlog -work work skeleton.vo 
 # -- Compiling module skeleton
 
 # 
 # Top level modules:
 # 	skeleton
-# End time: 05:18:48 on Apr 17,2019, Elapsed time: 0:00:01
+# End time: 20:17:30 on Apr 17,2019, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 05:18:48 on Apr 17,2019
+# Start time: 20:17:30 on Apr 17,2019
 # vlog -work work Waveform2.vwf.vt 
 
 # -- Compiling module skeleton_vlg_vec_tst
 # 
 # Top level modules:
 # 	skeleton_vlg_vec_tst
-# End time: 05:18:48 on Apr 17,2019, Elapsed time: 0:00:00
+# End time: 20:17:30 on Apr 17,2019, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 
 # vsim -novopt -c -t 1ps -L cycloneive_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.skeleton_vlg_vec_tst 
-# Start time: 05:18:49 on Apr 17,2019
+# Start time: 20:17:30 on Apr 17,2019
 # Loading work.skeleton_vlg_vec_tst
 # Loading work.skeleton
 # Loading cycloneive_ver.cycloneive_io_obuf
@@ -125,7 +125,7 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # Loading cycloneive_ver.cycloneive_ram_register
 # Loading cycloneive_ver.cycloneive_ram_pulse_generator
 # Loading altera_ver.PRIM_GDFF_LOW
-# ** Warning: Design size of 22366 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 22890 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 # after#25
 
@@ -147,55 +147,17 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 
 # Simulation time: 0 ps
 
-# Simulation time: 24740000 ps
+# Simulation time: 6420000 ps
 
-# Simulation time: 24740000 ps
+# Simulation time: 6420000 ps
 
-# Simulation time: 24740000 ps
+# Simulation time: 6420000 ps
 
-# Simulation time: 24740000 ps
+# Simulation time: 6420000 ps
 
-# Simulation time: 24740000 ps
-
-# Simulation time: 24740000 ps
-
-# Simulation time: 24740000 ps
-
-# Simulation time: 24740000 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 50300002 ps
-
-# Simulation time: 75620000 ps
-
-# Simulation time: 75620000 ps
-
-# Simulation time: 75620000 ps
-
-# Simulation time: 75620000 ps
-
-# Simulation time: 75620000 ps
-
-# Simulation time: 75620000 ps
-
-# Simulation time: 75620000 ps
-
-# ** Note: $finish    : Waveform2.vwf.vt(76)
-#    Time: 100 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
-# End time: 05:20:09 on Apr 17,2019, Elapsed time: 0:01:20
+# ** Note: $finish    : Waveform2.vwf.vt(92)
+#    Time: 10 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
+# End time: 20:18:03 on Apr 17,2019, Elapsed time: 0:00:33
 # Errors: 0, Warnings: 1
 
 Completed successfully. 
@@ -208,7 +170,7 @@ Reading C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim
 
 Processing channel transitions... 
 
-Writing the resulting VWF to C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/skeleton_20190417052009.sim.vwf
+Writing the resulting VWF to C:/Users/gc124/Desktop/repos/350final/project/guitarpong/simulation/qsim/skeleton_20190417201803.sim.vwf
 
 Finished VCD to VWF conversion.
 

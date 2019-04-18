@@ -18,7 +18,7 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "04/17/2019 05:18:43"
+// Generated on "04/17/2019 20:17:26"
                                                                                 
 // Verilog Test Bench (with test vectors) for design :                          skeleton
 // 
@@ -30,10 +30,12 @@ module skeleton_vlg_vec_tst();
 // constants                                           
 // general purpose registers
 reg CLOCK_50;
+reg guitar1button1;
 reg movedown;
 reg moveleft;
 reg moveright;
 reg moveup;
+reg switch;
 // wires                                               
 wire [7:0] VGA_B;
 wire VGA_BLANK;
@@ -43,11 +45,17 @@ wire VGA_HS;
 wire [7:0] VGA_R;
 wire VGA_SYNC;
 wire VGA_VS;
+wire [11:0] address_imem;
 wire [31:0] ball;
 wire [10:0] ball_x_pos;
 wire [10:0] ball_y_pos;
 wire clock;
+wire ctrl_writeEnable;
+wire [4:0] ctrl_writeReg;
+wire [31:0] data_writeReg;
+wire guitar_LED;
 wire [7:0] leds;
+wire test_LED;
 
 // assign statements (if any)                          
 skeleton i1 (
@@ -61,27 +69,41 @@ skeleton i1 (
 	.VGA_R(VGA_R),
 	.VGA_SYNC(VGA_SYNC),
 	.VGA_VS(VGA_VS),
+	.address_imem(address_imem),
 	.ball(ball),
 	.ball_x_pos(ball_x_pos),
 	.ball_y_pos(ball_y_pos),
 	.clock(clock),
+	.ctrl_writeEnable(ctrl_writeEnable),
+	.ctrl_writeReg(ctrl_writeReg),
+	.data_writeReg(data_writeReg),
+	.guitar1button1(guitar1button1),
+	.guitar_LED(guitar_LED),
 	.leds(leds),
 	.movedown(movedown),
 	.moveleft(moveleft),
 	.moveright(moveright),
-	.moveup(moveup)
+	.moveup(moveup),
+	.switch(switch),
+	.test_LED(test_LED)
 );
 initial 
 begin 
-#100000000 $finish;
+#10000000 $finish;
 end 
 
 // CLOCK_50
-always
+initial
 begin
+	CLOCK_50 = 1'b1;
+	# 10000;
+	repeat(499)
+	begin
+		CLOCK_50 = 1'b0;
+		CLOCK_50 = #10000 1'b1;
+		# 10000;
+	end
 	CLOCK_50 = 1'b0;
-	CLOCK_50 = #20000 1'b1;
-	#20000;
 end 
 
 // movedown

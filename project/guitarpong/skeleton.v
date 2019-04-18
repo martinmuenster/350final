@@ -13,12 +13,14 @@ module skeleton(
 	ball,
 	ball_x_pos,
 	ball_y_pos,
-	moveleft, moveright, moveup, movedown);  													
+	moveleft, moveright, moveup, movedown,
+	address_imem, ctrl_writeEnable, ctrl_writeReg, data_writeReg,
+	p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls);  													
 
 	output [10:0] ball_x_pos, ball_y_pos;
 	assign ball_x_pos = ball[31:21];
 	assign ball_y_pos = ball[20:10];
-
+	
 
 
 
@@ -31,8 +33,11 @@ module skeleton(
 	// ############################################################################################ */	
 	output [7:0] leds;
 	output clock;
+	//wire clock_invert;
 	// clock divider 
-	clock_divider clock_divider_500000(.clock_in(CLOCK_50), .clock_out(clock));
+	//clock_divider clock_divider_500000(.clock_in(CLOCK_50), .clock_out(clock_invert));
+	assign clock = CLOCK_50;
+	//assign clock = ~clock_invert;
 	assign leds[7:0] = 8'b00001111;
 
 	/* ############################################################################################
@@ -49,6 +54,16 @@ module skeleton(
 	input				CLOCK_50;
 	input moveleft, moveright, moveup, movedown;
 	
+	input p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls;
+	wire [5:0] guitar_in;
+	assign guitar_in[5] = ~p2b3; //add && p1ls when set up
+	assign guitar_in[4] = ~p2b2;
+	assign guitar_in[3] = ~p2b1;
+	assign guitar_in[2] = ~p1b3;
+	assign guitar_in[1] = ~p1b2;
+	assign guitar_in[0] = ~p1b1;
+	
+	
 	output [31:0] ball;
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST));
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
@@ -62,13 +77,13 @@ module skeleton(
 							.r_data(VGA_R), 
                             .pR_moveup(moveleft), .pR_movedown(moveright), .pL_moveup(moveup), .pL_movedown(movedown), 
                             // GuitarPong Objects
-                            .ball(ball));
+                            .ball(ball), .guitar_in(guitar_in));
 
 
 	/* ############################################################################################
 											 PROCESSOR SKELETON. 
 	// ############################################################################################ */
-    wire [11:0] address_imem;
+    output [11:0] address_imem;
     wire [31:0] q_imem;
     imem my_imem(
         .address    (address_imem),            	// address of data
@@ -94,12 +109,11 @@ module skeleton(
 
     /** REGFILE **/
     // Instantiate your regfile
-    wire ctrl_writeEnable;
-	wire [4:0] ctrl_writeReg;
+    output ctrl_writeEnable;
+	output [4:0] ctrl_writeReg;
     wire [4:0] ctrl_readRegA, ctrl_readRegB;
-    wire [31:0] data_writeReg;
+    output [31:0] data_writeReg;
     wire [31:0] data_readRegA, data_readRegB;
-	wire [31:0] data_reg10;
 	wire reset;
 	assign reset = 1'b0;
 	

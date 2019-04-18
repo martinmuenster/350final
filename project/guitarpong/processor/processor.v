@@ -332,11 +332,14 @@ module processor_processor(
 	z_sign_extend_17_32 im_SE(.in(x_ctrl[16:0]), .out(x_b_im));
 	assign x_b_in = x_use_im ? x_b_im : x_bp_b;
 	
+	
 	// ALU to compute output
 	wire x_ne, x_lt, x_of, x_alu_of;
 	wire [4:0] x_alu_opcode;
 	wire [31:0] x_alu_result;
-	assign x_alu_opcode = x_use_im ? 5'b0 : x_ctrl[6:2];
+	//assign x_alu_opcode = x_use_im ? 5'b0 : x_ctrl[6:2];
+	z_pmux_3 x_alu_mux(.sel0(x_use_im), .sel1(x_op[6]), .in0(x_ctrl[6:2]), .in1(5'b0), .in2(5'b1), .out(x_alu_opcode));
+	
 	x_alu my_alu(.data_operandA(x_a_in), .data_operandB(x_b_in), .ctrl_ALUopcode(x_alu_opcode), .ctrl_shiftamt(x_ctrl[11:7]), 
 		.data_result(x_alu_result), .isNotEqual(x_ne), .isLessThan(x_lt), .overflow(x_alu_of));
 	wire alu_resultRDY;

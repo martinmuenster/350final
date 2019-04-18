@@ -1,6 +1,6 @@
 module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data, 
 						// Custom Additions. 
-                      pR_moveup, pR_movedown, pL_moveup, pL_movedown, ball);
+                      pR_moveup, pR_movedown, pL_moveup, pL_movedown, ball, guitar_in);
 	// Prewritten VGA Controller Input/Output.
 		input iRST_n; 				// N/A
 		input iVGA_CLK; 			// VGA clock.
@@ -20,6 +20,9 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 		wire [7:0] color_index;			// Color
 		wire cBLANK_n,cHS,cVS;
 		input [31:0] ball;
+		
+	// hit notes
+		input [5:0] guitar_in;
 
 	// Custom Code. Game Logic.
 		input pR_moveup, pR_movedown, pL_moveup, pL_movedown; 
@@ -81,17 +84,27 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 			 calcCord trs(ADDR, x_ADDR, y_ADDR);
 	 
 			 wire inboundsx, inboundsy;
-			 wire color_pL, color_pR, color_b;
+			 wire color_pL, color_pR, color_b, color_p1y, color_p1r, color_p1g, color_p2y, color_p2r, color_p2g;
 
 			 	color_object color_paddleL(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pL_xpos), .obj_ypos(pL_ypos), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pL));
 			 	color_object color_paddleR(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(pR_xpos), .obj_ypos(pR_ypos), .obj_width(12'd20), .obj_length(12'd100), .color_obj(color_pR));
 			 	color_object color_ball(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(b_xpos), .obj_ypos(b_ypos), .obj_width(12'd20), .obj_length(12'd20), .color_obj(color_b));
+				
+				color_object color_p1r_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd25), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1r));
+				color_object color_p1g_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd50), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1g));
+				color_object color_p1y_hit(.x_ADDR(x_ADDR), .y_ADDR(y_ADDR), .obj_xpos(12'd50), .obj_ypos(12'd75), .obj_width(12'd5), .obj_length(12'd25), .color_obj(color_p1y));
 			 	
-			 	wire [7:0] post_paddle1_index, post_paddle2_index, post_ball_index;
+			 	wire [7:0] post_paddle1_index, post_paddle2_index, post_ball_index, p1r, p1g, p1y, p2r, p2g, p2y;
 				assign post_paddle1_index = color_pL ? 8'h000002 : background_index;
 			 	assign post_paddle2_index = color_pR ? 8'h000002 : post_paddle1_index;
 				assign post_ball_index = color_b ? 8'h000002 : post_paddle2_index;
-				assign color_index = post_ball_index;
+				
+				assign p1r = (color_p1r && guitar_in[1]) ? 8'h000003 : post_ball_index;
+				assign p1g = (color_p1g && guitar_in[2]) ? 8'h000003 : p1r;
+				assign p1y = (color_p1y && guitar_in[3]) ? 8'h000003 : p1g;
+				
+				
+				assign color_index = p1y;
 
 	// Handle ADDR Manipulation. 
 		always@(posedge iVGA_CLK,negedge iRST_n)
@@ -143,9 +156,9 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 
 		// Latch valid color_index data at falling of the VGA clock.
 		always@(posedge ~iVGA_CLK) bgr_data <= bgr_data_raw;
-		assign b_data = bgr_data[23:16];
+		assign r_data = bgr_data[23:16];
 		assign g_data = bgr_data[15:8];
-		assign r_data = bgr_data[7:0]; 
+		assign b_data = bgr_data[7:0]; 
 		//////Delay the iHD, iVD,iDEN for one clock cycle;
 		always@(negedge iVGA_CLK)
 		begin
