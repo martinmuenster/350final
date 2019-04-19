@@ -9,13 +9,12 @@ module skeleton(
 	VGA_B,															//	VGA Blue[9:0]resetn,
 	CLOCK_50,                                                       // 50 MHz clock
 	clock,
-	leds,
 	ball,
 	ball_x_pos,
 	ball_y_pos,
 	moveleft, moveright, moveup, movedown,
 	address_imem, ctrl_writeEnable, ctrl_writeReg, data_writeReg,
-	p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls, notes1);  													
+	p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls, notes1, notes2, in_out);  													
 
 	output [10:0] ball_x_pos, ball_y_pos;
 	assign ball_x_pos = ball[31:21];
@@ -31,14 +30,12 @@ module skeleton(
 	/* ############################################################################################
 									LCD and Seven Segment Display 
 	// ############################################################################################ */	
-	output [7:0] leds;
 	output clock;
 	//wire clock_invert;
 	// clock divider 
 	//clock_divider clock_divider_500000(.clock_in(CLOCK_50), .clock_out(clock_invert));
 	assign clock = CLOCK_50;
 	//assign clock = ~clock_invert;
-	assign leds[7:0] = 8'b00001111;
 
 	/* ############################################################################################
 									 		VGA
@@ -56,18 +53,29 @@ module skeleton(
 	
 	input p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls;
 	wire [5:0] guitar_in;
-	assign guitar_in[5] = ~p2b3 && p2ls; //add && p1ls when set up
-	assign guitar_in[4] = ~p2b2 && p2ls;
-	assign guitar_in[3] = ~p2b1 && p2ls;
-	assign guitar_in[2] = ~p1b3 && p1ls;
-	assign guitar_in[1] = ~p1b2 && p1ls;
-	assign guitar_in[0] = ~p1b1 && p1ls;
+	//assign guitar_in[5] = ~p2b3 && p2ls; //add && p1ls when set up
+	//assign guitar_in[4] = ~p2b2 && p2ls;
+	//assign guitar_in[3] = ~p2b1 && p2ls;
+	//assign guitar_in[2] = ~p1b3 && p1ls;
+	//assign guitar_in[1] = ~p1b2 && p1ls;
+	//assign guitar_in[0] = ~p1b1 && p1ls;
+	assign guitar_in[5] = moveleft;
+	assign guitar_in[4] = moveleft;
+	assign guitar_in[3] = moveleft;
+	assign guitar_in[2] = moveleft;
+	assign guitar_in[1] = moveleft;
+	assign guitar_in[0] = moveleft;
+	
+	
+	wire [31:0] external_inputs;
+	assign external_inputs [5:0] = guitar_in;
+	assign external_inputs [31:6] = 26'b0;
 	
 	
 	output [31:0] ball;
 	wire [31:0] left_paddle, right_paddle;
-	wire [31:0] notes2, notes3;
-	output [31:0] notes1;
+	wire [31:0] notes3;
+	output [31:0] notes1, notes2, in_out;
 	
 	Reset_Delay			r0	(.iCLK(CLOCK_50),.oRESET(DLY_RST));
 	VGA_Audio_PLL 		p1	(.areset(~DLY_RST),.inclk0(CLOCK_50),.c0(VGA_CTRL_CLK),.c1(AUD_CTRL_CLK),.c2(VGA_CLK)	);
@@ -131,7 +139,7 @@ module skeleton(
         .data_writeReg(data_writeReg),
         .data_readRegA(data_readRegA),
         .data_readRegB(data_readRegB),
-			.ball(ball), .left_paddle(left_paddle), .right_paddle(right_paddle), .note_reg1(notes1), .note_reg2(notes2), .note_reg3(notes3)
+			.ball(ball), .left_paddle(left_paddle), .right_paddle(right_paddle), .note_reg1(notes1), .note_reg2(notes2), .note_reg3(notes3), .external_inputs(external_inputs), .in_out(in_out)
     );
 	 
 	 wire [11:0] pc;

@@ -30,14 +30,6 @@ VGA_B[6] << vga_controller:vga_ins.b_data
 VGA_B[7] << vga_controller:vga_ins.b_data
 CLOCK_50 => clock.IN5
 clock << clock.DB_MAX_OUTPUT_PORT_TYPE
-leds[0] << <VCC>
-leds[1] << <VCC>
-leds[2] << <VCC>
-leds[3] << <VCC>
-leds[4] << <GND>
-leds[5] << <GND>
-leds[6] << <GND>
-leds[7] << <GND>
 ball[0] << ball[0].DB_MAX_OUTPUT_PORT_TYPE
 ball[1] << ball[1].DB_MAX_OUTPUT_PORT_TYPE
 ball[2] << ball[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -190,6 +182,70 @@ notes1[28] << notes1[28].DB_MAX_OUTPUT_PORT_TYPE
 notes1[29] << notes1[29].DB_MAX_OUTPUT_PORT_TYPE
 notes1[30] << notes1[30].DB_MAX_OUTPUT_PORT_TYPE
 notes1[31] << notes1[31].DB_MAX_OUTPUT_PORT_TYPE
+notes2[0] << notes2[0].DB_MAX_OUTPUT_PORT_TYPE
+notes2[1] << notes2[1].DB_MAX_OUTPUT_PORT_TYPE
+notes2[2] << notes2[2].DB_MAX_OUTPUT_PORT_TYPE
+notes2[3] << notes2[3].DB_MAX_OUTPUT_PORT_TYPE
+notes2[4] << notes2[4].DB_MAX_OUTPUT_PORT_TYPE
+notes2[5] << notes2[5].DB_MAX_OUTPUT_PORT_TYPE
+notes2[6] << notes2[6].DB_MAX_OUTPUT_PORT_TYPE
+notes2[7] << notes2[7].DB_MAX_OUTPUT_PORT_TYPE
+notes2[8] << notes2[8].DB_MAX_OUTPUT_PORT_TYPE
+notes2[9] << notes2[9].DB_MAX_OUTPUT_PORT_TYPE
+notes2[10] << notes2[10].DB_MAX_OUTPUT_PORT_TYPE
+notes2[11] << notes2[11].DB_MAX_OUTPUT_PORT_TYPE
+notes2[12] << notes2[12].DB_MAX_OUTPUT_PORT_TYPE
+notes2[13] << notes2[13].DB_MAX_OUTPUT_PORT_TYPE
+notes2[14] << notes2[14].DB_MAX_OUTPUT_PORT_TYPE
+notes2[15] << notes2[15].DB_MAX_OUTPUT_PORT_TYPE
+notes2[16] << notes2[16].DB_MAX_OUTPUT_PORT_TYPE
+notes2[17] << notes2[17].DB_MAX_OUTPUT_PORT_TYPE
+notes2[18] << notes2[18].DB_MAX_OUTPUT_PORT_TYPE
+notes2[19] << notes2[19].DB_MAX_OUTPUT_PORT_TYPE
+notes2[20] << notes2[20].DB_MAX_OUTPUT_PORT_TYPE
+notes2[21] << notes2[21].DB_MAX_OUTPUT_PORT_TYPE
+notes2[22] << notes2[22].DB_MAX_OUTPUT_PORT_TYPE
+notes2[23] << notes2[23].DB_MAX_OUTPUT_PORT_TYPE
+notes2[24] << notes2[24].DB_MAX_OUTPUT_PORT_TYPE
+notes2[25] << notes2[25].DB_MAX_OUTPUT_PORT_TYPE
+notes2[26] << notes2[26].DB_MAX_OUTPUT_PORT_TYPE
+notes2[27] << notes2[27].DB_MAX_OUTPUT_PORT_TYPE
+notes2[28] << notes2[28].DB_MAX_OUTPUT_PORT_TYPE
+notes2[29] << notes2[29].DB_MAX_OUTPUT_PORT_TYPE
+notes2[30] << notes2[30].DB_MAX_OUTPUT_PORT_TYPE
+notes2[31] << notes2[31].DB_MAX_OUTPUT_PORT_TYPE
+in_out[0] << regfile:my_regfile.in_out
+in_out[1] << regfile:my_regfile.in_out
+in_out[2] << regfile:my_regfile.in_out
+in_out[3] << regfile:my_regfile.in_out
+in_out[4] << regfile:my_regfile.in_out
+in_out[5] << regfile:my_regfile.in_out
+in_out[6] << regfile:my_regfile.in_out
+in_out[7] << regfile:my_regfile.in_out
+in_out[8] << regfile:my_regfile.in_out
+in_out[9] << regfile:my_regfile.in_out
+in_out[10] << regfile:my_regfile.in_out
+in_out[11] << regfile:my_regfile.in_out
+in_out[12] << regfile:my_regfile.in_out
+in_out[13] << regfile:my_regfile.in_out
+in_out[14] << regfile:my_regfile.in_out
+in_out[15] << regfile:my_regfile.in_out
+in_out[16] << regfile:my_regfile.in_out
+in_out[17] << regfile:my_regfile.in_out
+in_out[18] << regfile:my_regfile.in_out
+in_out[19] << regfile:my_regfile.in_out
+in_out[20] << regfile:my_regfile.in_out
+in_out[21] << regfile:my_regfile.in_out
+in_out[22] << regfile:my_regfile.in_out
+in_out[23] << regfile:my_regfile.in_out
+in_out[24] << regfile:my_regfile.in_out
+in_out[25] << regfile:my_regfile.in_out
+in_out[26] << regfile:my_regfile.in_out
+in_out[27] << regfile:my_regfile.in_out
+in_out[28] << regfile:my_regfile.in_out
+in_out[29] << regfile:my_regfile.in_out
+in_out[30] << regfile:my_regfile.in_out
+in_out[31] << regfile:my_regfile.in_out
 
 
 |skeleton|lcd:mylcd
@@ -15370,7 +15426,6 @@ ctrl_writeEnable => we.OUTPUTSELECT
 ctrl_writeEnable => we.OUTPUTSELECT
 ctrl_writeEnable => we.OUTPUTSELECT
 ctrl_writeEnable => we.OUTPUTSELECT
-ctrl_writeEnable => we.OUTPUTSELECT
 ctrl_reset => ctrl_reset.IN32
 ctrl_writeReg[0] => ctrl_writeReg[0].IN1
 ctrl_writeReg[1] => ctrl_writeReg[1].IN1
@@ -15387,38 +15442,38 @@ ctrl_readRegB[1] => ctrl_readRegB[1].IN1
 ctrl_readRegB[2] => ctrl_readRegB[2].IN1
 ctrl_readRegB[3] => ctrl_readRegB[3].IN1
 ctrl_readRegB[4] => ctrl_readRegB[4].IN1
-data_writeReg[0] => data_writeReg[0].IN31
-data_writeReg[1] => data_writeReg[1].IN31
-data_writeReg[2] => data_writeReg[2].IN31
-data_writeReg[3] => data_writeReg[3].IN31
-data_writeReg[4] => data_writeReg[4].IN31
-data_writeReg[5] => data_writeReg[5].IN31
-data_writeReg[6] => data_writeReg[6].IN31
-data_writeReg[7] => data_writeReg[7].IN31
-data_writeReg[8] => data_writeReg[8].IN31
-data_writeReg[9] => data_writeReg[9].IN31
-data_writeReg[10] => data_writeReg[10].IN31
-data_writeReg[11] => data_writeReg[11].IN31
-data_writeReg[12] => data_writeReg[12].IN31
-data_writeReg[13] => data_writeReg[13].IN31
-data_writeReg[14] => data_writeReg[14].IN31
-data_writeReg[15] => data_writeReg[15].IN31
-data_writeReg[16] => data_writeReg[16].IN31
-data_writeReg[17] => data_writeReg[17].IN31
-data_writeReg[18] => data_writeReg[18].IN31
-data_writeReg[19] => data_writeReg[19].IN31
-data_writeReg[20] => data_writeReg[20].IN31
-data_writeReg[21] => data_writeReg[21].IN31
-data_writeReg[22] => data_writeReg[22].IN31
-data_writeReg[23] => data_writeReg[23].IN31
-data_writeReg[24] => data_writeReg[24].IN31
-data_writeReg[25] => data_writeReg[25].IN31
-data_writeReg[26] => data_writeReg[26].IN31
-data_writeReg[27] => data_writeReg[27].IN31
-data_writeReg[28] => data_writeReg[28].IN31
-data_writeReg[29] => data_writeReg[29].IN31
-data_writeReg[30] => data_writeReg[30].IN31
-data_writeReg[31] => data_writeReg[31].IN31
+data_writeReg[0] => data_writeReg[0].IN30
+data_writeReg[1] => data_writeReg[1].IN30
+data_writeReg[2] => data_writeReg[2].IN30
+data_writeReg[3] => data_writeReg[3].IN30
+data_writeReg[4] => data_writeReg[4].IN30
+data_writeReg[5] => data_writeReg[5].IN30
+data_writeReg[6] => data_writeReg[6].IN30
+data_writeReg[7] => data_writeReg[7].IN30
+data_writeReg[8] => data_writeReg[8].IN30
+data_writeReg[9] => data_writeReg[9].IN30
+data_writeReg[10] => data_writeReg[10].IN30
+data_writeReg[11] => data_writeReg[11].IN30
+data_writeReg[12] => data_writeReg[12].IN30
+data_writeReg[13] => data_writeReg[13].IN30
+data_writeReg[14] => data_writeReg[14].IN30
+data_writeReg[15] => data_writeReg[15].IN30
+data_writeReg[16] => data_writeReg[16].IN30
+data_writeReg[17] => data_writeReg[17].IN30
+data_writeReg[18] => data_writeReg[18].IN30
+data_writeReg[19] => data_writeReg[19].IN30
+data_writeReg[20] => data_writeReg[20].IN30
+data_writeReg[21] => data_writeReg[21].IN30
+data_writeReg[22] => data_writeReg[22].IN30
+data_writeReg[23] => data_writeReg[23].IN30
+data_writeReg[24] => data_writeReg[24].IN30
+data_writeReg[25] => data_writeReg[25].IN30
+data_writeReg[26] => data_writeReg[26].IN30
+data_writeReg[27] => data_writeReg[27].IN30
+data_writeReg[28] => data_writeReg[28].IN30
+data_writeReg[29] => data_writeReg[29].IN30
+data_writeReg[30] => data_writeReg[30].IN30
+data_writeReg[31] => data_writeReg[31].IN30
 data_readRegA[0] <= data_readRegA[0].DB_MAX_OUTPUT_PORT_TYPE
 data_readRegA[1] <= data_readRegA[1].DB_MAX_OUTPUT_PORT_TYPE
 data_readRegA[2] <= data_readRegA[2].DB_MAX_OUTPUT_PORT_TYPE
@@ -15675,6 +15730,70 @@ note_reg3[28] <= d_reg_32:loop1[22].myReg.q
 note_reg3[29] <= d_reg_32:loop1[22].myReg.q
 note_reg3[30] <= d_reg_32:loop1[22].myReg.q
 note_reg3[31] <= d_reg_32:loop1[22].myReg.q
+external_inputs[0] => external_inputs[0].IN1
+external_inputs[1] => external_inputs[1].IN1
+external_inputs[2] => external_inputs[2].IN1
+external_inputs[3] => external_inputs[3].IN1
+external_inputs[4] => external_inputs[4].IN1
+external_inputs[5] => external_inputs[5].IN1
+external_inputs[6] => external_inputs[6].IN1
+external_inputs[7] => external_inputs[7].IN1
+external_inputs[8] => external_inputs[8].IN1
+external_inputs[9] => external_inputs[9].IN1
+external_inputs[10] => external_inputs[10].IN1
+external_inputs[11] => external_inputs[11].IN1
+external_inputs[12] => external_inputs[12].IN1
+external_inputs[13] => external_inputs[13].IN1
+external_inputs[14] => external_inputs[14].IN1
+external_inputs[15] => external_inputs[15].IN1
+external_inputs[16] => external_inputs[16].IN1
+external_inputs[17] => external_inputs[17].IN1
+external_inputs[18] => external_inputs[18].IN1
+external_inputs[19] => external_inputs[19].IN1
+external_inputs[20] => external_inputs[20].IN1
+external_inputs[21] => external_inputs[21].IN1
+external_inputs[22] => external_inputs[22].IN1
+external_inputs[23] => external_inputs[23].IN1
+external_inputs[24] => external_inputs[24].IN1
+external_inputs[25] => external_inputs[25].IN1
+external_inputs[26] => external_inputs[26].IN1
+external_inputs[27] => external_inputs[27].IN1
+external_inputs[28] => external_inputs[28].IN1
+external_inputs[29] => external_inputs[29].IN1
+external_inputs[30] => external_inputs[30].IN1
+external_inputs[31] => external_inputs[31].IN1
+in_out[0] <= d_reg_32:myReg.q
+in_out[1] <= d_reg_32:myReg.q
+in_out[2] <= d_reg_32:myReg.q
+in_out[3] <= d_reg_32:myReg.q
+in_out[4] <= d_reg_32:myReg.q
+in_out[5] <= d_reg_32:myReg.q
+in_out[6] <= d_reg_32:myReg.q
+in_out[7] <= d_reg_32:myReg.q
+in_out[8] <= d_reg_32:myReg.q
+in_out[9] <= d_reg_32:myReg.q
+in_out[10] <= d_reg_32:myReg.q
+in_out[11] <= d_reg_32:myReg.q
+in_out[12] <= d_reg_32:myReg.q
+in_out[13] <= d_reg_32:myReg.q
+in_out[14] <= d_reg_32:myReg.q
+in_out[15] <= d_reg_32:myReg.q
+in_out[16] <= d_reg_32:myReg.q
+in_out[17] <= d_reg_32:myReg.q
+in_out[18] <= d_reg_32:myReg.q
+in_out[19] <= d_reg_32:myReg.q
+in_out[20] <= d_reg_32:myReg.q
+in_out[21] <= d_reg_32:myReg.q
+in_out[22] <= d_reg_32:myReg.q
+in_out[23] <= d_reg_32:myReg.q
+in_out[24] <= d_reg_32:myReg.q
+in_out[25] <= d_reg_32:myReg.q
+in_out[26] <= d_reg_32:myReg.q
+in_out[27] <= d_reg_32:myReg.q
+in_out[28] <= d_reg_32:myReg.q
+in_out[29] <= d_reg_32:myReg.q
+in_out[30] <= d_reg_32:myReg.q
+in_out[31] <= d_reg_32:myReg.q
 
 
 |skeleton|regfile:my_regfile|z_decoder_32:decoder0
@@ -17076,6 +17195,332 @@ en => and0.IN1
 en => and1.IN1
 out[0] <= and0.DB_MAX_OUTPUT_PORT_TYPE
 out[1] <= and1.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg
+q[0] <= d_dffe_ref:loop1[0].dffe.q
+q[1] <= d_dffe_ref:loop1[1].dffe.q
+q[2] <= d_dffe_ref:loop1[2].dffe.q
+q[3] <= d_dffe_ref:loop1[3].dffe.q
+q[4] <= d_dffe_ref:loop1[4].dffe.q
+q[5] <= d_dffe_ref:loop1[5].dffe.q
+q[6] <= d_dffe_ref:loop1[6].dffe.q
+q[7] <= d_dffe_ref:loop1[7].dffe.q
+q[8] <= d_dffe_ref:loop1[8].dffe.q
+q[9] <= d_dffe_ref:loop1[9].dffe.q
+q[10] <= d_dffe_ref:loop1[10].dffe.q
+q[11] <= d_dffe_ref:loop1[11].dffe.q
+q[12] <= d_dffe_ref:loop1[12].dffe.q
+q[13] <= d_dffe_ref:loop1[13].dffe.q
+q[14] <= d_dffe_ref:loop1[14].dffe.q
+q[15] <= d_dffe_ref:loop1[15].dffe.q
+q[16] <= d_dffe_ref:loop1[16].dffe.q
+q[17] <= d_dffe_ref:loop1[17].dffe.q
+q[18] <= d_dffe_ref:loop1[18].dffe.q
+q[19] <= d_dffe_ref:loop1[19].dffe.q
+q[20] <= d_dffe_ref:loop1[20].dffe.q
+q[21] <= d_dffe_ref:loop1[21].dffe.q
+q[22] <= d_dffe_ref:loop1[22].dffe.q
+q[23] <= d_dffe_ref:loop1[23].dffe.q
+q[24] <= d_dffe_ref:loop1[24].dffe.q
+q[25] <= d_dffe_ref:loop1[25].dffe.q
+q[26] <= d_dffe_ref:loop1[26].dffe.q
+q[27] <= d_dffe_ref:loop1[27].dffe.q
+q[28] <= d_dffe_ref:loop1[28].dffe.q
+q[29] <= d_dffe_ref:loop1[29].dffe.q
+q[30] <= d_dffe_ref:loop1[30].dffe.q
+q[31] <= d_dffe_ref:loop1[31].dffe.q
+d[0] => d[0].IN1
+d[1] => d[1].IN1
+d[2] => d[2].IN1
+d[3] => d[3].IN1
+d[4] => d[4].IN1
+d[5] => d[5].IN1
+d[6] => d[6].IN1
+d[7] => d[7].IN1
+d[8] => d[8].IN1
+d[9] => d[9].IN1
+d[10] => d[10].IN1
+d[11] => d[11].IN1
+d[12] => d[12].IN1
+d[13] => d[13].IN1
+d[14] => d[14].IN1
+d[15] => d[15].IN1
+d[16] => d[16].IN1
+d[17] => d[17].IN1
+d[18] => d[18].IN1
+d[19] => d[19].IN1
+d[20] => d[20].IN1
+d[21] => d[21].IN1
+d[22] => d[22].IN1
+d[23] => d[23].IN1
+d[24] => d[24].IN1
+d[25] => d[25].IN1
+d[26] => d[26].IN1
+d[27] => d[27].IN1
+d[28] => d[28].IN1
+d[29] => d[29].IN1
+d[30] => d[30].IN1
+d[31] => d[31].IN1
+clk => clk.IN32
+en => en.IN32
+clr => clr.IN32
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[0].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[1].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[2].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[3].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[4].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[5].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[6].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[7].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[8].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[9].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[10].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[11].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[12].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[13].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[14].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[15].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[16].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[17].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[18].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[19].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[20].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[21].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[22].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[23].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[24].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[25].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[26].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[27].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[28].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[29].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[30].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
+
+
+|skeleton|regfile:my_regfile|d_reg_32:myReg|d_dffe_ref:loop1[31].dffe
+q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
+d => q~reg0.DATAIN
+clk => q~reg0.CLK
+en => q~reg0.ENA
+clr => q~reg0.ACLR
 
 
 |skeleton|regfile:my_regfile|d_reg_32:loop1[1].myReg
@@ -26206,7 +26651,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg
 q[0] <= d_dffe_ref:loop1[0].dffe.q
 q[1] <= d_dffe_ref:loop1[1].dffe.q
 q[2] <= d_dffe_ref:loop1[2].dffe.q
@@ -26276,7 +26721,7 @@ en => en.IN32
 clr => clr.IN32
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[0].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[0].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26284,7 +26729,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[1].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[1].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26292,7 +26737,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[2].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[2].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26300,7 +26745,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[3].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[3].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26308,7 +26753,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[4].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[4].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26316,7 +26761,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[5].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[5].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26324,7 +26769,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[6].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[6].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26332,7 +26777,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[7].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[7].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26340,7 +26785,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[8].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[8].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26348,7 +26793,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[9].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[9].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26356,7 +26801,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[10].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[10].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26364,7 +26809,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[11].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[11].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26372,7 +26817,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[12].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[12].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26380,7 +26825,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[13].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[13].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26388,7 +26833,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[14].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[14].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26396,7 +26841,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[15].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[15].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26404,7 +26849,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[16].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[16].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26412,7 +26857,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[17].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[17].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26420,7 +26865,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[18].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[18].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26428,7 +26873,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[19].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[19].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26436,7 +26881,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[20].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[20].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26444,7 +26889,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[21].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[21].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26452,7 +26897,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[22].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[22].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26460,7 +26905,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[23].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[23].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26468,7 +26913,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[24].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[24].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26476,7 +26921,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[25].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[25].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26484,7 +26929,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[26].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[26].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26492,7 +26937,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[27].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[27].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26500,7 +26945,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[28].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[28].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26508,7 +26953,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[29].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[29].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26516,7 +26961,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[30].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[30].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26524,7 +26969,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[29].myReg|d_dffe_ref:loop1[31].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[30].myReg|d_dffe_ref:loop1[31].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26532,7 +26977,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg
 q[0] <= d_dffe_ref:loop1[0].dffe.q
 q[1] <= d_dffe_ref:loop1[1].dffe.q
 q[2] <= d_dffe_ref:loop1[2].dffe.q
@@ -26602,7 +27047,7 @@ en => en.IN32
 clr => clr.IN32
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[0].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[0].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26610,7 +27055,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[1].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[1].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26618,7 +27063,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[2].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[2].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26626,7 +27071,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[3].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[3].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26634,7 +27079,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[4].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[4].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26642,7 +27087,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[5].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[5].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26650,7 +27095,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[6].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[6].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26658,7 +27103,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[7].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[7].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26666,7 +27111,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[8].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[8].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26674,7 +27119,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[9].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[9].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26682,7 +27127,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[10].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[10].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26690,7 +27135,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[11].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[11].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26698,7 +27143,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[12].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[12].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26706,7 +27151,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[13].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[13].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26714,7 +27159,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[14].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[14].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26722,7 +27167,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[15].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[15].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26730,7 +27175,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[16].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[16].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26738,7 +27183,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[17].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[17].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26746,7 +27191,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[18].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[18].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26754,7 +27199,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[19].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[19].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26762,7 +27207,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[20].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[20].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26770,7 +27215,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[21].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[21].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26778,7 +27223,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[22].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[22].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26786,7 +27231,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[23].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[23].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26794,7 +27239,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[24].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[24].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26802,7 +27247,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[25].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[25].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26810,7 +27255,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[26].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[26].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26818,7 +27263,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[27].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[27].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26826,7 +27271,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[28].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[28].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26834,7 +27279,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[29].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[29].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26842,7 +27287,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[30].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[30].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
@@ -26850,333 +27295,7 @@ en => q~reg0.ENA
 clr => q~reg0.ACLR
 
 
-|skeleton|regfile:my_regfile|d_reg_32:loop1[30].myReg|d_dffe_ref:loop1[31].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg
-q[0] <= d_dffe_ref:loop1[0].dffe.q
-q[1] <= d_dffe_ref:loop1[1].dffe.q
-q[2] <= d_dffe_ref:loop1[2].dffe.q
-q[3] <= d_dffe_ref:loop1[3].dffe.q
-q[4] <= d_dffe_ref:loop1[4].dffe.q
-q[5] <= d_dffe_ref:loop1[5].dffe.q
-q[6] <= d_dffe_ref:loop1[6].dffe.q
-q[7] <= d_dffe_ref:loop1[7].dffe.q
-q[8] <= d_dffe_ref:loop1[8].dffe.q
-q[9] <= d_dffe_ref:loop1[9].dffe.q
-q[10] <= d_dffe_ref:loop1[10].dffe.q
-q[11] <= d_dffe_ref:loop1[11].dffe.q
-q[12] <= d_dffe_ref:loop1[12].dffe.q
-q[13] <= d_dffe_ref:loop1[13].dffe.q
-q[14] <= d_dffe_ref:loop1[14].dffe.q
-q[15] <= d_dffe_ref:loop1[15].dffe.q
-q[16] <= d_dffe_ref:loop1[16].dffe.q
-q[17] <= d_dffe_ref:loop1[17].dffe.q
-q[18] <= d_dffe_ref:loop1[18].dffe.q
-q[19] <= d_dffe_ref:loop1[19].dffe.q
-q[20] <= d_dffe_ref:loop1[20].dffe.q
-q[21] <= d_dffe_ref:loop1[21].dffe.q
-q[22] <= d_dffe_ref:loop1[22].dffe.q
-q[23] <= d_dffe_ref:loop1[23].dffe.q
-q[24] <= d_dffe_ref:loop1[24].dffe.q
-q[25] <= d_dffe_ref:loop1[25].dffe.q
-q[26] <= d_dffe_ref:loop1[26].dffe.q
-q[27] <= d_dffe_ref:loop1[27].dffe.q
-q[28] <= d_dffe_ref:loop1[28].dffe.q
-q[29] <= d_dffe_ref:loop1[29].dffe.q
-q[30] <= d_dffe_ref:loop1[30].dffe.q
-q[31] <= d_dffe_ref:loop1[31].dffe.q
-d[0] => d[0].IN1
-d[1] => d[1].IN1
-d[2] => d[2].IN1
-d[3] => d[3].IN1
-d[4] => d[4].IN1
-d[5] => d[5].IN1
-d[6] => d[6].IN1
-d[7] => d[7].IN1
-d[8] => d[8].IN1
-d[9] => d[9].IN1
-d[10] => d[10].IN1
-d[11] => d[11].IN1
-d[12] => d[12].IN1
-d[13] => d[13].IN1
-d[14] => d[14].IN1
-d[15] => d[15].IN1
-d[16] => d[16].IN1
-d[17] => d[17].IN1
-d[18] => d[18].IN1
-d[19] => d[19].IN1
-d[20] => d[20].IN1
-d[21] => d[21].IN1
-d[22] => d[22].IN1
-d[23] => d[23].IN1
-d[24] => d[24].IN1
-d[25] => d[25].IN1
-d[26] => d[26].IN1
-d[27] => d[27].IN1
-d[28] => d[28].IN1
-d[29] => d[29].IN1
-d[30] => d[30].IN1
-d[31] => d[31].IN1
-clk => clk.IN32
-en => en.IN32
-clr => clr.IN32
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[0].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[1].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[2].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[3].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[4].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[5].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[6].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[7].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[8].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[9].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[10].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[11].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[12].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[13].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[14].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[15].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[16].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[17].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[18].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[19].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[20].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[21].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[22].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[23].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[24].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[25].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[26].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[27].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[28].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[29].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[30].dffe
-q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
-d => q~reg0.DATAIN
-clk => q~reg0.CLK
-en => q~reg0.ENA
-clr => q~reg0.ACLR
-
-
-|skeleton|regfile:my_regfile|d_reg_32:loop1[31].myReg|d_dffe_ref:loop1[31].dffe
+|skeleton|regfile:my_regfile|d_reg_32:loop2[31].myReg|d_dffe_ref:loop1[31].dffe
 q <= q~reg0.DB_MAX_OUTPUT_PORT_TYPE
 d => q~reg0.DATAIN
 clk => q~reg0.CLK
