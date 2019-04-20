@@ -18,7 +18,7 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "04/19/2019 01:48:21"
+// Generated on "04/19/2019 22:29:05"
                                                                                 
 // Verilog Test Bench (with test vectors) for design :                          skeleton
 // 
@@ -55,6 +55,7 @@ wire [11:0] address_imem;
 wire [31:0] ball;
 wire [10:0] ball_x_pos;
 wire [10:0] ball_y_pos;
+wire button_trig;
 wire clock;
 wire ctrl_writeEnable;
 wire [4:0] ctrl_writeReg;
@@ -79,6 +80,7 @@ skeleton i1 (
 	.ball(ball),
 	.ball_x_pos(ball_x_pos),
 	.ball_y_pos(ball_y_pos),
+	.button_trig(button_trig),
 	.clock(clock),
 	.ctrl_writeEnable(ctrl_writeEnable),
 	.ctrl_writeReg(ctrl_writeReg),
@@ -101,7 +103,7 @@ skeleton i1 (
 );
 initial 
 begin 
-#5000000 $finish;
+#1000000 $finish;
 end 
 
 // CLOCK_50
@@ -109,7 +111,7 @@ initial
 begin
 	CLOCK_50 = 1'b1;
 	# 10000;
-	repeat(249)
+	repeat(49)
 	begin
 		CLOCK_50 = 1'b0;
 		CLOCK_50 = #10000 1'b1;
@@ -118,101 +120,19 @@ begin
 	CLOCK_50 = 1'b0;
 end 
 
-// movedown
-initial
-begin
-	movedown = 1'b0;
-end 
-
 // moveleft
 initial
 begin
-	moveleft = 1'b0;
-end 
-
-// moveright
-initial
-begin
-	moveright = 1'b0;
-end 
-
-// moveup
-initial
-begin
-	moveup = 1'b0;
-end 
-
-// p1b1
-initial
-begin
-	p1b1 = 1'b1;
-	p1b1 = #920000 1'b0;
-	p1b1 = #120000 1'b1;
-	p1b1 = #840000 1'b0;
-	p1b1 = #40000 1'b1;
-	p1b1 = #1920000 1'b0;
-end 
-
-// p1b2
-initial
-begin
-	p1b2 = 1'b1;
-	p1b2 = #920000 1'b0;
-	p1b2 = #120000 1'b1;
-	p1b2 = #2800000 1'b0;
-end 
-
-// p1b3
-initial
-begin
-	p1b3 = 1'b1;
-	p1b3 = #360000 1'b0;
-	p1b3 = #80000 1'b1;
-	p1b3 = #3400000 1'b0;
-end 
-
-// p1ls
-initial
-begin
-	p1ls = 1'b0;
-	p1ls = #280000 1'b1;
-	p1ls = #1160000 1'b0;
-	p1ls = #360000 1'b1;
-	p1ls = #200000 1'b0;
-end 
-
-// p2b1
-initial
-begin
-	p2b1 = 1'b0;
-	p2b1 = #40000 1'b1;
-	p2b1 = #3840000 1'b0;
-end 
-
-// p2b2
-initial
-begin
-	p2b2 = 1'b0;
-	p2b2 = #40000 1'b1;
-	p2b2 = #3840000 1'b0;
-end 
-
-// p2b3
-initial
-begin
-	p2b3 = 1'b0;
-	p2b3 = #40000 1'b1;
-	p2b3 = #1200000 1'b0;
-	p2b3 = #80000 1'b1;
-	p2b3 = #2560000 1'b0;
-end 
-
-// p2ls
-initial
-begin
-	p2ls = 1'b0;
-	p2ls = #1120000 1'b1;
-	p2ls = #280000 1'b0;
+	moveleft = 1'b1;
+	moveleft = #70000 1'b0;
+	moveleft = #10000 1'b1;
+	moveleft = #80000 1'b0;
+	moveleft = #70000 1'b1;
+	moveleft = #80000 1'b0;
+	moveleft = #70000 1'b1;
+	moveleft = #70000 1'b0;
+	moveleft = #10000 1'b1;
+	moveleft = #510000 1'b0;
 end 
 endmodule
 

@@ -846,14 +846,6 @@
 				{
 					"name" : "p2b3",
 					"strict" : false
-				},
-				{
-					"name" : "moveleft",
-					"strict" : false
-				},
-				{
-					"name" : "moveright",
-					"strict" : false
 				}
 			]
 		}

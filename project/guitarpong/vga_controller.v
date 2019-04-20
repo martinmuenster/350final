@@ -29,57 +29,38 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 		
 		input [31:0] left_paddle, right_paddle, notes1, notes2, notes3;
 
-		// Initialize Objects (Top Left Pixel Position)
-			// Left Paddle Properties.
-				wire [11:0] pL_width, pL_height;
-
-				reg [11:0] pL_xpos = 12'd100;
-				reg [11:0] pL_ypos = 12'd100;
-				assign pL_width = 12'd20;
-				assign pL_height = 12'd100;
-			// Right Paddle Properties.
-				wire [11:0] pR_width, pR_height;
-
-				reg [11:0] pR_xpos = 12'd500;
-				reg [11:0] pR_ypos = 12'd100;
-				assign pR_width = 12'd20;
-				assign pR_height = 12'd100;
+		// Screen Objects
 			// Ball Properties
-				wire [11:0] b_width, b_height;
-
-
-				assign b_width = 12'd20;
-				assign b_height = 12'd20;
-		// Game Logistics
-			wire [11:0] paddle_vel, ball_vel;
+			wire [10:0] b_width, b_height;
 			reg [10:0] b_xpos;
 			reg [10:0] b_ypos;
-			assign paddle_vel = 12'd10;
-			assign ball_vel = 12'd3;
+			// TODO: possibly read this constant from processor. 
+			assign b_width = 11'd20;
+			assign b_height = 11'd20;
+			
+			// Paddles
+			wire [11:0] pR_width, pR_height;
+			reg [10:0] pR_xpos;
+			reg [10:0] pR_ypos;
+			reg [10:0] pL_xpos;
+			reg [10:0] pL_ypos;
+			// TODO: possibly read this constant from processor. 
+			assign pR_width = 11'd20;
+			assign pR_height = 11'd100;
+			
+			
+			
 
-		// Change Position (Button Response)
+		// Update Position on every clock cycle. 
 			always@(posedge slowclock)
 			begin
 				b_xpos = ball[31:21];
 				b_ypos = ball[20:10];
-				// Right paddle next position.
-					if (pR_moveup == 1'b0)
-						begin
-							pR_ypos = pR_ypos + paddle_vel;
-						end
-					if (pR_movedown == 1'b0)
-						begin
-							pR_ypos = pR_ypos - paddle_vel;
-						end
-				// Left paddle next position 
-					if (pL_moveup == 1'b0)
-						begin
-							pL_ypos = pL_ypos + paddle_vel;
-						end
-					if (pL_movedown == 1'b0)
-						begin
-							pL_ypos = pL_ypos - paddle_vel;
-						end
+				pL_xpos = left_paddle[31:21];
+				pL_ypos = left_paddle[20:10];
+				pR_xpos = right_paddle[31:21];
+				pR_ypos = right_paddle[20:10];
+				
 			end
 			
 			// logic to calculate note positions
@@ -99,12 +80,12 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 			assign p2note5_x = notes3[31:21] + 11'd310;
 			assign p2note6_x = notes3[15:5] + 11'd310;
 			
-			z_pmux_3_12 n1y(.sel0(notes1[20]), .sel1(notes1[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note1_y));
-			z_pmux_3_12 n2y(.sel0(notes1[20]), .sel1(notes1[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note2_y));
-			z_pmux_3_12 n3y(.sel0(notes2[20]), .sel1(notes2[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note3_y));
-			z_pmux_3_12 n4y(.sel0(notes2[20]), .sel1(notes2[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note4_y));
-			z_pmux_3_12 n5y(.sel0(notes3[20]), .sel1(notes3[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note5_y));
-			z_pmux_3_12 n6y(.sel0(notes3[20]), .sel1(notes3[19]), .in0(12'd77), .in1(12'd27), .in2(12'd52), .out(p1note6_y));
+			z_pmux_3_12 n1y(.sel0(notes1[20]), .sel1(notes1[19]), .in0(12'd27), .in1(12'd77), .in2(12'd52), .out(p1note1_y));
+			z_pmux_3_12 n2y(.sel0(notes1[4]),  .sel1(notes1[3]),  .in0(12'd27), .in1(12'd77), .in2(12'd52), .out(p1note2_y));
+			z_pmux_3_12 n3y(.sel0(notes2[20]), .sel1(notes2[19]), .in0(12'd27), .in1(12'd77), .in2(12'd52), .out(p1note3_y));
+			z_pmux_3_12 n4y(.sel0(notes2[4]),  .sel1(notes2[3]),  .in0(12'd27), .in1(12'd77), .in2(12'd52), .out(p1note4_y));
+			z_pmux_3_12 n5y(.sel0(notes3[20]), .sel1(notes3[19]), .in0(12'd27), .in1(12'd77), .in2(12'd52), .out(p1note5_y));
+			z_pmux_3_12 n6y(.sel0(notes3[4]),  .sel1(notes3[3]),  .in0(12'd27), .in1(12'd77), .in2(12'd52), .out(p1note6_y));
 			assign p2note1_y = p1note1_y;
 			assign p2note2_y = p1note2_y;
 			assign p2note3_y = p1note3_y;
@@ -112,12 +93,12 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 			assign p2note5_y = p1note5_y;
 			assign p2note6_y = p1note6_y;
 			
-			z_pmux_3_8 n1c(.sel0(notes1[20]), .sel1(notes1[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note1_c));
-			z_pmux_3_8 n2c(.sel0(notes1[20]), .sel1(notes1[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note2_c));
-			z_pmux_3_8 n3c(.sel0(notes2[20]), .sel1(notes2[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note3_c));
-			z_pmux_3_8 n4c(.sel0(notes2[20]), .sel1(notes2[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note4_c));
-			z_pmux_3_8 n5c(.sel0(notes3[20]), .sel1(notes3[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note5_c));
-			z_pmux_3_8 n6c(.sel0(notes3[20]), .sel1(notes3[19]), .in0(8'h000005), .in1(8'h000003), .in2(8'h000004), .out(p1note6_c));
+			z_pmux_3_8 n1c(.sel0(notes1[20]), .sel1(notes1[19]), .in0(8'h000003), .in1(8'h000005), .in2(8'h000004), .out(p1note1_c));
+			z_pmux_3_8 n2c(.sel0(notes1[4]),  .sel1(notes1[3]),  .in0(8'h000003), .in1(8'h000005), .in2(8'h000004), .out(p1note2_c));
+			z_pmux_3_8 n3c(.sel0(notes2[20]), .sel1(notes2[19]), .in0(8'h000003), .in1(8'h000005), .in2(8'h000004), .out(p1note3_c));
+			z_pmux_3_8 n4c(.sel0(notes2[4]),  .sel1(notes2[3]),  .in0(8'h000003), .in1(8'h000005), .in2(8'h000004), .out(p1note4_c));
+			z_pmux_3_8 n5c(.sel0(notes3[20]), .sel1(notes3[19]), .in0(8'h000003), .in1(8'h000005), .in2(8'h000004), .out(p1note5_c));
+			z_pmux_3_8 n6c(.sel0(notes3[4]),  .sel1(notes3[3]),  .in0(8'h000003), .in1(8'h000005), .in2(8'h000004), .out(p1note6_c));
 			assign p2note1_c = p1note1_c;
 			assign p2note2_c = p1note2_c;
 			assign p2note3_c = p1note3_c;
@@ -172,18 +153,18 @@ module vga_controller(iRST_n, iVGA_CLK,oBLANK_n,oHS,oVS, b_data, g_data, r_data,
 				assign str2 = color_string2 ? 8'h000006 : str1;
 				assign str3 = color_string3 ? 8'h000006 : str2;
 				
-				assign p1n1 = (color_p1note1 && (notes1[20] || notes1[19] || notes1[18]) && ~notes1[17]) ? p1note1_c : str3;
-				assign p1n2 = (color_p1note2 && (notes1[4]  || notes1[3]  || notes1[2])  && ~notes1[1])  ? p1note2_c : p1n1;
-				assign p1n3 = (color_p1note3 && (notes2[20] || notes2[19] || notes2[18]) && ~notes2[17]) ? p1note3_c : p1n2;
-				assign p1n4 = (color_p1note4 && (notes2[4]  || notes2[3]  || notes2[2])  && ~notes2[1])  ? p1note4_c : p1n3;
-				assign p1n5 = (color_p1note5 && (notes3[20] || notes3[19] || notes3[18]) && ~notes3[17]) ? p1note5_c : p1n4;
-				assign p1n6 = (color_p1note6 && (notes3[4]  || notes3[3]  || notes3[2])  && ~notes3[1])  ? p1note6_c : p1n5;
-				assign p2n1 = (color_p2note1 && (notes1[20] || notes1[19] || notes1[18]) && ~notes1[16]) ? p2note1_c : p1n6;
-				assign p2n2 = (color_p2note2 && (notes1[4]  || notes1[3]  || notes1[2])  && ~notes1[0])  ? p2note2_c : p2n1;
-				assign p2n3 = (color_p2note3 && (notes2[20] || notes2[19] || notes2[18]) && ~notes2[16]) ? p2note3_c : p2n2;
-				assign p2n4 = (color_p2note4 && (notes2[4]  || notes2[3]  || notes2[2])  && ~notes2[0])  ? p2note4_c : p2n3;
-				assign p2n5 = (color_p2note5 && (notes3[20] || notes3[19] || notes3[18]) && ~notes3[16]) ? p2note5_c : p2n4;
-				assign p2n6 = (color_p2note6 && (notes3[4]  || notes3[3]  || notes3[2])  && ~notes3[0])  ? p2note6_c : p2n5;
+				assign p1n1 = (color_p1note1 && (notes1[20] || notes1[19] || notes1[18]) && ~notes1[17])  ? p1note1_c : str3;
+				assign p1n2 = (color_p1note2 && (notes1[4]  || notes1[3]  || notes1[2])  && ~notes1[1] )  ? p1note2_c : p1n1;
+				assign p1n3 = (color_p1note3 && (notes2[20] || notes2[19] || notes2[18]) && ~notes2[17])  ? p1note3_c : p1n2;
+				assign p1n4 = (color_p1note4 && (notes2[4]  || notes2[3]  || notes2[2])  && ~notes2[1] )  ? p1note4_c : p1n3;
+				assign p1n5 = (color_p1note5 && (notes3[20] || notes3[19] || notes3[18]) && ~notes3[17])  ? p1note5_c : p1n4;
+				assign p1n6 = (color_p1note6 && (notes3[4]  || notes3[3]  || notes3[2])  && ~notes3[1] )  ? p1note6_c : p1n5;
+				assign p2n1 = (color_p2note1 && (notes1[20] || notes1[19] || notes1[18]) && ~notes1[16])  ? p2note1_c : p1n6;
+				assign p2n2 = (color_p2note2 && (notes1[4]  || notes1[3]  || notes1[2])  && ~notes1[0] )  ? p2note2_c : p2n1;
+				assign p2n3 = (color_p2note3 && (notes2[20] || notes2[19] || notes2[18]) && ~notes2[16])  ? p2note3_c : p2n2;
+				assign p2n4 = (color_p2note4 && (notes2[4]  || notes2[3]  || notes2[2])  && ~notes2[0] )  ? p2note4_c : p2n3;
+				assign p2n5 = (color_p2note5 && (notes3[20] || notes3[19] || notes3[18]) && ~notes3[16])  ? p2note5_c : p2n4;
+				assign p2n6 = (color_p2note6 && (notes3[4]  || notes3[3]  || notes3[2])  && ~notes3[0] )  ? p2note6_c : p2n5;
 				
 				
 				assign p1r = (color_p1r && guitar_in[0]) ? 8'h000003 : p2n6;

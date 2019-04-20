@@ -25,11 +25,11 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Fri Apr 19 01:48:19 2019
+    Info: Processing started: Fri Apr 19 22:29:04 2019
 Info: Command: quartus_eda --gen_testbench --tool=modelsim_oem --format=verilog --write_settings_files=off skeleton -c skeleton --vector_source=C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/Waveform1.vwf --testbench_file=C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/Waveform1.vwf.vt
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 
-01005): Ignoring output pin "notes2[21]" in vector source file when writing test bench files
+ing (201005): Ignoring output pin "data_writeReg[29]" in vector source file when writing test bench files
 
 Completed successfully. 
 
@@ -55,13 +55,13 @@ Info: Running Quartus Prime EDA Netlist Writer
     Info: the sole purpose of programming logic devices manufactured by
     Info: Intel and sold by Intel or its authorized distributors.  Please
     Info: refer to the applicable agreement for further details.
-    Info: Processing started: Fri Apr 19 01:48:21 2019
+    Info: Processing started: Fri Apr 19 22:29:06 2019
 Info: Command: quartus_eda --write_settings_files=off --simulation=on --functional=on --flatten_buses=off --tool=modelsim_oem --format=verilog --output_directory=C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/ skeleton -c skeleton
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (204019): Generated file skeleton.vo in folder "C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim//" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4723 megabytes
-    Info: Processing ended: Fri Apr 19 01:48:24 2019
+    Info: Peak virtual memory: 4726 megabytes
+    Info: Processing ended: Fri Apr 19 22:29:09 2019
     Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:02
 
@@ -82,32 +82,32 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # 10.5b
 
 # do skeleton.do
-# ** Warning: (vlib-34) Library already exists at "work".
 
+# ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 01:48:25 on Apr 19,2019
+# Start time: 22:29:09 on Apr 19,2019
 # vlog -work work skeleton.vo 
 # -- Compiling module skeleton
 
 # 
 # Top level modules:
 # 	skeleton
-# End time: 01:48:26 on Apr 19,2019, Elapsed time: 0:00:01
+# End time: 22:29:10 on Apr 19,2019, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
-# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
-# Start time: 01:48:26 on Apr 19,2019
 
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 22:29:10 on Apr 19,2019
 # vlog -work work Waveform1.vwf.vt 
 
 # -- Compiling module skeleton_vlg_vec_tst
 # 
 # Top level modules:
 # 	skeleton_vlg_vec_tst
-# End time: 01:48:26 on Apr 19,2019, Elapsed time: 0:00:00
+# End time: 22:29:10 on Apr 19,2019, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 
 # vsim -novopt -c -t 1ps -L cycloneive_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.skeleton_vlg_vec_tst 
-# Start time: 01:48:26 on Apr 19,2019
+# Start time: 22:29:11 on Apr 19,2019
 # Loading work.skeleton_vlg_vec_tst
 # Loading work.skeleton
 # Loading cycloneive_ver.cycloneive_io_obuf
@@ -125,7 +125,7 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # Loading cycloneive_ver.cycloneive_ram_register
 # Loading cycloneive_ver.cycloneive_ram_pulse_generator
 # Loading altera_ver.PRIM_GDFF_LOW
-# ** Warning: Design size of 24192 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 24310 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 # after#25
 
@@ -133,18 +133,10 @@ Reading C:/intelFPGA_lite/17.1/modelsim_ase/tcl/vsim/pref.tcl
 # Time: 0  Instance: skeleton_vlg_vec_tst.i1.\p1|altpll_component|pll 
 # Simulation time: 0 ps
 
-# Simulation time: 0 ps
+# ** Note: $finish    : Waveform1.vwf.vt(106)
+#    Time: 1 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
 
-# Simulation time: 0 ps
-
-# Simulation time: 0 ps
-
-# Simulation time: 0 ps
-
-# ** Note: $finish    : Waveform1.vwf.vt(104)
-#    Time: 5 us  Iteration: 0  Instance: /skeleton_vlg_vec_tst
-
-# End time: 01:48:41 on Apr 19,2019, Elapsed time: 0:00:15
+# End time: 22:29:15 on Apr 19,2019, Elapsed time: 0:00:04
 # Errors: 0, Warnings: 1
 
 Completed successfully. 
@@ -157,7 +149,7 @@ Reading C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/q
 
 Processing channel transitions... 
 
-Writing the resulting VWF to C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/skeleton_20190419014841.sim.vwf
+Writing the resulting VWF to C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/simulation/qsim/skeleton_20190419222916.sim.vwf
 
 Finished VCD to VWF conversion.
 

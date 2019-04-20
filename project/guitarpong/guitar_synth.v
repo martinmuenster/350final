@@ -10,12 +10,12 @@ module guitar_synth(assert_note, N, fs, out);
 	integer i;
 	always @(posedge assert_note)
 	begin
-		for(i=0; i<=10; i=i+1) begin
+		/*for(i=0; i<=10; i=i+1) begin
 			str[i] <= i*32'd238609294;
 		end
 		for(i=49; i>=11; i=i-1) begin
 			str[i] <= (49-i)*32'd55063683;
-		end
+		end*/
 	end
 	
 endmodule

@@ -52,19 +52,20 @@ module skeleton(
 	input moveleft, moveright, moveup, movedown;
 	
 	input p1b1, p1b2, p1b3, p1ls, p2b1, p2b2, p2b3, p2ls;
+	
 	wire [5:0] guitar_in;
-	//assign guitar_in[5] = ~p2b3 && p2ls; //add && p1ls when set up
-	//assign guitar_in[4] = ~p2b2 && p2ls;
-	//assign guitar_in[3] = ~p2b1 && p2ls;
-	//assign guitar_in[2] = ~p1b3 && p1ls;
-	//assign guitar_in[1] = ~p1b2 && p1ls;
-	//assign guitar_in[0] = ~p1b1 && p1ls;
-	assign guitar_in[5] = moveleft;
-	assign guitar_in[4] = moveleft;
-	assign guitar_in[3] = moveleft;
-	assign guitar_in[2] = moveleft;
-	assign guitar_in[1] = moveleft;
-	assign guitar_in[0] = moveleft;
+	assign guitar_in[5] = ~p2b3 && p2ls; //add && p1ls when set up
+	assign guitar_in[4] = ~p2b2 && p2ls;
+	assign guitar_in[3] = ~p2b1 && p2ls;
+	assign guitar_in[2] = ~p1b3 && p1ls;
+	assign guitar_in[1] = ~p1b2 && p1ls;
+	assign guitar_in[0] = ~p1b1 && p1ls;
+	//assign guitar_in[5] = ~moveleft;
+	//assign guitar_in[4] = ~moveright;
+	//assign guitar_in[3] = ~moveup;
+	//assign guitar_in[2] = ~moveleft;
+	//assign guitar_in[1] = ~moveright;
+	//assign guitar_in[0] = ~movedown;
 	
 	
 	wire [31:0] external_inputs;

@@ -3,135 +3,135 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
-Slack : -9.557
-TNS   : -554.463
+Slack : -9.513
+TNS   : -526.673
 
 Type  : Slow 1200mV 85C Model Setup 'p1|altpll_component|pll|clk[2]'
-Slack : -8.868
-TNS   : -9.074
+Slack : -8.467
+TNS   : -8.650
 
 Type  : Slow 1200mV 85C Model Setup 'vga_controller:vga_ins|slowclock'
-Slack : -2.754
-TNS   : -42.842
+Slack : -1.040
+TNS   : -32.083
 
 Type  : Slow 1200mV 85C Model Hold 'p1|altpll_component|pll|clk[2]'
-Slack : -0.176
-TNS   : -0.176
+Slack : -0.199
+TNS   : -0.199
 
 Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
-Slack : 0.403
+Slack : 0.402
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Hold 'vga_controller:vga_ins|slowclock'
-Slack : 0.898
+Slack : 0.709
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Recovery 'p1|altpll_component|pll|clk[2]'
-Slack : 12.068
+Slack : 13.281
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Removal 'p1|altpll_component|pll|clk[2]'
-Slack : 5.812
+Slack : 4.763
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'vga_controller:vga_ins|slowclock'
 Slack : -1.285
-TNS   : -42.405
+TNS   : -70.675
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.644
+Slack : 9.638
 TNS   : 0.000
 
 Type  : Slow 1200mV 85C Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
-Slack : 19.707
+Slack : 19.706
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -7.908
-TNS   : -417.604
+Slack : -8.011
+TNS   : -407.646
 
 Type  : Slow 1200mV 0C Model Setup 'p1|altpll_component|pll|clk[2]'
-Slack : -7.850
-TNS   : -7.872
+Slack : -7.507
+TNS   : -7.507
 
 Type  : Slow 1200mV 0C Model Setup 'vga_controller:vga_ins|slowclock'
-Slack : -2.341
-TNS   : -35.965
+Slack : -0.882
+TNS   : -24.213
 
 Type  : Slow 1200mV 0C Model Hold 'p1|altpll_component|pll|clk[2]'
-Slack : -0.273
-TNS   : -0.273
+Slack : -0.297
+TNS   : -0.297
 
 Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.355
+Slack : 0.353
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Hold 'vga_controller:vga_ins|slowclock'
-Slack : 0.839
+Slack : 0.657
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Recovery 'p1|altpll_component|pll|clk[2]'
-Slack : 12.805
+Slack : 13.951
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Removal 'p1|altpll_component|pll|clk[2]'
-Slack : 5.149
+Slack : 4.251
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'vga_controller:vga_ins|slowclock'
 Slack : -1.285
-TNS   : -42.405
+TNS   : -70.675
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.661
+Slack : 9.657
 TNS   : 0.000
 
 Type  : Slow 1200mV 0C Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
-Slack : 19.710
+Slack : 19.709
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Setup 'p1|altpll_component|pll|clk[2]'
-Slack : -4.024
-TNS   : -4.024
+Slack : -3.802
+TNS   : -3.802
 
 Type  : Fast 1200mV 0C Model Setup 'vga_controller:vga_ins|slowclock'
-Slack : -0.839
-TNS   : -12.328
+Slack : -0.487
+TNS   : -9.841
 
 Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
-Slack : -0.090
-TNS   : -0.653
+Slack : -0.139
+TNS   : -0.668
 
 Type  : Fast 1200mV 0C Model Hold 'p1|altpll_component|pll|clk[2]'
-Slack : -0.111
-TNS   : -0.111
+Slack : -0.128
+TNS   : -0.128
 
 Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
-Slack : 0.182
+Slack : 0.181
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Hold 'vga_controller:vga_ins|slowclock'
-Slack : 0.682
+Slack : 0.683
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Recovery 'p1|altpll_component|pll|clk[2]'
-Slack : 15.660
+Slack : 16.367
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Removal 'p1|altpll_component|pll|clk[2]'
-Slack : 2.920
+Slack : 2.425
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'vga_controller:vga_ins|slowclock'
 Slack : -1.000
-TNS   : -33.000
+TNS   : -55.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
-Slack : 9.368
+Slack : 9.369
 TNS   : 0.000
 
 Type  : Fast 1200mV 0C Model Minimum Pulse Width 'p1|altpll_component|pll|clk[2]'
-Slack : 19.755
+Slack : 19.754
 TNS   : 0.000
 
 ------------------------------------------------------------
