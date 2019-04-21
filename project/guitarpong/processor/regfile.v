@@ -4,7 +4,7 @@ module regfile (
     ctrl_reset, ctrl_writeReg,
     ctrl_readRegA, ctrl_readRegB, data_writeReg,
     data_readRegA, data_readRegB,
-	ball, left_paddle, right_paddle, note_reg1, note_reg2, note_reg3, external_inputs, in_out
+	 ball, left_paddle, right_paddle, note_reg1, note_reg2, note_reg3, external_inputs, game_info, player_info
 );
 
    	input clock, ctrl_writeEnable, ctrl_reset;
@@ -14,17 +14,17 @@ module regfile (
 		input [31:0] external_inputs;
 
    	output [31:0] data_readRegA, data_readRegB;
-	output [31:0] ball, left_paddle, right_paddle;
-	output [31:0] note_reg1, note_reg2, note_reg3, in_out;
-	assign in_out = w[29];
+	output [31:0] ball, left_paddle, right_paddle, game_info, player_info;
+	output [31:0] note_reg1, note_reg2, note_reg3;
 	
 	assign ball = w[10];
 	assign left_paddle = w[11];
 	assign right_paddle = w[12];
+	assign game_info = w[14];
+	assign player_info = w[13];
 	assign note_reg1 = w[20];
 	assign note_reg2 = w[21];
 	assign note_reg3 = w[22];
-	//assign w[29] = external_inputs;
 	
 	wire nclock;
 	assign nclock = ~clock;

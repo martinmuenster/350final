@@ -788,63 +788,23 @@
 					"strict" : false
 				},
 				{
-					"name" : "in_out[0]",
-					"strict" : false
-				},
-				{
-					"name" : "in_out[1]",
-					"strict" : false
-				},
-				{
-					"name" : "in_out[2]",
-					"strict" : false
-				},
-				{
-					"name" : "in_out[3]",
-					"strict" : false
-				},
-				{
-					"name" : "in_out[4]",
-					"strict" : false
-				},
-				{
-					"name" : "in_out[5]",
-					"strict" : false
-				},
-				{
 					"name" : "CLOCK_50",
 					"strict" : false
 				},
 				{
-					"name" : "p1ls",
+					"name" : "movedown",
 					"strict" : false
 				},
 				{
-					"name" : "p1b1",
+					"name" : "moveup",
 					"strict" : false
 				},
 				{
-					"name" : "p1b2",
+					"name" : "moveright",
 					"strict" : false
 				},
 				{
-					"name" : "p1b3",
-					"strict" : false
-				},
-				{
-					"name" : "p2ls",
-					"strict" : false
-				},
-				{
-					"name" : "p2b1",
-					"strict" : false
-				},
-				{
-					"name" : "p2b2",
-					"strict" : false
-				},
-				{
-					"name" : "p2b3",
+					"name" : "moveleft",
 					"strict" : false
 				}
 			]

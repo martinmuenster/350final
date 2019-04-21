@@ -2,9 +2,84 @@
 #						Program															REWRITE HOW ISOLATION WORKS!!! IN THIS SECTION
 ###########################################################################
 
-################################################a
-# 	Load initial information from DMEM 		   #
-################################################
+
+#######################################################
+# 	Start Screen 			 		   
+#######################################################
+restart_pong_hero:
+
+# set two player mode to true and all other modes to false.
+start_splash_screen:
+	sw $0 149($0)
+	# update paddle playerstats
+	jal push_to_reg13
+	# update game info 
+	jal push_to_reg14
+
+		j increment_pseudorandom_counter1
+		end_increment_pseudorandom_counter1:
+
+		jal store_inputs_into_dmem
+		lw $2 140($0) # p1 guitar inputs
+		addi $3 $0 1 
+		bne $2 $3 not_single_player
+			j start_single_player_screen	# If red pressed 
+		not_single_player:
+
+		lw $2 140($0) # p1 guitar inputs
+		addi $3 $0 2
+		bne $2 $3 not_multi_player # If green or yellow pressed
+			j start_multi_player_screen 
+		not_multi_player:
+j start_splash_screen # If guitar didn't press anything, stay in splash screen.
+
+
+
+#######################################################
+# 	Initialize Game Logic 			 		   
+#######################################################
+start_single_player_screen:
+	addi $1 $0 1
+	sw $1 149($0) # store game state 1 into dmem
+	# update paddle playerstats
+	jal push_to_reg13
+	# update game info 
+	jal push_to_reg14
+
+j start_game
+
+start_multi_player_screen:
+	addi $1 $0 2
+	sw $1 149($0) # store game state 1 into dmem
+	# update paddle playerstats
+	jal push_to_reg13
+	# update game info 
+	jal push_to_reg14
+
+j start_game
+
+start_game_over_screen:
+	addi $1 $0 3
+	sw $1 149($0) # store game state 1 into dmem
+	# update paddle playerstats
+	jal push_to_reg13
+	# update game info 
+	jal push_to_reg14
+
+
+	j increment_pseudorandom_counter2
+	end_increment_pseudorandom_counter2:
+
+	jal store_inputs_into_dmem
+
+	lw $2 140($0)
+	addi $1 $0 4
+	bne $2 $1 start_game_over_screen
+	j start_splash_screen	# if a button is pressed, then exit to splash screen
+
+j start_game_over_screen
+
+start_game:
 	lw $1 20($0)		# b_xpos [31:21]
 	sw $1 120($0)
 	lw $1 21($0)		# b_ypos [20:10]
@@ -32,6 +107,24 @@
 	lw $1 31($0)		# pR_yvel [4:0]
 	sw $1 131($0)
 
+	sw $0 132($0)
+	sw $0 133($0)
+
+
+	lw $1 42($0) 		# p1_powerup_score
+	sw $1 142($0) 		
+	lw $1 43($0) 		# p2_powerup_score
+	sw $1 143($0) 		
+	lw $1 44($0) 		# pl_lives
+	sw $1 144($0)
+	lw $1 45($0) 		# p2_lives
+	sw $1 145($0) 
+
+	lw $1 46($0) 		# gravity_time_left
+	sw $1 146($0)
+	lw $1 47($0) 		# gravity_affecting_who
+	sw $1 147($0)
+
 	lw $1 50($0) 		# gametime
 	sw $1 150($0)
 	lw $1 51($0) 		# note pointer
@@ -39,732 +132,1123 @@
 	lw $1 52($0) 		# note speed
 	sw $1 152($0)
 
+	# Clear all note registers:
+		sw $0 160($0)	
+		sw $0 161($0)
+		sw $0 162($0)
+		sw $0 163($0)
+		sw $0 164($0)
+		sw $0 165($0)
+		sw $0 166($0)
+		sw $0 167($0)
+
+		sw $0 170($0)	
+		sw $0 171($0)
+		sw $0 172($0)
+		sw $0 173($0)
+		sw $0 174($0)
+		sw $0 175($0)
+		sw $0 176($0)
+		sw $0 177($0)
+
+		sw $0 180($0)	
+		sw $0 181($0)
+		sw $0 182($0)
+		sw $0 183($0)
+		sw $0 184($0)
+		sw $0 185($0)
+		sw $0 186($0)
+		sw $0 187($0)
 
 
-################################################
-# 				Buffer Loop					   #
-################################################
-bufferloop: 
-	# Load 0 initially into reg1
-	add $1 $0 $0
-	# keep incrementing until it reaches a target number
-	lw $2 8($0)						
-	counterincrement:
+#######################################################
+# 				Buffer Loop					   
+#######################################################
+	bufferloop:
+		# Load 0 initially into reg1
+		add $7 $0 $0
+		# keep incrementing until it reaches a target number
+		lw $2 8($0)						
+		counterincrement:
+
+			# Add to pseudorandom counter
+			j increment_pseudorandom_counter3
+			end_increment_pseudorandom_counter3:
+
+			addi $7 $7 1
+			bne $7 $2 counterincrement
+
+
+#######################################################
+# 				MAIN LOOP					   
+#######################################################
+	# Pushes vga objects info into designated regs.
+	j update_vga_registers
+	updated_vga_registers:
+
+
+
+	# Parse Inputs from Guitar
+	jal store_inputs_into_dmem
+
+	# Keeps track of gametime 
+	gametime:
+		lw $1 150($0)
 		addi $1 $1 1
-		bne $1 $2 counterincrement
+		sw $1 150($0)
+	endgametime:
+
+	# Moves note
+	movenote:
+		noteloop:
+		    addi $15 $0 160      # move note data to temp func reg
+		    jal check_note # update note 1
+		    addi $15 $0 164 
+		    jal check_note  # update note 2
+		    addi $15 $0 170     # move note data to temp func reg
+		    jal check_note # update note 3
+		    addi $15 $0 174 
+		    jal check_note  # update note 4
+		    addi $15 $0 180     # move note data to temp func reg
+		    jal check_note # update note 5
+		    addi $15 $0 184 
+		    jal check_note  # update note 6
+	endmovenote:
+
+	# Moves ball
+	moveball:
+		calcNext_X_pos:
+			side_wall_collision_detection:
+				left_wall_collision_check:
+					lw $1 11($0) 				# left_wall
+					lw $2 120($0)				# ballxpos																
+					blt $1 $2 hit_left_wall 	# ballxpos < left_wall
+
+				right_wall_collision_check:
+					lw $1 12($0)				# right_wall
+					lw $2 4($0) 				# ball_length
+					lw $3 120($0) 				# ballxpos
+					add $3 $2 $3 				# ballxpos + ball_length = ball_right_boundry
+					blt $3 $1 hit_right_wall	# ball_right_boundry < right_wall { hit right wall }
+
+			ball_paddle_collision_detection:
+				left_paddle_collision_check:
+					lw $1 121($0) 				# t_ball
+					lw $2 125($0)				# t_paddleL
+					lw $3 6($0)					# paddle_length
+					add $3 $2 $3 				# t_paddleL + paddle_length = b_paddleL
+					blt $1 $3 end_lp_coll_check # if (top_ball > b_paddleL) { no left paddle collision }
+
+					lw $1 121($0) 				# t_ball
+					lw $2 4($0) 	 			# b_length
+					add $1 $1 $2 				# b_ball = t_ball + b_length
+					lw $2 125($0) 				# t_paddleL
+					blt $2 $1 end_lp_coll_check # if (t_paddleL > b_ball) { no left paddle collision }
+
+					lw $1 124($0) 				# l_paddleL
+					lw $2 5($0) 	 			# paddle_width
+					add $1 $1 $2 				# r_paddleL = l_paddleL + paddle_width
+					lw $2 120($0) 				# l_ball
+					blt $2 $1 end_lp_coll_check # l_ball > r_paddleL
+
+					lw $1 124($0) 				# l_paddleL
+					lw $2 120($0) 				# l_ball
+					lw $3 4($0)					# ball_length
+					add $2 $2 $3				# r_ball
+					blt $1 $2 end_lp_coll_check # l_paddleL > r_ball
+
+					j hit_paddleL
+
+				end_lp_coll_check:
+
+				right_paddle_collision_check: 
+					lw $1 121($0) 				# t_ball
+					lw $2 129($0)				# t_paddleR
+					lw $3 6($0)					# paddle_length
+					add $3 $2 $3 				# t_paddleR + paddle_length = b_paddleR
+					blt $1 $3 end_rp_coll_check # if (top_ball > b_paddleR) { no left paddle collision }
+
+					lw $1 121($0) 				# t_ball
+					lw $2 4($0) 	 			# b_length
+					add $1 $1 $2 				# b_ball = t_ball + b_length
+					lw $2 129($0) 				# t_paddleR
+					blt $2 $1 end_rp_coll_check # if (t_paddleR > b_ball) { no left paddle collision }
+
+					lw $1 120($0) 				# l_ball
+					lw $2 4($0) 	 			# ball_length
+					add $1 $1 $2 				# r_ball = l_BALL + ball_length
+					lw $2 128($0) 				# l_paddleR
+					blt $2 $1 end_rp_coll_check # l_paddleR > r_BALL
 
 
-################################################
-# 				MAIN LOOP					   #
-################################################
-j update_vga_registers
-updated_vga_registers:
+					lw $1 120($0) 				# l_ball
+					lw $2 128($0)				# l_paddleR
+					lw $3 5($0)					# paddle_width
+					add $2 $2 $3  				# r_paddleR
+					blt $1 $2 end_rp_coll_check # l_ball > r_paddleR
 
-j store_inputs_into_dmem
-stored_inputs_into_dmem:
-
-# TODO: Check for overflow. 
-gametime:
-	lw $1 150($0)
-	addi $1 $1 1
-	sw $1 150($0)
-
-# Parse Inputs from Guitar
-
-
-movenote:
-	noteloop:
-	    addi $15 $0 160      # move note data to temp func reg
-	    jal check_note # update note 1
-	    addi $15 $0 164 
-	    jal check_note  # update note 2
-	    addi $15 $0 170     # move note data to temp func reg
-	    jal check_note # update note 3
-	    addi $15 $0 174 
-	    jal check_note  # update note 4
-	    addi $15 $0 180     # move note data to temp func reg
-	    jal check_note # update note 5
-	    addi $15 $0 184 
-	    jal check_note  # update note 6
-endmovenote:
-
-
-
-moveball:
-	calcNext_X_pos:
-		side_wall_collision_detection:
-			left_wall_collision_check:
-				lw $1 11($0) 				# left_wall
-				lw $2 120($0)				# ballxpos																
-				blt $1 $2 hit_left_wall 	# ballxpos < left_wall
-
-			right_wall_collision_check:
-				lw $1 12($0)				# right_wall
-				lw $2 4($0) 				# ball_length
-				lw $3 120($0) 				# ballxpos
-				add $3 $2 $3 				# ballxpos + ball_length = ball_right_boundry
-				blt $3 $1 hit_right_wall	# ball_right_boundry < right_wall { hit right wall }
-
-		ball_paddle_collision_detection:
-			left_paddle_collision_check:
-				lw $1 121($0) 				# t_ball
-				lw $2 125($0)				# t_paddleL
-				lw $3 6($0)					# paddle_length
-				add $3 $2 $3 				# t_paddleL + paddle_length = b_paddleL
-				blt $1 $3 end_lp_coll_check # if (top_ball > b_paddleL) { no left paddle collision }
-
-				lw $1 121($0) 				# t_ball
-				lw $2 4($0) 	 			# b_length
-				add $1 $1 $2 				# b_ball = t_ball + b_length
-				lw $2 125($0) 				# t_paddleL
-				blt $2 $1 end_lp_coll_check # if (t_paddleL > b_ball) { no left paddle collision }
-
-				lw $1 124($0) 				# l_paddleL
-				lw $2 5($0) 	 			# paddle_width
-				add $1 $1 $2 				# r_paddleL = l_paddleL + paddle_width
-				lw $2 120($0) 				# l_ball
-				blt $2 $1 end_lp_coll_check # l_ball > r_paddleL
-
-				lw $1 124($0) 				# l_paddleL
-				lw $2 120($0) 				# l_ball
-				lw $3 4($0)					# ball_length
-				add $2 $2 $3				# r_ball
-				blt $1 $2 end_lp_coll_check # l_paddleL > r_ball
-
-				j hit_paddleL
-
-			end_lp_coll_check:
-
-			right_paddle_collision_check: 
-				lw $1 121($0) 				# t_ball
-				lw $2 129($0)				# t_paddleR
-				lw $3 6($0)					# paddle_length
-				add $3 $2 $3 				# t_paddleR + paddle_length = b_paddleR
-				blt $1 $3 end_rp_coll_check # if (top_ball > b_paddleR) { no left paddle collision }
-
-				lw $1 121($0) 				# t_ball
-				lw $2 4($0) 	 			# b_length
-				add $1 $1 $2 				# b_ball = t_ball + b_length
-				lw $2 129($0) 				# t_paddleR
-				blt $2 $1 end_rp_coll_check # if (t_paddleR > b_ball) { no left paddle collision }
-
-				lw $1 120($0) 				# l_ball
-				lw $2 4($0) 	 			# ball_length
-				add $1 $1 $2 				# r_ball = l_BALL + ball_length
-				lw $2 128($0) 				# l_paddleR
-				blt $2 $1 end_rp_coll_check # l_paddleR > r_BALL
-
-
-				lw $1 120($0) 				# l_ball
-				lw $2 128($0)				# l_paddleR
-				lw $3 5($0)					# paddle_width
-				add $2 $2 $3  				# r_paddleR
-				blt $1 $2 end_rp_coll_check # l_ball > r_paddleR
-
-				j hit_paddleR
-			end_rp_coll_check:
-				j update_bx
+					j hit_paddleR
+				end_rp_coll_check:
+					j update_bx
 
 
 
-		# After any collision is detected, jump to update_bx.
-		update_bx:
-			lw $1 120($0) 	# $1: Ball x position.
-			lw $3 122($0)	# $3: Ball x velocity
-			add $4 $1 $3	# $6: newx = oldx + deltax
-			sw $4 120($0)	# store newx
+			# After any collision is detected, jump to update_bx.
+			update_bx:
+				lw $1 120($0) 	# $1: Ball x position.
+				lw $3 122($0)	# $3: Ball x velocity
+				add $4 $1 $3	# $6: newx = oldx + deltax
+				sw $4 120($0)	# store newx
 
-	calcNext_Y_pos:
-		vertical_wall_collision_detection:
-			upper_wall_collision_check:
-				lw $1 9($0)					# top_wall_pos
-				lw $2 121($0) 				# ball_y_pos
-				blt $1 $2 hit_top_wall		# top_wall_pos > ball_y_pos
+		calcNext_Y_pos:
+			vertical_wall_collision_detection:
+				upper_wall_collision_check:
+					lw $1 9($0)					# top_wall_pos
+					lw $2 121($0) 				# ball_y_pos
+					blt $1 $2 hit_top_wall		# top_wall_pos > ball_y_pos
 
-			lower_wall_collision_check:
-				lw $1 10($0)				# bottom_wall_pos
-				lw $2 121($0) 				# ball_y_pos
-				lw $3 4($0)		 			# ball_length
-				add $3 $3 $2 				# ball_ypos + ball_length = ball_bottom_boundry
-				blt $3 $1 hit_bottom_wall 	# if (ball_bottom_boundry > bottom_wall_pos) { hit_bottom_wall }
+				lower_wall_collision_check:
+					lw $1 10($0)				# bottom_wall_pos
+					lw $2 121($0) 				# ball_y_pos
+					lw $3 4($0)		 			# ball_length
+					add $3 $3 $2 				# ball_ypos + ball_length = ball_bottom_boundry
+					blt $3 $1 hit_bottom_wall 	# if (ball_bottom_boundry > bottom_wall_pos) { hit_bottom_wall }
 
-		update_by:
-			lw $1 121($0) 					# ball_oldypos
-			lw $2 123($0)					# ballyvel
-			add $2 $2 $1					# newy = ball_oldypos + ballyvel
-			sw $2 121($0) 					# store newy into 121.
-endmoveball:
+			update_by:
+				lw $1 121($0) 					# ball_oldypos
+				lw $2 123($0)					# ballyvel
+				add $2 $2 $1					# newy = ball_oldypos + ballyvel
+				sw $2 121($0) 					# store newy into 121.
+	endmoveball:
 
-movepaddles:
-	move_paddleL:
-		# if ball in right half of screen, then don't move paddle.
-		lw $1 120($0) 	# ballX 
-		lw $2 4($0)	# ball_length
-		sra $2 $2 1		# ball_length/2
-		add $1 $1 $2 	# center_x of ball
-		lw $2 12($0)	# wall_width
-		sra $2 $2 1		# wall_width/2
-		blt $1 $2 end_move_paddleL		# center_x_ball > wall_width/2
+	# Moves paddle
+	movepaddles:
+		move_paddleL:
+			# if ball in right half of screen, then don't move paddle.
+			lw $1 120($0) 	# ballX 
+			lw $2 4($0)	# ball_length
+			sra $2 $2 1		# ball_length/2
+			add $1 $1 $2 	# center_x of ball
+			lw $2 12($0)	# wall_width
+			sra $2 $2 1		# wall_width/2
+			blt $1 $2 end_move_paddleL		# center_x_ball > wall_width/2
 
-		# if ball is in left half of screen, move paddle.
-		lw $1 125($0) # paddleL_ypos
-		lw $2 6($0) # paddleL_length
-		sra $2 $2 1	#  paddleL_length/2
-		add $2 $2 $1 # paddleL_ymid = paddle_length/2 + paddle_ypos
+			lw $4 132($0) # pL stoptime_left
+			bne $4 $0 decrement_paddleL_pausetime
 
-		lw $3 121($0) # ball_ypos
-		blt $3 $2 move_paddleL_down # if ball_ypos > paddleL_ymid
-		blt $2 $3 move_paddleL_up # if paddleL_ymid > ball_ypos
-	end_move_paddleL:
+			# if ball is in left half of screen, move paddle.
+			lw $1 125($0) # paddleL_ypos
+			lw $2 6($0) # paddleL_length
+			sra $2 $2 1	#  paddleL_length/2
+			add $2 $2 $1 # paddleL_ymid = paddle_length/2 + paddle_ypos
 
-	move_paddleR:
-		# if ball in left half of screen, then don't move paddle.
-		lw $1 120($0) 	# ballX 
-		lw $2 4($0)	# ball_length
-		sra $2 $2 1		# ball_length/2
-		add $1 $1 $2 	# center_x of ball
-		lw $2 12($0)	# wall_width
-		sra $2 $2 1		# wall_width/2
-		blt $2 $1 end_move_paddleR		# wall_width/2 > center_x_ball
+			lw $3 121($0) # ball_ypos
+			blt $3 $2 move_paddleL_down # if ball_ypos > paddleL_ymid
+			blt $2 $3 move_paddleL_up # if paddleL_ymid > ball_ypos
+			j end_move_paddleL
 
+			decrement_paddleL_pausetime:
+				lw $4 132($0) # pL stoptime_left
+				addi $4 $4 -1 # decrement pL stoptime_left
+				sw $4 132($0) # push back pL stoptime_left
+			j end_move_paddleL
 
-		# if ball is in right half of screen, move paddle.
-		lw $1 129($0) # paddleL_ypos
-		lw $2 6($0) # paddleL_length
-		sra $2 $2 1	#  paddleL_length/2
-		add $2 $2 $1 # paddleL_ymid = paddle_length/2 + paddle_ypos
+		end_move_paddleL:
 
-		lw $3 121($0) # ball_ypos
-		blt $3 $2 move_paddleR_down # if ball_ypos > paddleL_ymid
-		blt $2 $3 move_paddleR_up # if paddleL_ymid > ball_ypos
-	end_move_paddleR:
-
-
-j bufferloop
+		move_paddleR:
+			# if ball in left half of screen, then don't move paddle.
+			lw $1 120($0) 	# ballX 
+			lw $2 4($0)	# ball_length
+			sra $2 $2 1		# ball_length/2
+			add $1 $1 $2 	# center_x of ball
+			lw $2 12($0)	# wall_width
+			sra $2 $2 1		# wall_width/2
+			blt $2 $1 end_move_paddleR		# wall_width/2 > center_x_ball
 
 
-################################################################
-# Paddle moving logic
-################################################################
-
-move_paddleL_down:
-	lw $1 125($0) 	# paddleL_ypos
-	lw $2 127($0) 	# paddleL_yvel
-	add $1 $1 $2 	# paddle_newpos
-	lw $2 6($0) 	# paddleL_length
-	add $3 $1 $2 	# paddleL_bottom
-	lw $2 10($0)	# bottom_wall
-	blt $3 $2 set_paddleL_bottomBound # if (paddleBottom > bottom_wall) {set paddle_b to hug bottom wall}
-	sw $1 125($0)	# store new ypaddlePosition. 
-	j end_move_paddleL
-	set_paddleL_bottomBound:
-	lw $1 6($0) 	# paddle_length
-	lw $2 10($0)	# bottom_wall
-	sub $2 $2 $1 	# lowest_paddle_y_pos
-	sw $2 125($0)	# store new ypaddlePosition. 
-	j end_move_paddleL
-
-move_paddleL_up:
-	lw $1 125($0) 	# paddleL_ypos
-	lw $2 127($0) 	# paddleL_yvel
-	sub $1 $1 $2 	# paddle_newpos
-	lw $2 9($0)	# top_wall
-	blt $2 $1 set_paddleL_upperBound # if (topwall > paddle_newpos) {set paddle_t top top wall}
-	sw $1 125($0)	# store new ypaddlePosition. 
-	j end_move_paddleL
-	set_paddleL_upperBound:
-	lw $2 9($0)	# upper_wall
-	sw $2 125($0)	# store new ypaddlePosition. 
-	j end_move_paddleL
-
-move_paddleR_down:
-	lw $1 129($0) 	# paddleL_ypos
-	lw $2 131($0) 	# paddleL_yvel
-	add $1 $1 $2 	# paddle_newpos
-	lw $2 6($0) 	# paddleL_length
-	add $3 $1 $2 	# paddleL_bottom
-	lw $2 10($0)	# bottom_wall
-	blt $3 $2 set_paddleR_bottomBound # if (paddleBottom > bottom_wall) {set paddle_b to hug bottom wall}
-	sw $1 129($0)	# store new ypaddlePosition. 
-	j end_move_paddleR
-	set_paddleR_bottomBound:
-	lw $1 6($0) 	# paddle_length
-	lw $2 10($0)	# bottom_wall
-	sub $2 $2 $1 	# lowest_paddle_y_pos
-	sw $2 129($0)	# store new ypaddlePosition. 
-	j end_move_paddleR
-
-move_paddleR_up:
-	lw $1 129($0) 	# paddleL_ypos
-	lw $2 131($0) 	# paddleL_yvel
-	sub $1 $1 $2 	# paddle_newpos
-	lw $2 9($0)	# top_wall
-	blt $2 $1 set_paddleR_upperBound # if (topwall > paddle_newpos) {set paddle_t top top wall}
-	sw $1 129($0)	# store new ypaddlePosition. 
-	j end_move_paddleR
-	set_paddleR_upperBound:
-	lw $2 9($0)	# upper_wall
-	sw $2 129($0)	# store new ypaddlePosition. 
-	j end_move_paddleR
+			lw $4 133($0) # pL stoptime_left
+			bne $4 $0 decrement_paddleR_pausetime # if pR stoptime_left > 0, then jump
 
 
-################################################################
-# BALL SIDE COLLISION FUNCTIONS:
-################################################################
-# NEGATE X VELOCITY
-hit_left_wall:
-hit_right_wall:
-negate_x_vel: 
-	lw $3 122($0)	# $3: Ball x velocity
-	sub $4 $0 $3 	# Negate x velocity
-	sw $4 122($0)	# Store new x velocity into function. 
-	j update_bx
+			# if ball is in right half of screen, move paddle.
+			lw $1 129($0) # paddleR_ypos
+			lw $2 6($0) # paddleR_length
+			sra $2 $2 1	#  paddleR_length/2
+			add $2 $2 $1 # paddleR_ymid = paddle_length/2 + paddle_ypos
 
-hit_paddleL: # move_right
-	ball_hit_paddleL_yvel_logic:
-		bottom_paddleL_intersect:
-			# Did ball hit Bottom 1/4 of the paddle.
-			lw $1 125($0)	# top_paddleL
-			lw $3 6($0)	# paddle_length
-			add $1 $3 $1	# bottom_paddleL
-			lw $2 121($0)	# top_ball
-			sub $1 $1 $2	# bottom_paddleR - top_ball
-			sra $3 $3 2		# paddle_length / 4
-			blt $3 $1 end_bottom_paddleL_intersect		# paddle_length/4 > (bottom_paddleR - top_ball)
+			lw $3 121($0) # ball_ypos
+			blt $3 $2 move_paddleR_down # if ball_ypos > paddleR_ymid
+			blt $2 $3 move_paddleR_up # if paddleR_ymid > ball_ypos
 
-			# Ball hit bottom 1/4 of the paddle. Set next negate_y_vel
-			lw $1 123($0)	# ball_old_yvel
-			addi $1 $1 3 	# ball_new_yvel.
-			lw $2 7($0) 	# paddle_max_yspeed
-			blt $1 $2 pL_maximize_ball_yvel # ball_new_yvel > paddle_max_yspeed
-			j pL_increase_ball_yvel
-				pL_maximize_ball_yvel:
-					lw $1 7($0)
-					sw $1 123($0)
-					j end_bottom_paddleL_intersect
-				pL_increase_ball_yvel:
-					lw $1 123($0)	# ball y velocity
-					addi $1 $1 3 	# find new y velocity.
-					sw $1 123($0) 	# ball y velocity
-					j end_bottom_paddleL_intersect
-		end_bottom_paddleL_intersect:
+			j end_move_paddleR
 
-		top_paddleL_intersect:
-			# Is ball hitting Top 1/4 of the paddle
+			decrement_paddleR_pausetime:
+				lw $4 133($0) # pR stoptime_left
+				addi $4 $4 -1 # decrement pR stoptime_left
+				sw $4 133($0) # push back pR stoptime_left
+			j end_move_paddleR
+		end_move_paddleR:
+	endmovepaddles:
+
+	j bufferloop
+
+
+#######################################################
+# UPDATE VGA REGISTERS FUNCTIONS
+#######################################################
+	# update vga registers
+	update_vga_registers:
+		# update ball register
+		jal push_to_reg10
+		# update paddle 1 register
+		jal push_to_reg11
+		# update paddle 2 register
+		jal push_to_reg12
+		# update paddle playerstats
+		jal push_to_reg13
+		# update game info 
+		jal push_to_reg14
+		# update note register 1 (notes 1 and 2)
+		jal push_to_reg20
+		# update note register 2 (notes 3 and 4)
+		jal push_to_reg21
+		# update note register 3 (notes 5 and 6)
+		jal push_to_reg22
+
+		j updated_vga_registers
+
+	# [31:21] [20:10] [9:5] [4:0] (ball, paddles)
+		# ball info
+		push_to_reg10:
+			addi $16 $0 120 		# start storing into dmem at address 120. (120, 121, 122, 123)
+			add $28 $31 $0
+			jal push_31_20_9_4
+			add $31 $28 $0
+			addi $10 $15 0			# $15 output of jal. Has consolidated register info.
+			jr $31
+
+		# paddleL info. 
+		push_to_reg11: 
+			addi $16 $0 124 		# start storing into dmem at address 120. (120, 121, 122, 123)
+			add $28 $31 $0
+			jal push_31_20_9_4
+			add $31 $28 $0
+			addi $11 $15 0			# $15 output of jal. Has consolidated register info.
+			jr $31
+
+		# paddleR info
+		push_to_reg12:
+			addi $16 $0 128 		# start storing into dmem at address 120. (120, 121, 122, 123)
+			add $28 $31 $0
+			jal push_31_20_9_4
+			add $31 $28 $0
+			addi $12 $15 0			# $15 output of jal. Has consolidated register info.
+			jr $31
+
+		push_to_reg13:
+			addi $16 $0 142 		# start storing into dmem at address 142.
+			add $28 $31 $0
+			jal push_31_20_9_4
+			add $31 $28 $0
+			addi $13 $15 0
+			jr $31
+
+		# General function for [31:21] [20:10] [9:5] [4:0] split.
+		push_31_20_9_4:
+			# Clear reg15
+			add $15 $0 $0
+
+			# Load xpos into $15
+			lw $17 0($16)			# [31:21]
+			sll $17 $17 21
+			add $15 $15 $17
+
+			# Load ypos into $15
+			lw $17 1($16)			# [20:10]
+			addi $18 $0 2047
+			sll $18 $18 10
+			sll $17 $17 10
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# Load xvel into $15
+			lw $17 2($16) 			# [9:5]
+			addi $18 $0 31
+			sll $18 $18 5
+			sll $17 $17 5
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# Load xvel into $15
+			lw $17 3($16)			# [4:0]
+			addi $18 $0 31
+			sll $18 $18 0
+			sll $17 $17 0
+			and $17 $17 $18
+			add $15 $15 $17
+
+			jr $31
+
+	# [31:21] [20:18]  [17] [16] [15:5] [4:2] [1] [0]
+		# active notes 1 and 2
+		push_to_reg20:
+			addi $16 $0 160	 		# start storing into dmem at address 160. (160, 161, 162, 163, 164, 165, 166, 167)
+			add $28 $31 $0
+			jal push_31_20_17_16_15_4_1_0
+			add $31 $28 $0
+			addi $20 $15 0			# $15 output of jal. Has consolidated register info.
+			jr $31
+
+		# active notes 3 and 4
+		push_to_reg21:
+			addi $16 $0 170	 		# start storing into dmem at address 170. (170, 171, 172, 173, 174, 175, 176, 177)
+			add $28 $31 $0
+			jal push_31_20_17_16_15_4_1_0
+			add $31 $28 $0
+			addi $21 $15 0			# $15 output of jal. Has consolidated register info.
+			jr $31
+
+		# active notes 5 and 6
+		push_to_reg22:
+			addi $16 $0 180	 		# start storing into dmem at address 170. (180, 181, 182, 183, 184, 185, 186, 187)
+			add $28 $31 $0
+			jal push_31_20_17_16_15_4_1_0
+			add $31 $28 $0
+			addi $22 $15 0			# $15 output of jal. Has consolidated register info.
+			jr $31
+
+		# General function for [31:21] [20:10] [9:5] [4:0] split.
+		push_31_20_17_16_15_4_1_0:
+			# Clear reg15
+			add $15 $0 $0
+
+			# [31:21] xpos 
+			lw $17 0($16)		
+			sll $17 $17 21
+			add $15 $15 $17
+
+			# [20:18] color 	(one hot)
+			lw $17 1($16)			
+			addi $18 $0 7
+			sll $18 $18 18
+			sll $17 $17 18
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# [17] n1_p1_hit 	(one hot)
+			lw $17 2($16) 			
+			addi $18 $0 1
+			sll $18 $18 17
+			sll $17 $17 17
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# [16] n1_p1_hit 	(one hot)
+			lw $17 3($16) 			
+			addi $18 $0 1
+			sll $18 $18 16
+			sll $17 $17 16
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# [15:5] n1_p1_hit
+			lw $17 4($16) 			
+			addi $18 $0 2047
+			sll $18 $18 5
+			sll $17 $17 5
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# [4:2] n1_p1_hit
+			lw $17 5($16) 			
+			addi $18 $0 7
+			sll $18 $18 2
+			sll $17 $17 2
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# [1] n1_p1_hit
+			lw $17 6($16) 			
+			addi $18 $0 1
+			sll $18 $18 1
+			sll $17 $17 1
+			and $17 $17 $18
+			add $15 $15 $17
+
+			# [0] n1_p1_hit
+			lw $17 7($16) 			
+			addi $18 $0 1
+			sll $18 $18 0
+			sll $17 $17 0
+			and $17 $17 $18
+			add $15 $15 $17
+
+			jr $31
+
+	# [31:11] [10:2] [1:0]
+		push_to_reg14:
+			addi $15 $0 0
+			lw $16 150($0)			# [31:14] Gametime
+			sll $16 $16 14
+			add $15 $15 $16
+
+			lw $17 146($0) 			# [13:2] Gravity time remaining.
+			addi $18 $0 4095
+			sll $18 $18 2
+			sll $17 $17 2
+			and $17 $17 $18
+			add $15 $15 $17
+
+			lw $17 149($0)			# [1:0] Game states
+			addi $18 $0 3
+			and $17 $17 $18
+			add $15 $15 $17
+			add $14 $15 $0
+			jr $31 
+
+#######################################################
+# Store input registers into dmem
+#######################################################
+	store_inputs_into_dmem:
+		store_guitar_inputs: # reg29 [5:0] guitar inputs:
+			# 	140 [0] Player Left: Color Pressed
+			addi $1 $0 7 	# mask at ...000111
+			and $1 $1 $29 	
+			sra $1 $1 0
+			sw $1 140($0)
+
+			# 	141  Player Right: Color Pressed.
+			addi $1 $0 7   	# mask at ...000111
+			sra $2 $29 3	# shift $29[5:3] -> $29[2:0]
+			and $1 $1 $2
+			sw $1 141($0)
+		end_store_guitar_inputs:
+	jr $31
+
+
+#######################################################
+# Note logic
+#######################################################
+	# 	60 	[31:21] n1_xpos 
+	#	61	[20:18] n1_color 
+	# 	62 	[17] n1_p1_hit 
+	#	63	[16] n1_p2_hit 
+
+	#	$15 is readonly. $31 has return statment for jal. trash registers are usable. 
+
+	check_note:     # inputs $15 (note reg), output $15 (updated note reg)
+	    lw $16 1($15)
+	    bne $16 $0 note_notempty    # jump if note exists
+	    j note_empty                # else jump to make a note
+		    note_notempty:  # update position of high note... input $15 (note reg), output $15 (updated notereg)
+			    lw $16 152($0)   # load note velocity into $16
+			    lw $17 0($15)
+			    add $17 $17 $16 # add velocity to high bit note pos
+			    sw $17 0($15)
+
+			    # If note is out of bounds, remove note
+			 	j is_note_out_of_bounds # Preserve $15! send note dmem location in $15 
+		 		end_is_note_out_of_bounds:
+		 		# If guitar strums when note is hit, set note's hit to true.
+
+				j hit_note
+		 		end_hit_note:
+
+
+		    	jr $31          # note's position has been updated, return to game loop
+
+		    note_empty:    # decide whether to load a new note or remain empty... input $15 (note reg), output $15 (updated notereg)
+			    lw $16 151($0)       # load note pointer into $16
+			    lw $17 1($16)       # load the time of the next note into $17
+			    lw $18 150($0)       # load the game loop counter into $18
+			    blt $18 $17 make_note # if counter is greater than next note time, make note
+				jr $31              # else, keep note empty, return to game loop
+
+				    make_note:
+					    lw $16 151($0)       # load note pointer into $16
+					    lw $17 0($16)       # load the value of the next note into $17
+					    sw $17 1($15)
+					    addi $16 $16 2       # increment note pointer to next note
+					    sw $16 151($0)       # store new note pointer into DMEM
+						jr $31
+
+#######################################################
+# Note logic subfunctions (trash registers)
+#######################################################
+	# 	60 	[31:21] n1_xpos 
+	#	61	[20:18] n1_color 
+	# 	62 	[17] n1_p1_hit 
+	#	63	[16] n1_p2_hit 
+
+	# Sub Function 1 If guitar strums when note is hit, set note's hit to true.
+	hit_note:
+		lw $1 0($15)	# n1_xpos 
+		addi $3 $0 255 
+		blt $3 $1 note_outside_hit_range
+		addi $3 $0 285
+		blt $1 $3 note_outside_hit_range
+			notes_in_hit_range:
+				# player1
+				pl_hit_logic:
+					j increment_pseudorandom_counter7
+					end_increment_pseudorandom_counter7:
+					lw $1 1($15) # n1_color
+					lw $2 140($0) # p1_input
+					and $1 $1 $2 # input color matches note
+					bne $1 $0 set_n1_p1_hit_true
+					j end_p1_hit_logic
+					set_n1_p1_hit_true:
+						lw $2 2($15)
+						bne $2 $0 end_p1_hit_logic
+						p1_hits_note:
+							addi $1 $0 1 
+							sw $1 2($15)
+							# Calculate points presented to player 1
+								lw $1 142($0)	# n1_xpos
+								add $1 $1 3
+								sw $1 143($0)
+
+								lw $6 0($15)	# n1_xpos 
+								is_pL_in_3_point_range:
+									j increment_pseudorandom_counter6
+									end_increment_pseudorandom_counter6:
+									addi $3 $0 265 
+									blt $3 $6 is_pL_in_2_point_range
+									addi $3 $0 275
+									blt $6 $3 is_pL_in_2_point_range
+									lw $4 142($0)		# load p1_powerup_score
+									addi $4 $4 3		# add 3 to powerup p1_powerup_score
+									sw $4 142($0)
+
+									j calculated_points_pL
+								is_pL_in_2_point_range:
+									addi $3 $0 260 
+									blt $3 $6 is_pL_in_1_point_range
+									addi $3 $0 280
+									blt $6 $3 is_pL_in_1_point_range
+									lw $4 142($0)		# load p1_powerup_score
+									addi $4 $4 2		# add 2 to powerup p1_powerup_score
+									sw $4 142($0)
+
+									j increment_pseudorandom_counter5
+									end_increment_pseudorandom_counter5:
+
+									j calculated_points_pL
+								is_pL_in_1_point_range:
+									lw $4 142($0)		# load p1_powerup_score
+									addi $4 $4 1		# add 1 to powerup p1_powerup_score
+									sw $4 142($0)
+
+									j increment_pseudorandom_counter4
+									end_increment_pseudorandom_counter4:
+								calculated_points_pL:
+
+				end_p1_hit_logic:
+
+				# player2
+				p2_hit_logic:
+					lw $1 149($0) # if 1 player mode
+					addi $2 $0 1 # 1 player mode gamestate number
+					bne $1 $2 player2_hit_ball_logic
+					# if 2 player mode 
+					computer_hit_ball_logic:
+						lw $1 148($0)	# load pseudorandom number
+						addi $2 $0 7	# 3 bit mask
+						and $1 $1 $2 	# isolate bits.
+						bne $1 $0 end_p2_hit_logic # approx once every 8 gameloops steps, hit the note.
+						j set_n1_p2_hit_true
+					player2_hit_ball_logic:
+						lw $1 1($15) # n1 color
+						lw $2 141($0) # p2_input
+						and $1 $1 $2 # check for overlap
+						bne $1 $0 set_n1_p2_hit_true 
+						j end_p2_hit_logic
+					set_n1_p2_hit_true:
+						lw $2 3($15) # load p2hit_status
+						bne $2 $0 end_p2_hit_logic # if p2 already hit note, don't hit note again.
+						p2_hits_note:
+							addi $1 $0 1
+							sw $1 3($15)
+							# Calculate points presented to player 2
+								lw $6 0($15)	# n1_xpos 
+								is_pR_in_3_point_range:
+									addi $3 $0 265 
+									blt $3 $6 is_pR_in_2_point_range
+									addi $3 $0 275
+									blt $6 $3 is_pR_in_2_point_range
+									lw $4 143($0)		# load p1_powerup_score
+									addi $4 $4 3		# add 3 to powerup p1_powerup_score
+									sw $4 143($0)
+									j calculated_points_pR
+								is_pR_in_2_point_range:
+									addi $3 $0 260 
+									blt $3 $6 is_pR_in_1_point_range
+									addi $3 $0 280
+									blt $6 $3 is_pR_in_1_point_range
+									lw $4 143($0)		# load p1_powerup_score
+									addi $4 $4 2		# add 2 to powerup p1_powerup_score
+									sw $4 143($0)
+									j calculated_points_pR
+								is_pR_in_1_point_range:
+									lw $4 143($0)		# load p1_powerup_score
+									addi $4 $4 1		# add 1 to powerup p1_powerup_score
+									sw $4 143($0)
+								calculated_points_pR:
+				end_p2_hit_logic:
+				# player2		
+			note_outside_hit_range:
+
+		# Check player 1 guitar's color input
+		# n1_xpos < 260 - 280
+	j end_hit_note
+
+	# Sub Function 2
+	is_note_out_of_bounds:
+		lw $16 0($15) 	# note_x_pos
+		lw $17 12($0) 	# screen_width
+		sra $17 $17 1 	# screen_width/2
+
+		blt $16 $17 note_is_out_of_bounds
+			j end_is_note_out_of_bounds
+		note_is_out_of_bounds:
+			p1_missed_note:
+				# TODO: if (p1.hitnote == false), pause paddle
+				lw $1 2($15)
+				bne $1 $0 end_p1_missed_note
+				lw $2 0($0) # load paddle stoptime
+				sw $2 132($0)
+			end_p1_missed_note:
+
+			p2_missed_note:
+				# TODO: if (p2.hitnote == false), pause paddle
+				lw $1 3($15)
+				bne $1 $0 end_p2_missed_note
+				lw $2 0($0) # load paddle stoptime
+				sw $2 133($0)
+			end_p2_missed_note:
+
+			erase_note:
+				sw $0 0($15)
+				sw $0 1($15)
+				sw $0 2($15)
+				sw $0 3($15)
+	j end_is_note_out_of_bounds
+	
+#######################################################
+# Ball logic.
+#######################################################
+	# NEGATE X VELOCITY
+	hit_left_wall:
+		lw $1 144($0)
+		addi $1 $1 -1
+		sw $1 144($0)
+		bne $1 $0 restart_ball_pos
+		j start_game_over_screen
+	hit_right_wall:
+		lw $1 145($0)
+		addi $1 $1 -1
+		sw $1 145($0)
+		bne $1 $0 restart_ball_pos
+		j start_game_over_screen
+	negate_x_vel: 
+		lw $3 122($0)	# $3: Ball x velocity
+		sub $4 $0 $3 	# Negate x velocity
+		sw $4 122($0)	# Store new x velocity into function. 
+		j update_bx
+
+	restart_ball_pos:
+		lw $1 20($0)		# b_xpos [31:21]
+		sw $1 120($0)
+		lw $1 21($0)		# b_ypos [20:10]
+		sw $1 121($0)
+		lw $1 22($0) 		# b_xvel [9:5]
+		sw $1 122($0)
+		lw $1 23($0)		# b_yvel [4:0]
+		sw $1 123($0)
+		sw $0 132($0)
+		sw $0 133($0)
+
+
+		j update_bx
+
+
+	hit_paddleL: # move_right
+		ball_hit_paddleL_yvel_logic:
+			bottom_paddleL_intersect:
+				# Did ball hit Bottom 1/4 of the paddle.
 				lw $1 125($0)	# top_paddleL
+				lw $3 6($0)	# paddle_length
+				add $1 $3 $1	# bottom_paddleL
+				lw $2 121($0)	# top_ball
+				sub $1 $1 $2	# bottom_paddleR - top_ball
+				sra $3 $3 2		# paddle_length / 4
+				blt $3 $1 end_bottom_paddleL_intersect		# paddle_length/4 > (bottom_paddleR - top_ball)
+
+				# Ball hit bottom 1/4 of the paddle. Set next negate_y_vel
+				lw $1 123($0)	# ball_old_yvel
+				addi $1 $1 3 	# ball_new_yvel.
+				lw $2 7($0) 	# paddle_max_yspeed
+				blt $1 $2 pL_maximize_ball_yvel # ball_new_yvel > paddle_max_yspeed
+				j pL_increase_ball_yvel
+					pL_maximize_ball_yvel:
+						lw $1 7($0)
+						sw $1 123($0)
+						j end_bottom_paddleL_intersect
+					pL_increase_ball_yvel:
+						lw $1 123($0)	# ball y velocity
+						addi $1 $1 3 	# find new y velocity.
+						sw $1 123($0) 	# ball y velocity
+						j end_bottom_paddleL_intersect
+			end_bottom_paddleL_intersect:
+
+			top_paddleL_intersect:
+				# Is ball hitting Top 1/4 of the paddle
+					lw $1 125($0)	# top_paddleL
+					lw $2 6($0)	# paddle_length
+					sra $2 $2 2 	# paddle_length/4
+					lw $3 121($0)	# top_ball
+					lw $4 4($0)	# ball_length
+					add $3 $3 $4	# bottom_ball
+					sub $3 $3 $1 	# bottom_ball - top_paddleR
+					blt $2 $3 end_top_paddleL_interesect
+				
+				# ball hit top 1/4 of the paddle. 
+					lw $1 123($0)	# ball y velocity
+					addi $1 $1 -3 	# find new y velocity.
+					lw $2 7($0) 	# paddle_max_yspeed
+					sub $2 $0 $2	# min_yvel = -1*paddle_max_yspeed
+					blt $2 $1 minimize_ball_yvel
+					j reduce_ball_yvel
+						minimize_ball_yvel:
+							lw $1 7($0) 	# paddle_max_yspeed
+							sub $1 $0 $1	# min_yvel = -1*paddle_max_yspeed
+							sw $1 123($0)
+							j end_top_paddleL_interesect 
+						reduce_ball_yvel:
+							lw $1 123($0)	# ball y velocity
+							addi $1 $1 -3 	# find new y velocity.
+							sw $1 123($0) 	# ball y velocity
+							j end_top_paddleL_interesect
+			end_top_paddleL_interesect:
+
+		ball_hit_paddleL_xvel_logic:
+			lw $3 122($0)	# $3: Ball x velocity
+			blt $3 $0 update_bx # If Ball x velocity is positive, keep positive. 
+			sub $4 $0 $3 	# Negate x velocity
+			sw $4 122($0)	# Store new x velocity into function. 
+			j update_bx
+
+	hit_paddleR: # move_left 
+		ball_hit_paddleR_yvel_logic:
+			# Calculate ball's new y velocity
+			bottom_paddleR_intersect:
+				# Did ball hit Bottom 1/4 of the paddleL.
+				lw $1 129($0)	# top_paddleR
+				lw $3 6($0)	# paddle_length
+				add $1 $3 $1	# bottom_paddleR
+				lw $2 121($0)	# top_ball
+				sub $1 $1 $2	# bottom_paddleR - top_ball
+				sra $3 $3 2		# paddle_length / 4
+				blt $3 $1 end_bottom_paddleR_intersect	# paddle_length/4 > bottom_paddleR - top_ball
+
+				# Ball hit bottom 1/4 of the paddleL. Set next negate_y_vel
+				lw $1 123($0)	# ball_old_yvel
+				addi $1 $1 3 	# ball_new_yvel.
+				lw $2 7($0) 	# paddle_max_yspeed
+				blt $1 $2 pR_maximize_ball_yvel # ball_new_yvel > paddle_max_yspeed
+				j pR_increase_ball_yvel
+					pR_maximize_ball_yvel:
+						lw $1 7($0)
+						sw $1 123($0)
+						j end_bottom_paddleR_intersect
+					pR_increase_ball_yvel:
+						lw $1 123($0)	# ball y velocity
+						addi $1 $1 3 	# find new y velocity.
+						sw $1 123($0) 	# ball y velocity
+						j end_bottom_paddleR_intersect
+			end_bottom_paddleR_intersect:
+
+			top_paddleR_intersect:
+				# Is ball hitting Top 1/4 of the paddleR
+				lw $1 129($0)	# top_paddleR
 				lw $2 6($0)	# paddle_length
 				sra $2 $2 2 	# paddle_length/4
 				lw $3 121($0)	# top_ball
 				lw $4 4($0)	# ball_length
 				add $3 $3 $4	# bottom_ball
 				sub $3 $3 $1 	# bottom_ball - top_paddleR
-				blt $2 $3 end_top_paddleL_interesect
-			
-			# ball hit top 1/4 of the paddle. 
-				lw $1 123($0)	# ball y velocity
-				addi $1 $1 -3 	# find new y velocity.
-				lw $2 7($0) 	# paddle_max_yspeed
-				sub $2 $0 $2	# min_yvel = -1*paddle_max_yspeed
-				blt $2 $1 minimize_ball_yvel
-				j reduce_ball_yvel
-					minimize_ball_yvel:
-						lw $1 7($0) 	# paddle_max_yspeed
-						sub $1 $0 $1	# min_yvel = -1*paddle_max_yspeed
-						sw $1 123($0)
-						j end_top_paddleL_interesect 
-					reduce_ball_yvel:
-						lw $1 123($0)	# ball y velocity
-						addi $1 $1 -3 	# find new y velocity.
-						sw $1 123($0) 	# ball y velocity
-						j end_top_paddleL_interesect
-		end_top_paddleL_interesect:
+				blt $2 $3 end_top_paddleR_interesect
 
-	ball_hit_paddleL_xvel_logic:
-		lw $3 122($0)	# $3: Ball x velocity
-		blt $3 $0 update_bx # If Ball x velocity is positive, keep positive. 
-		sub $4 $0 $3 	# Negate x velocity
-		sw $4 122($0)	# Store new x velocity into function. 
-		j update_bx
-
-hit_paddleR: # move_left 
-	ball_hit_paddleR_yvel_logic:
-		# Calculate ball's new y velocity
-		bottom_paddleR_intersect:
-			# Did ball hit Bottom 1/4 of the paddleL.
-			lw $1 129($0)	# top_paddleR
-			lw $3 6($0)	# paddle_length
-			add $1 $3 $1	# bottom_paddleR
-			lw $2 121($0)	# top_ball
-			sub $1 $1 $2	# bottom_paddleR - top_ball
-			sra $3 $3 2		# paddle_length / 4
-			blt $3 $1 end_bottom_paddleR_intersect	# paddle_length/4 > bottom_paddleR - top_ball
-
-			# Ball hit bottom 1/4 of the paddleL. Set next negate_y_vel
-			lw $1 123($0)	# ball_old_yvel
-			addi $1 $1 3 	# ball_new_yvel.
-			lw $2 7($0) 	# paddle_max_yspeed
-			blt $1 $2 pR_maximize_ball_yvel # ball_new_yvel > paddle_max_yspeed
-			j pR_increase_ball_yvel
-				pR_maximize_ball_yvel:
-					lw $1 7($0)
-					sw $1 123($0)
-					j end_bottom_paddleR_intersect
-				pR_increase_ball_yvel:
+				# ball hit top 1/4 of the paddleR. 
 					lw $1 123($0)	# ball y velocity
-					addi $1 $1 3 	# find new y velocity.
-					sw $1 123($0) 	# ball y velocity
-					j end_bottom_paddleR_intersect
-		end_bottom_paddleR_intersect:
+					addi $1 $1 -3 	# find new y velocity.
+					lw $2 7($0) 	# paddle_max_yspeed
+					sub $2 $0 $2	# min_yvel = -1*paddle_max_yspeed
+					blt $2 $1 pR_minimize_ball_yvel
+					j pR_reduce_ball_yvel
+						pR_minimize_ball_yvel:
+							lw $1 7($0) 	# paddle_max_yspeed
+							sub $1 $0 $1	# min_yvel = -1*paddle_max_yspeed
+							sw $1 123($0)
+							j end_top_paddleR_interesect 
+						pR_reduce_ball_yvel:
+							lw $1 123($0)	# ball y velocity
+							addi $1 $1 -3 	# find new y velocity.
+							sw $1 123($0) 	# ball y velocity
+							j end_top_paddleR_interesect
+			end_top_paddleR_interesect:
 
-		top_paddleR_intersect:
-			# Is ball hitting Top 1/4 of the paddleR
-			lw $1 129($0)	# top_paddleR
-			lw $2 6($0)	# paddle_length
-			sra $2 $2 2 	# paddle_length/4
-			lw $3 121($0)	# top_ball
-			lw $4 4($0)	# ball_length
-			add $3 $3 $4	# bottom_ball
-			sub $3 $3 $1 	# bottom_ball - top_paddleR
-			blt $2 $3 end_top_paddleR_interesect
+		end_ball_hit_paddleR_yvel_logic:
 
-			# ball hit top 1/4 of the paddleR. 
-				lw $1 123($0)	# ball y velocity
-				addi $1 $1 -3 	# find new y velocity.
-				lw $2 7($0) 	# paddle_max_yspeed
-				sub $2 $0 $2	# min_yvel = -1*paddle_max_yspeed
-				blt $2 $1 pR_minimize_ball_yvel
-				j pR_reduce_ball_yvel
-					pR_minimize_ball_yvel:
-						lw $1 7($0) 	# paddle_max_yspeed
-						sub $1 $0 $1	# min_yvel = -1*paddle_max_yspeed
-						sw $1 123($0)
-						j end_top_paddleR_interesect 
-					pR_reduce_ball_yvel:
-						lw $1 123($0)	# ball y velocity
-						addi $1 $1 -3 	# find new y velocity.
-						sw $1 123($0) 	# ball y velocity
-						j end_top_paddleR_interesect
-		end_top_paddleR_interesect:
+		ball_hit_paddleR_xvel_logic:
+			# Calculate ball's new x velocity.
+			lw $3 122($0)	# $3: Ball x velocity
+			blt $0 $3 update_bx # If ball x velocity is negative, keep negative. 
+			sub $4 $0 $3 	# Negate x velocity
+			sw $4 122($0)	# Store new x velocity into function. 
+			j update_bx
 
-	end_ball_hit_paddleR_yvel_logic:
+	# NEGATE Y VELOCITY
 
-	ball_hit_paddleR_xvel_logic:
-		# Calculate ball's new x velocity.
-		lw $3 122($0)	# $3: Ball x velocity
-		blt $0 $3 update_bx # If ball x velocity is negative, keep negative. 
-		sub $4 $0 $3 	# Negate x velocity
-		sw $4 122($0)	# Store new x velocity into function. 
-		j update_bx
+	negate_y_vel:
+		lw $1 123($0)	# Ball y velocity
+		sub $1 $0 $1	# Negate y velocity
+		sw $1 123($0) 	# Insert new ball velocity into dmem
+		j update_by
 
-# NEGATE Y VELOCITY
-hit_top_wall:
-hit_bottom_wall:
-negate_y_vel:
-	lw $1 123($0)	# Ball y velocity
-	sub $1 $0 $1	# Negate y velocity
-	sw $1 123($0) 	# Insert new ball velocity into dmem
-	j update_by
+	hit_bottom_wall:	
+		lw $3 123($0)
+		blt $0 $3 update_by
+		sub $3 $0 $3 	
+		sw $3 123($0)
+		j update_by
 
-###############################################################
-# Store input registers into dmem
-###############################################################
-store_inputs_into_dmem:
-	store_guitar_inputs: # reg29 [5:0] guitar inputs:
-		# 	140 [0] Player Left: Guitar Top Wire Pressed
-		add $6 $0 1 	# mask at ...000001
-		and $1 $6 $2
-		sra $1 $1 0
-		sw $1 140($0)
-
-		# 	141 $29[1] Player Left: Guitar Middle Wire Pressed
-		sll $6 $6 1   	# mask at ...000010	
-		and $1 $6 $29
-		sra $1 $1 1
-		sw $1 141($0)
-		# 	142 $29[2] Player Left: Guitar Bottom Wire Pressed
-		sll $6 $6 1		# mask at ...000100
-		and $1 $6 $29
-		sra $1 $1 2
-		sw $1 142($0)
-
-		# 	143 $29[3] Player Right: Guitar Top Wire Pressed
-		sll $6 $6 1		# mask at ...001000
-		and $1 $6 $29
-		sra $1 $1 3
-		sw $1 143($0)
-		#	144 $29[4] Player Right: Guitar Middle Wire Pressed
-		sll $6 $6 1		# mask at ...010000
-		and $1 $6 $29
-		sra $1 $1 4
-		sw $1 144($0)
-
-		#	145 $29[5] Player Right Guitar Bottom Wire Pressed
-		sll $6 $6 1 	# mask at ...100000
-		and $1 $6 $29
-		sra $1 $1 5
-		sw $1 145($0)
-	stored_guitar_inputs:
+	hit_top_wall:
+		lw $3 123($0)
+		blt $3 $0 update_by
+		sub $3 $0 $3
+		sw $3 123($0)
+		j update_by
 
 
-	j stored_inputs_into_dmem
-
-
-
-###############################################################
-# UPDATE VGA REGISTERS FUNCTIONS
-###############################################################
-# update vga registers
-update_vga_registers:
-	# update ball register
-	jal push_to_reg10
-	# update paddle 1 register
-	jal push_to_reg11
-	# update paddle 2 register
-	jal push_to_reg12
-	# update note register 1 (notes 1 and 2)
-	jal push_to_reg20
-	# update note register 2 (notes 3 and 4)
-	jal push_to_reg21
-	# update note register 3 (notes 5 and 6)
-	jal push_to_reg22
-
-	j updated_vga_registers
-
-# [31:21] [20:10] [9:5] [4:0] (ball, paddles)
-	# ball info
-	push_to_reg10:
-		addi $16 $0 120 		# start storing into dmem at address 120. (120, 121, 122, 123)
-		add $30 $31 $0
-		jal push_31_20_9_4
-		add $31 $30 $0
-		addi $10 $15 0			# $15 output of jal. Has consolidated register info.
-		jr $31
-
-	# paddleL info. 
-	push_to_reg11: 
-		addi $16 $0 124 		# start storing into dmem at address 120. (120, 121, 122, 123)
-		add $30 $31 $0
-		jal push_31_20_9_4
-		add $31 $30 $0
-		addi $11 $15 0			# $15 output of jal. Has consolidated register info.
-		jr $31
-
-	# paddleR info
-	push_to_reg12:
-		addi $16 $0 128 		# start storing into dmem at address 120. (120, 121, 122, 123)
-		add $30 $31 $0
-		jal push_31_20_9_4
-		add $31 $30 $0
-		addi $12 $15 0			# $15 output of jal. Has consolidated register info.
-		jr $31
-
-	# General function for [31:21] [20:10] [9:5] [4:0] split.
-	push_31_20_9_4:
-		# Clear reg15
-		add $15 $0 $0
-
-		# Load xpos into $15
-		lw $17 0($16)			# [31:21]
-		sll $17 $17 21
-		add $15 $15 $17
-
-		# Load ypos into $15
-		lw $17 1($16)			# [20:10]
-		addi $18 $0 2047
-		sll $18 $18 10
-		sll $17 $17 10
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# Load xvel into $15
-		lw $17 2($16) 			# [9:5]
-		addi $18 $0 31
-		sll $18 $18 5
-		sll $17 $17 5
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# Load xvel into $15
-		lw $17 3($16)			# [4:0]
-		addi $18 $0 31
-		sll $18 $18 0
-		sll $17 $17 0
-		and $17 $17 $18
-		add $15 $15 $17
-
-		jr $31
-
-# [31:21] [20:18]  [17] [16] [15:5] [4:2] [1] [0]
-	# active notes 1 and 2
-	push_to_reg20:
-		addi $16 $0 160	 		# start storing into dmem at address 160. (160, 161, 162, 163, 164, 165, 166, 167)
-		add $30 $31 $0
-		jal push_31_20_17_16_15_4_1_0
-		add $31 $30 $0
-		addi $20 $15 0			# $15 output of jal. Has consolidated register info.
-		jr $31
-
-	# active notes 3 and 4
-	push_to_reg21:
-		addi $16 $0 170	 		# start storing into dmem at address 170. (170, 171, 172, 173, 174, 175, 176, 177)
-		add $30 $31 $0
-		jal push_31_20_17_16_15_4_1_0
-		add $31 $30 $0
-		addi $21 $15 0			# $15 output of jal. Has consolidated register info.
-		jr $31
-
-	# active notes 5 and 6
-	push_to_reg22:
-		addi $16 $0 180	 		# start storing into dmem at address 170. (180, 181, 182, 183, 184, 185, 186, 187)
-		add $30 $31 $0
-		jal push_31_20_17_16_15_4_1_0
-		add $31 $30 $0
-		addi $22 $15 0			# $15 output of jal. Has consolidated register info.
-		jr $31
-
-	# General function for [31:21] [20:10] [9:5] [4:0] split.
-	push_31_20_17_16_15_4_1_0:
-		# Clear reg15
-		add $15 $0 $0
-
-		# [31:21] xpos 
-		lw $17 0($16)		
-		sll $17 $17 21
-		add $15 $15 $17
-
-		# [20:18] color 	(one hot)
-		lw $17 1($16)			
-		addi $18 $0 3
-		sll $18 $18 18
-		sll $17 $17 18
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# [17] n1_p1_hit 	(one hot)
-		lw $17 2($16) 			
-		addi $18 $0 1
-		sll $18 $18 17
-		sll $17 $17 17
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# [16] n1_p1_hit 	(one hot)
-		lw $17 3($16) 			
-		addi $18 $0 1
-		sll $18 $18 16
-		sll $17 $17 16
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# [15:5] n1_p1_hit
-		lw $17 4($16) 			
-		addi $18 $0 2047
-		sll $18 $18 5
-		sll $17 $17 5
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# [4:2] n1_p1_hit
-		lw $17 5($16) 			
-		addi $18 $0 3
-		sll $18 $18 2
-		sll $17 $17 2
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# [1] n1_p1_hit
-		lw $17 5($16) 			
-		addi $18 $0 1
-		sll $18 $18 1
-		sll $17 $17 1
-		and $17 $17 $18
-		add $15 $15 $17
-
-		# [0] n1_p1_hit
-		lw $17 5($16) 			
-		addi $18 $0 1
-		sll $18 $18 0
-		sll $17 $17 0
-		and $17 $17 $18
-		add $15 $15 $17
-
-		jr $31
-		
 
 #######################################################
-# NOTES FUNCTIONS
+# Paddle logic
 #######################################################
-# 	60 	[31:21] n1_xpos 
-#	61	[20:18] n1_color 
-# 	62 	[17] n1_p1_hit 
-#	63	[16] n1_p2_hit 
-#	64	[15:5] n2_xpos 
-#	65	[4:2] n2_color 
-#	66	[1] n2_p1_hit 
-#	67	[0] n2_p2_hit
+
+	move_paddleL_down:
+		lw $1 125($0) 	# paddleL_ypos
+		lw $2 127($0) 	# paddleL_yvel
+		# TODO: if p1 score > p2 score, increase pL velocity by 4.
+		# TODO: if p1 score < p2 score, decrease pL velocity by 4
+
+		add $1 $1 $2 	# paddle_newpos
+		lw $2 6($0) 	# paddleL_length
+		add $3 $1 $2 	# paddleL_bottom
+		lw $2 10($0)	# bottom_wall
+		blt $3 $2 set_paddleL_bottomBound # if (paddleBottom > bottom_wall) {set paddle_b to hug bottom wall}
+		sw $1 125($0)	# store new ypaddlePosition. 
+		j end_move_paddleL
+		set_paddleL_bottomBound:
+		lw $1 6($0) 	# paddle_length
+		lw $2 10($0)	# bottom_wall
+		sub $2 $2 $1 	# lowest_paddle_y_pos
+		sw $2 125($0)	# store new ypaddlePosition. 
+		j end_move_paddleL
+
+	move_paddleL_up:
+		lw $1 125($0) 	# paddleL_ypos
+		lw $2 127($0) 	# paddleL_yvel
+		# TODO: if p1 score > p2 score, decrease pL velocity by 4.
+		# TODO: if p1 score < p2 score, increase pL velocity by 4
+		sub $1 $1 $2 	# paddle_newpos
+		lw $2 9($0)	# top_wall
+		blt $2 $1 set_paddleL_upperBound # if (topwall > paddle_newpos) {set paddle_t top top wall}
+		sw $1 125($0)	# store new ypaddlePosition. 
+		j end_move_paddleL
+		set_paddleL_upperBound:
+		lw $2 9($0)	# upper_wall
+		sw $2 125($0)	# store new ypaddlePosition. 
+		j end_move_paddleL
+
+	move_paddleR_down:
+		lw $1 129($0) 	# paddleL_ypos
+		lw $2 131($0) 	# paddleL_yvel
+		# TODO: if p2 score > p1 score, increase pL velocity by 4.
+		# TODO: if p2 score < p1 score, decrease pL velocity by 4
+		add $1 $1 $2 	# paddle_newpos
+		lw $2 6($0) 	# paddleL_length
+		add $3 $1 $2 	# paddleL_bottom
+		lw $2 10($0)	# bottom_wall
+		blt $3 $2 set_paddleR_bottomBound # if (paddleBottom > bottom_wall) {set paddle_b to hug bottom wall}
+		sw $1 129($0)	# store new ypaddlePosition. 
+		j end_move_paddleR
+		set_paddleR_bottomBound:
+		lw $1 6($0) 	# paddle_length
+		lw $2 10($0)	# bottom_wall
+		sub $2 $2 $1 	# lowest_paddle_y_pos
+		sw $2 129($0)	# store new ypaddlePosition. 
+		j end_move_paddleR
+
+	move_paddleR_up:
+		lw $1 129($0) 	# paddleL_ypos
+		lw $2 131($0) 	# paddleL_yvel
+		# TODO: if p2 score > p1 score, decrease pL velocity by 4.
+		# TODO: if p2 score < p1 score, increase pL velocity by 4
+		sub $1 $1 $2 	# paddle_newpos
+		lw $2 9($0)	# top_wall
+		blt $2 $1 set_paddleR_upperBound # if (topwall > paddle_newpos) {set paddle_t top top wall}
+		sw $1 129($0)	# store new ypaddlePosition. 
+		j end_move_paddleR
+		set_paddleR_upperBound:
+		lw $2 9($0)	# upper_wall
+		sw $2 129($0)	# store new ypaddlePosition. 
+		j end_move_paddleR
 
 
-check_note:     # inputs $15 (note reg), output $15 (updated note reg)
-    lw $16 1($15)
-    bne $16 $0 note_notempty    # jump if note exists
-    j note_empty                # else jump to make a note
-
-    note_notempty:  # update position of high note... input $15 (note reg), output $15 (updated notereg)
-	    lw $16 152($0)   # load note velocity into $16
-	    lw $17 0($15)
-	    add $17 $17 $16 # add velocity to high bit note pos
-	    sw $17 0($15)
-
-	 	j is_note_out_of_bounds # Preserve $15! send note dmem location in $15 
- 		end_is_note_out_of_bounds:
-
- 		j hit_note
- 		end_hit_note:
- 		
-    	jr $31          # note's position has been updated, return to game loop
-
-
-    note_empty:    # decide whether to load a new note or remain empty... input $15 (note reg), output $15 (updated notereg)
-	    lw $16 151($0)       # load note pointer into $16
-	    lw $17 1($16)       # load the time of the next note into $17
-	    lw $18 150($0)       # load the game loop counter into $18
-	    blt $18 $17 make_note # if counter is greater than next note time, make note
-		jr $31              # else, keep note empty, return to game loop
-
-	    make_note:
-		    lw $16 151($0)       # load note pointer into $16
-		    lw $17 0($16)       # load the value of the next note into $17
-		    sw $17 1($15)
-		    addi $16 $16 2       # increment note pointer to next note
-		    sw $16 151($0)       # store new note pointer into DMEM
-			jr $31
-
-is_note_out_of_bounds:
-	lw $16 0($15) 	# note_x_pos
-	lw $17 12($0) 	# screen_width
-	sra $17 $17 1 	# screen_width/2
-	blt $16 $17 erase_note
-		j end_is_note_out_of_bounds
-	erase_note:
-		sw $0 0($15)
-		sw $0 1($15)
-		sw $0 2($15)
-		sw $0 3($15)
-j end_is_note_out_of_bounds
-
-hit_note:
-j end_hit_note
-
-###########################################################
+#######################################################
 # Gravity
-###########################################################
+#######################################################
 
 
-
-
-###########################################################
+#######################################################
 # Paddle Motion
-###########################################################
+#######################################################
 
+
+#######################################################
+# Modulos (Every x game cycles)
+#######################################################
+
+increment_pseudorandom_counter1:
+	lw $1 148($0)
+	addi $1 $1 5
+	addi $2 $0 32767 # [14:0] mask
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter1
+
+increment_pseudorandom_counter2:
+	lw $1 148($0)
+	addi $1 $1 6
+	addi $2 $0 32767 # [14:0] mask
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter2
+
+increment_pseudorandom_counter3:
+	lw $1 148($0)
+	addi $1 $1 1
+
+	lw $3 120($0)
+	add $1 $3 $1
+
+	lw $3 123($0)
+	add $1 $3 $1
+
+	lw $3 146($0)
+	add $1 $3 $1
+
+	addi $2 $0 32767 # [14:0] mask
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter3
+
+increment_pseudorandom_counter4:
+	lw $1 148($0)
+	addi $1 $1 1
+
+	lw $2 142($0)
+	add $1 $2 $1
+
+	lw $2 144($0)
+	add $1 $2 $1	
+
+	lw $2 145($0)
+	add $1 $2 $1
+
+	lw $2 146($0)
+	add $1 $2 $1
+
+	lw $2 150($0)
+	add $1 $2 $1
+
+	addi $2 $0 32767
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter4
+
+
+increment_pseudorandom_counter5:
+	lw $1 148($0)
+	addi $1 $1 2
+
+	lw $2 142($0)
+	add $1 $2 $1
+
+	lw $2 144($0)
+	add $1 $2 $1	
+
+	lw $2 145($0)
+	add $1 $2 $1
+
+	lw $2 146($0)
+	add $1 $2 $1
+
+	lw $2 150($0)
+	add $1 $2 $1
+
+	addi $2 $0 32767
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter5
+
+increment_pseudorandom_counter6:
+	lw $1 148($0)
+	addi $1 $1 3
+
+	lw $2 142($0)
+	add $1 $2 $1
+
+	lw $2 144($0)
+	add $1 $2 $1	
+
+	lw $2 145($0)
+	add $1 $2 $1
+
+	lw $2 146($0)
+	add $1 $2 $1
+
+	lw $2 150($0)
+	add $1 $2 $1
+
+	addi $2 $0 32767
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter6
+
+increment_pseudorandom_counter7:
+	lw $1 148($0)
+	addi $1 $1 3
+
+	lw $2 142($0)
+	add $1 $2 $1
+
+	lw $2 144($0)
+	add $1 $2 $1	
+
+	lw $2 145($0)
+	add $1 $2 $1
+
+	lw $2 146($0)
+	add $1 $2 $1
+
+	lw $2 150($0)
+	add $1 $2 $1
+
+	addi $2 $0 32767
+	and $1 $2 $1
+	sw $1 148($0)
+j end_increment_pseudorandom_counter7
 
 

@@ -18,44 +18,126 @@
 // the top level entity of the current Quartus project .The user can use this   
 // testbench to simulate his design using a third-party simulation tool .       
 // *****************************************************************************
-// Generated on "04/18/2019 00:24:03"
+// Generated on "04/21/2019 04:09:40"
                                                                                 
-// Verilog Test Bench (with test vectors) for design :                          guitar_synth
+// Verilog Test Bench (with test vectors) for design :                          skeleton
 // 
 // Simulation tool : 3rd Party
 // 
 
 `timescale 1 ps/ 1 ps
-module guitar_synth_vlg_vec_tst();
+module skeleton_vlg_vec_tst();
 // constants                                           
 // general purpose registers
-reg [9:0] N;
-reg assert_note;
-reg [15:0] fs;
+reg CLOCK_50;
+reg movedown;
+reg moveleft;
+reg moveright;
+reg moveup;
+reg p1b1;
+reg p1b2;
+reg p1b3;
+reg p1ls;
+reg p2b1;
+reg p2b2;
+reg p2b3;
+reg p2ls;
 // wires                                               
-wire [31:0] out;
-wire [100:0] str;
+wire [7:0] VGA_B;
+wire VGA_BLANK;
+wire VGA_CLK;
+wire [7:0] VGA_G;
+wire VGA_HS;
+wire [7:0] VGA_R;
+wire VGA_SYNC;
+wire VGA_VS;
+wire [11:0] address_imem;
+wire [31:0] ball;
+wire [10:0] ball_x_pos;
+wire [10:0] ball_y_pos;
+wire clock;
+wire ctrl_writeEnable;
+wire [4:0] ctrl_writeReg;
+wire [31:0] data_writeReg;
+wire [31:0] notes1;
+wire [31:0] notes2;
 
 // assign statements (if any)                          
-guitar_synth i1 (
+skeleton i1 (
 // port map - connection between master ports and signals/registers   
-	.N(N),
-	.assert_note(assert_note),
-	.fs(fs),
-	.out(out),
-	.str(str)
+	.CLOCK_50(CLOCK_50),
+	.VGA_B(VGA_B),
+	.VGA_BLANK(VGA_BLANK),
+	.VGA_CLK(VGA_CLK),
+	.VGA_G(VGA_G),
+	.VGA_HS(VGA_HS),
+	.VGA_R(VGA_R),
+	.VGA_SYNC(VGA_SYNC),
+	.VGA_VS(VGA_VS),
+	.address_imem(address_imem),
+	.ball(ball),
+	.ball_x_pos(ball_x_pos),
+	.ball_y_pos(ball_y_pos),
+	.clock(clock),
+	.ctrl_writeEnable(ctrl_writeEnable),
+	.ctrl_writeReg(ctrl_writeReg),
+	.data_writeReg(data_writeReg),
+	.movedown(movedown),
+	.moveleft(moveleft),
+	.moveright(moveright),
+	.moveup(moveup),
+	.notes1(notes1),
+	.notes2(notes2),
+	.p1b1(p1b1),
+	.p1b2(p1b2),
+	.p1b3(p1b3),
+	.p1ls(p1ls),
+	.p2b1(p2b1),
+	.p2b2(p2b2),
+	.p2b3(p2b3),
+	.p2ls(p2ls)
 );
 initial 
 begin 
-#1000000 $finish;
+#20000000 $finish;
 end 
 
-// assert_note
+// movedown
 initial
 begin
-	assert_note = 1'b0;
-	assert_note = #90000 1'b1;
-	assert_note = #20000 1'b0;
+	movedown = 1'b1;
+end 
+
+// moveleft
+initial
+begin
+	moveleft = 1'b1;
+end 
+
+// moveright
+initial
+begin
+	moveright = 1'b0;
+end 
+
+// moveup
+initial
+begin
+	moveup = 1'b1;
+end 
+
+// CLOCK_50
+initial
+begin
+	CLOCK_50 = 1'b1;
+	# 10000;
+	repeat(999)
+	begin
+		CLOCK_50 = 1'b0;
+		CLOCK_50 = #10000 1'b1;
+		# 10000;
+	end
+	CLOCK_50 = 1'b0;
 end 
 endmodule
 

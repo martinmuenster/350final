@@ -1,5 +1,5 @@
 MIF/HEX Update report for skeleton
-Fri Apr 19 19:45:23 2019
+Sun Apr 21 00:36:38 2019
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -35,7 +35,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; MIF/HEX Update Summary                                        ;
 +-----------------------+---------------------------------------+
-; MIF/HEX Update Status ; Successful - Fri Apr 19 19:45:23 2019 ;
+; MIF/HEX Update Status ; Successful - Sun Apr 21 00:36:38 2019 ;
 ; Revision Name         ; skeleton                              ;
 ; Top-level Entity Name ; skeleton                              ;
 ; Family                ; Cyclone IV E                          ;
@@ -43,16 +43,17 @@ refer to the applicable agreement for further details.
 +-----------------------+---------------------------------------+
 
 
-+--------------------------------------------------------------------------------+
-; MIF/HEX Update Processed Files                                                 ;
-+--------------------------------------------------------------------------------+
-; File Name                                                                      ;
-+--------------------------------------------------------------------------------+
-; C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/dmem.mif           ;
-; C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/imem.mif           ;
-; C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/lab7_img_data.mif  ;
-; C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/lab7_img_index.mif ;
-+--------------------------------------------------------------------------------+
++-------------------------------------------------------------------------+
+; MIF/HEX Update Processed Files                                          ;
++-------------------------------------------------------------------------+
+; File Name                                                               ;
++-------------------------------------------------------------------------+
+; C:/Users/gc124/Desktop/350final/project/guitarpong/dmem.mif             ;
+; C:/Users/gc124/Desktop/350final/project/guitarpong/imem.mif             ;
+; C:/Users/gc124/Desktop/350final/project/guitarpong/img/yelnote_data.mif ;
+; C:/Users/gc124/Desktop/350final/project/guitarpong/lab7_img_data.mif    ;
+; C:/Users/gc124/Desktop/350final/project/guitarpong/lab7_img_index.mif   ;
++-------------------------------------------------------------------------+
 
 
 +-------------------------+
@@ -61,18 +62,21 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime MIF/HEX Update
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Fri Apr 19 19:45:21 2019
+    Info: Processing started: Sun Apr 21 00:36:36 2019
 Info: Command: quartus_cdb skeleton -c skeleton --update_mif
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Warning (113016): Width of data items in "yelnote_data.mif" is smaller than the memory width. Padding data items with 0 on MSB to fit in memory.  File: C:/Users/gc124/Desktop/350final/project/guitarpong/img/yelnote_data.mif Line: 5
+Critical Warning (127005): Memory depth (307200) in the design file differs from memory depth (841) in the Memory Initialization File "C:/Users/gc124/Desktop/350final/project/guitarpong/img/yelnote_data.mif" -- setting initial value for remaining addresses to 0
 Info (39024): Processed the following Memory Initialization File(s)
-    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/dmem.mif File: C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/dmem.mif Line: 0
-    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/imem.mif File: C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/imem.mif Line: 0
-    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/lab7_img_data.mif File: C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/lab7_img_data.mif Line: 0
-    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/lab7_img_index.mif File: C:/Users/gc124/Desktop/gouttham/350final/project/guitarpong/lab7_img_index.mif Line: 0
-Info: Quartus Prime MIF/HEX Update was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 4849 megabytes
-    Info: Processing ended: Fri Apr 19 19:45:23 2019
-    Info: Elapsed time: 00:00:02
+    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/350final/project/guitarpong/dmem.mif File: C:/Users/gc124/Desktop/350final/project/guitarpong/dmem.mif Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/350final/project/guitarpong/imem.mif File: C:/Users/gc124/Desktop/350final/project/guitarpong/imem.mif Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/350final/project/guitarpong/img/yelnote_data.mif File: C:/Users/gc124/Desktop/350final/project/guitarpong/img/yelnote_data.mif Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/350final/project/guitarpong/lab7_img_data.mif File: C:/Users/gc124/Desktop/350final/project/guitarpong/lab7_img_data.mif Line: 0
+    Info (39025): Processed Memory Initialization File C:/Users/gc124/Desktop/350final/project/guitarpong/lab7_img_index.mif File: C:/Users/gc124/Desktop/350final/project/guitarpong/lab7_img_index.mif Line: 0
+Info: Quartus Prime MIF/HEX Update was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4869 megabytes
+    Info: Processing ended: Sun Apr 21 00:36:39 2019
+    Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:02
 
 
