@@ -29,7 +29,7 @@ CONTENT BEGIN
 0005  :   00000014; 		-- 	20	Paddle Width
 0006  :   00000064; 		-- 	100	Paddle Length
 0007  :   00000009; 		-- 	9	Ball Max Y velocity
-0008  :   000C0002; 		-- 	1mil	Buffer Loop Pace
+0008  :   000F0002; 		-- 	1mil	Buffer Loop Pace
 0009  :   00000064; 		-- 	100	Top Wall Boundry
 000A  :   000001E0; 		--	480	Bottom Wall Boundry
 000B  :   00000000; 		--	0	Left Wall Boundry

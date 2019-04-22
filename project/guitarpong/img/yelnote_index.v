@@ -42,7 +42,7 @@ module yelnote_index (
 	clock,
 	q);
 
-	input	[7:0]  address;
+	input	[2:0]  address;
 	input	  clock;
 	output	[23:0]  q;
 `ifndef ALTERA_RESERVED_QIS
@@ -72,7 +72,7 @@ module yelnote_index (
 				.clocken1 (1'b1),
 				.clocken2 (1'b1),
 				.clocken3 (1'b1),
-				.data_a ({8{1'b1}}),
+				.data_a ({24{1'b1}}),
 				.data_b (1'b1),
 				.eccstatus (),
 				.q_b (),

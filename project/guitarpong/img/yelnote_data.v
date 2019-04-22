@@ -1,4 +1,4 @@
-// megafunction wizard: %ROM: 1-PORT%
+// megafun9ction wizard: %ROM: 1-PORT%
 // GENERATION: STANDARD
 // VERSION: WM1.0
 // MODULE: altsyncram 
@@ -41,9 +41,9 @@ module yelnote_data (
 	clock,
 	q);
 
-	input	[18:0]  address;
+	input	[9:0]  address;
 	input	  clock;
-	output	[7:0]  q;
+	output	[2:0]  q;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -52,8 +52,8 @@ module yelnote_data (
 // synopsys translate_on
 `endif
 
-	wire [7:0] sub_wire0;
-	wire [7:0] q = sub_wire0[7:0];
+	wire [2:0] sub_wire0;
+	wire [2:0] q = sub_wire0[2:0];
 
 	altsyncram	altsyncram_component (
 				.clock0 (clock),

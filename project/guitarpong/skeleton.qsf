@@ -94,6 +94,31 @@ set_location_assignment PIN_Y17 -to p2b2
 set_location_assignment PIN_Y16 -to p2b3
 set_location_assignment PIN_AD21 -to p1ls
 set_location_assignment PIN_AE16 -to p2ls
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VERILOG_FILE img/life_index.v
+set_global_assignment -name VERILOG_FILE img/life_data.v
+set_global_assignment -name VERILOG_FILE img/welcome_index.v
+set_global_assignment -name VERILOG_FILE img/welcome_data.v
+set_global_assignment -name VERILOG_FILE img/over_index.v
+set_global_assignment -name VERILOG_FILE img/over_data.v
+set_global_assignment -name VERILOG_FILE img/one_index.v
+set_global_assignment -name VERILOG_FILE img/one_data.v
+set_global_assignment -name VERILOG_FILE img/inst_index.v
+set_global_assignment -name VERILOG_FILE img/inst_data.v
+set_global_assignment -name VERILOG_FILE img/hit_index.v
+set_global_assignment -name VERILOG_FILE img/hit_data.v
+set_global_assignment -name VERILOG_FILE img/paddle_index.v
+set_global_assignment -name VERILOG_FILE img/paddle_data.v
+set_global_assignment -name VERILOG_FILE img/logo_index.v
+set_global_assignment -name VERILOG_FILE img/logo_data.v
+set_global_assignment -name VERILOG_FILE img/flame_index.v
+set_global_assignment -name VERILOG_FILE img/flame_data.v
+set_global_assignment -name VERILOG_FILE img/ball_index.v
+set_global_assignment -name VERILOG_FILE img/ball_data.v
+set_global_assignment -name VERILOG_FILE img/string_index.v
+set_global_assignment -name VERILOG_FILE img/string_data.v
 set_global_assignment -name VERILOG_FILE guitar_synth.v
 set_global_assignment -name VERILOG_FILE processor/processor_imem.v
 set_global_assignment -name VERILOG_FILE processor/processor_dmem.v
@@ -171,13 +196,12 @@ set_global_assignment -name VERILOG_FILE img_index.v
 set_global_assignment -name VERILOG_FILE img_data.v
 set_global_assignment -name MIF_FILE lab7_img_data.mif
 set_global_assignment -name MIF_FILE lab7_img_index.mif
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VERILOG_FILE z_pmux_3_12.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform2.vwf
 set_global_assignment -name VERILOG_FILE img/yelnote_index.v
 set_global_assignment -name VERILOG_FILE img/yelnote_data.v
+set_global_assignment -name VERILOG_FILE mux_16.v
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform3.vwf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

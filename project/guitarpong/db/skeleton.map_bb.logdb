@@ -1,1 +1,2 @@
 v1
+DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,vga_controller:vga_ins|address_offset:comb_471|lpm_mult:Mult0|mult_gft:auto_generated|mac_out2,
