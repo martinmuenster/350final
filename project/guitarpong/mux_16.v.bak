@@ -1,0 +1,15 @@
+module z_mux_16(select, in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15, out);
+	input [3:0] select;
+	input [31:0] in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15;
+	output [31:0] out;
+	wire [31:0] w0, w1, w2, w3;
+	
+	z_mux_4 mux1(.select(select[1:0]), .in0(in0),  .in1(in1),  .in2(in2),  .in3(in3),  .out(w0));
+	z_mux_4 mux2(.select(select[1:0]), .in0(in4),  .in1(in5),  .in2(in6),  .in3(in7),  .out(w1));
+	z_mux_4 mux3(.select(select[1:0]), .in0(in8),  .in1(in9),  .in2(in10), .in3(in11), .out(w2));
+	z_mux_4 mux4(.select(select[1:0]), .in0(in12), .in1(in13), .in2(in14), .in3(in15), .out(w3));
+
+	
+	z_mux_4 second_1(.select(select[3:2]), .in0(w0), .in1(w1), .in2(w2), .in3(w3), .out(out));
+	
+endmodule
