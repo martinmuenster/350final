@@ -3,7 +3,7 @@ WIDTH = 24;
 ADDRESS_RADIX = HEX;
 DATA_RADIX = HEX;
 CONTENT BEGIN
-0:	f908fd;
+0:	ff00ff;
 1:	2375dc;
 2:	d3ef2;
 3:	6c9cc4;
